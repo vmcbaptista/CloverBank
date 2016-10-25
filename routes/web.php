@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/manager', function () {
+    return view('manager.manager');
+});
+
+Route::get('/client', function () {
+    return view('client.client');
+});

@@ -8,8 +8,8 @@
         <title>CloverBank</title>
     </head>
     <body>
-        <a href="#">Login Particular</a>
-        <a href="#">Login Gestor</a>
-        <a href="#">Produtos</a>
+        <a href="#">Dados da Conta</a>
+        <a href="#">Pagamentos</a>
+        <a href="#">Transferências</a>
     </body>
 </html>
