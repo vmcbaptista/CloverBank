@@ -22,3 +22,7 @@ Route::get('/manager', function () {
 Route::get('/client', function () {
     return view('client.client');
 });
+
+Route::get('/account/add', 'AccountController@showForm');
+
+Route::post('/account/add', 'AccountController@add');
