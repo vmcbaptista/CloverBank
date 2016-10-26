@@ -16,8 +16,7 @@ class CreateSavingsTable extends Migration
             $table->increments('id');
             $table->integer('product_id')->unsigned();
             $table->integer('current_account_id')->unsigned();
-            $table->timestamp('duration');
-	    $table->timestamps();
+	        $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('product')->onDelete('no action')->onUpdate('no action');
             $table->foreign('current_account_id')->references('id')->on('current_account')->onDelete('no action')->onUpdate('no action');

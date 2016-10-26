@@ -16,7 +16,7 @@ class CreateLoanTable extends Migration
             $table->increments('id');
             $table->integer('product_id')->unsigned();
             $table->integer('current_account_id')->unsigned();
-            $table->timestamp('duration');
+            $table->timestamps();
 
             $table->foreign('current_account_id')->references('id')->on('current_account')->onDelete('no action')->onUpdate('no action');
         });

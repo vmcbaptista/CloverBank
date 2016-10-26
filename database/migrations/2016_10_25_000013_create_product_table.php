@@ -15,10 +15,21 @@ class CreateProductTable extends Migration
         Schema::create('product', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('access_codition');
             $table->string('description')->nullable();
             $table->float('interest_rate');
             $table->float('min_amount');
-	        $table->timestamps();
+            $table->float('max_amount')->nullable();
+            $table->float('tanb')->nullable();
+            $table->float('tael')->nullable();
+            $table->float('tanl')->nullable();
+            $table->float('spread')->nullable();
+            $table->float('tan')->nullable();
+            $table->float('taeg')->nullable();
+            $table->boolean('reinforcements');
+            $table->string('prod_type');
+            $table->timestamp('duration');
+            $table->timestamps();
         });
 
         Schema::table('current_account', function (Blueprint $table) {
