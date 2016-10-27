@@ -26,3 +26,7 @@ Route::get('/client', function () {
 Route::get('/account/add', 'AccountController@showForm');
 
 Route::post('/account/add', 'AccountController@add');
+
+Route::get('/client/add', 'ClientController@addForm');
+
+Route::post('/client/add', 'ClientController@add');
