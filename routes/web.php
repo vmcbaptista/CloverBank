@@ -11,6 +11,37 @@
 |
 */
 
+$GrauAutentificacao = 0;
+
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('Login', function () {
+    if(session('GrauAuth') != 0)
+    {
+        switch(session('GrauAuth'))
+        {
+            case 1:
+                return redirect('/userpage');
+                break;
+            case 2:
+                return redirect('/userpage');
+                break;
+            default:
+                break;
+        }
+    }
+    else
+    {
+        return view('Login');
+    }
+});
+
+Route::post('LoginData',"LoginController@VerifyLogin");
+
+Route::get('userpage',"LoginController@VerificaAutentificacaoUser");
+
+Route::get('managerpage',"LoginController@VerificaAutentificacaoGestor");
+
+Route::get('Logout',"LoginController@EfetuaLogout");
+
