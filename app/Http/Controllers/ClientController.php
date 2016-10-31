@@ -27,6 +27,6 @@ class ClientController extends Controller
         $client->email = $request->email;
         $client->client_type_id = $request->type;
         $client->save();
-        return redirect("/manager");
+        return json_encode(array("id" => $client->id, "name" => $client->name));
     }
 }

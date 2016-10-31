@@ -1,7 +1,5 @@
 
-@extends('template')
-@section('content')
-    <form method="POST">
+    <form method="POST" id="addCliForm">
         <label>Nome Completo</label><br>
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <input type="text" name="name"><br>
@@ -23,7 +21,7 @@
             <option value="{{ $type->id }}">{{ $type->type }}</option>
             @endforeach
         </select><br>
-        <button type="submit">Criar nova conta</button>
+        <input id="submit" type="submit">Criar novo cliente</input>
     </form>
 
     <script>
@@ -52,5 +50,18 @@
                 }
             });
         }
+
+        $("#addCliForm").submit(function (event) {
+            var serialized = $(this).serializeArray(),
+                    clientData = {};
+
+            // build key-values
+            $.each(serialized, function(){
+                clientData [this.name] = this.value;
+            });
+            sessionStorage.SessionName = "clientData";
+            sessionStorage.setItem("clientData",clientData);
+            $('#client').val(sessionStorage.getItem("clientData"));
+            event.preventDefault();
+        })
     </script>
-@endsection
