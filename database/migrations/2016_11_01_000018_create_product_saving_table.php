@@ -17,10 +17,11 @@ class CreateProductSavingTable extends Migration
             $table->double('tanb');
             $table->double('max_amount');
             $table->double('tanl');
-            $table->double('reinforcements');
+            $table->boolean('reinforcements');
             $table->integer('duration');
             $table->double('bank_state_tax');
             $table->integer('product_id')->unsigned();
+            $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('product')->onDelete('no action')->onUpdate('no action');
         });

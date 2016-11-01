@@ -16,6 +16,7 @@ class CreateProductCurrentTable extends Migration
             $table->increments('id');
             $table->double('maintenance_costs');
             $table->integer('product_id')->unsigned();
+            $table->timestamps();
 
 
             $table->foreign('product_id')->references('id')->on('product')->onDelete('no action')->onUpdate('no action');

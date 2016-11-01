@@ -22,7 +22,7 @@
         $().ready(function(){
             if($("input[name='prod_type']").is(":checked")){
             /*This will show the things that a a user will see by default*/
-            $("#form").append(htmlForm.basePart + htmlForm.bottomPart)
+            $("#form").append(htmlForm.basePart + htmlForm.currentPart +htmlForm.bottomPart)
 
             }
         })
@@ -31,7 +31,7 @@
             $("#form").empty()
             if(this.id=="current")
             {
-                $("#form").append(htmlForm.basePart + htmlForm.bottomPart)
+                $("#form").append(htmlForm.basePart + htmlForm.currentPart + htmlForm.bottomPart)
             }
             else if(this.id=="saving"){
                 $("#form").append(htmlForm.basePart + htmlForm.savingPart + htmlForm.bottomPart)
@@ -58,11 +58,13 @@
                 '<label for="max_amount">Capital Máximo: </label><br>'+
                 '<input type="text" name="max_amount" id="max_amount"><br>'+
                 '<label for="rate">Taxa de Juro (TAN): </label><br>'+
-                '<input type="text" id="rate"><br>'+
+                '<input type="text" name="rate" id="rate"><br>'+
                 '<label for="spread">Spread: </label><br>'+
-                '<input type="text" id="spread"><br>'+
-                '<label for="duration">Prazo (meses): </label><br>'+
-                '<input type="text" id="duration"><br>'
+                '<input type="text" name="spread" id="spread"><br>'+
+                '<label for="IPC_tax">Impostos e Comissões: </label><br>'+
+                '<input type="text" name="IPC_tax" id="IPC_tax"><br>'+
+                '<label for="duration">Prestações : </label><br>'+
+                '<input type="text" name="duration" id="duration"><br>'
             ,
             savingPart:
                 '<label for="max_amount">Capital Máximo: </label><br>'+
@@ -73,12 +75,16 @@
                 '<input type="text" name="BS_tax" id="BS_tax"><br>'+
                 '<label >Reforços de Capital: </label><br>'+
                 '<label for="allow">Permitido: </label>'+
-                '<input type="radio" name="reinforcements" id="allow" value="allow">'+
+                '<input type="radio" name="reinforcements" id="allow" value="1">'+
                 '<label for="not_allow">Não Permitido: </label>'+
-                '<input type="radio" name="reinforcements" id="not_allow" value="not_allow"/><br>'+
+                '<input type="radio" name="reinforcements" id="not_allow" value="0"/><br>'+
                 '<label for="duration">Prazo (meses): </label><br>'+
                 '<input type="text" name="duration" id="duration"><br>'
             ,
+            currentPart:
+                '<label for="maint_costs">Custos de Manutenção</label><br>'+
+                '<input type="text" name="maint_costs" id="maint_costs"><br>'
+                ,
             bottomPart:
                 '<input type="submit" value="Adicionar Novo Produto" />'
         }

@@ -17,9 +17,10 @@ class CreateProductLoanTable extends Migration
             $table->double('tanl');
             $table->double('spread');
             $table->double('max_amount');
-            $table->double('taeg');
             $table->integer('duration');
             $table->integer('product_id')->unsigned();
+            $table->double('comissions_impost');
+            $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('product')->onDelete('no action')->onUpdate('no action');
         });
