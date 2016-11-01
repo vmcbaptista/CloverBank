@@ -14,9 +14,9 @@ class CreateAccountTypeTable extends Migration
     {
         Schema::create('account_type', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('type')->nullable();
-            $table->timestamps();        
-	});
+            $table->string('type')->nullable()->default(NULL);
+            $table->timestamps();
+        });
 
         Schema::table('account', function (Blueprint $table) {
             $table->foreign('account_type_id')->references('id')->on('account_type')->onDelete('no action')->onUpdate('no action');

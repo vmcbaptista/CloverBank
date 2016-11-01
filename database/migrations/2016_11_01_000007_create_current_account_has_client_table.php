@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLoanTable extends Migration
+class CreateCurrentAccountHasClientTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,14 @@ class CreateLoanTable extends Migration
      */
     public function up()
     {
-        Schema::create('loan', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('product_id')->unsigned();
+        Schema::create('current_account_has_client', function (Blueprint $table) {
             $table->integer('current_account_id')->unsigned();
+            $table->integer('client_id')->unsigned();
+            $table->string('password');
+            $table->increments('pin');
             $table->timestamps();
 
+            $table->foreign('client_id')->references('id')->on('client')->onDelete('no action')->onUpdate('no action');
             $table->foreign('current_account_id')->references('id')->on('current_account')->onDelete('no action')->onUpdate('no action');
         });
     }
@@ -29,10 +31,11 @@ class CreateLoanTable extends Migration
      */
     public function down()
     {
-        Schema::table('loan', function (Blueprint $table) {
+        Schema::table('current_account_has_client', function (Blueprint $table) {
+            $table->dropForeign(['client_id']);
             $table->dropForeign(['current_account_id']);
         });
 
-        Schema::drop('loan');
+        Schema::drop('current_account_has_client');
     }
 }

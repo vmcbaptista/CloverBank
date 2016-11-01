@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSavingsTable extends Migration
+class CreateProductSavingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,17 @@ class CreateSavingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('savings', function (Blueprint $table) {
+        Schema::create('product_saving', function (Blueprint $table) {
             $table->increments('id');
+            $table->double('tanb');
+            $table->double('max_amount');
+            $table->double('tanl');
+            $table->double('reinforcements');
+            $table->integer('duration');
+            $table->double('bank_state_tax');
             $table->integer('product_id')->unsigned();
-            $table->integer('current_account_id')->unsigned();
-	        $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('product')->onDelete('no action')->onUpdate('no action');
-            $table->foreign('current_account_id')->references('id')->on('current_account')->onDelete('no action')->onUpdate('no action');
         });
     }
 
@@ -30,11 +33,10 @@ class CreateSavingsTable extends Migration
      */
     public function down()
     {
-        Schema::table('savings', function (Blueprint $table) {
+        Schema::table('product_saving', function (Blueprint $table) {
             $table->dropForeign(['product_id']);
-            $table->dropForeign(['current_account_id']);
         });
 
-        Schema::drop('savings');
+        Schema::drop('product_saving');
     }
 }

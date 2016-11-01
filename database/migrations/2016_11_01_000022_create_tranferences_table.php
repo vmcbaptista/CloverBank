@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStatePaymentTable extends Migration
+class CreateTranferencesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,15 @@ class CreateStatePaymentTable extends Migration
      */
     public function up()
     {
-        Schema::create('state_payment', function (Blueprint $table) {
+        Schema::create('tranferences', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('reference');
-	        $table->timestamps();
+            $table->string('dest_name');
+            $table->string('dest_iban');
+            $table->timestamps();
         });
 
         Schema::table('account_movements', function (Blueprint $table) {
-            $table->foreign('state_payment_id')->references('id')->on('state_payment')->onDelete('no action')->onUpdate('no action');
+            $table->foreign('tranferences_id')->references('id')->on('tranferences')->onDelete('no action')->onUpdate('no action');
         });
 
     }
@@ -33,9 +34,9 @@ class CreateStatePaymentTable extends Migration
     {
 
         Schema::table('account_movements', function (Blueprint $table) {
-            $table->dropForeign(['state_payment_id']);
+            $table->dropForeign(['tranferences_id']);
         });
 
-        Schema::drop('state_payment');
+        Schema::drop('tranferences');
     }
 }

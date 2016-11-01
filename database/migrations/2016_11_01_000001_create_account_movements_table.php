@@ -14,8 +14,8 @@ class CreateAccountMovementsTable extends Migration
     {
         Schema::create('account_movements', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('description')->nullable();
-            $table->string('amount')->nullable();
+            $table->string('description')->nullable()->default(NULL);
+            $table->string('amount')->nullable()->default(NULL);
             $table->integer('phone_network_id')->unsigned();
             $table->integer('tranferences_id')->unsigned();
             $table->integer('interbank_operation_id')->unsigned();
@@ -23,7 +23,9 @@ class CreateAccountMovementsTable extends Migration
             $table->integer('state_payment_id')->unsigned();
             $table->integer('services_payment_id')->unsigned();
             $table->integer('current_account_id')->unsigned();
-	        $table->timestamps();
+            $table->timestamps();
+
+
         });
     }
 
