@@ -16,12 +16,11 @@ class CreateCurrentAccountHasClientTable extends Migration
             $table->integer('current_account_id')->unsigned();
             $table->integer('client_id')->unsigned();
             $table->string('password');
-            $table->integer('pin',4)->unsigned();
-            $table->timestamp('last_login')->nullable();
+            $table->increments('pin');
             $table->timestamps();
 
-            $table->foreign('current_account_id')->references('id')->on('current_account')->onDelete('no action')->onUpdate('no action');
             $table->foreign('client_id')->references('id')->on('client')->onDelete('no action')->onUpdate('no action');
+            $table->foreign('current_account_id')->references('id')->on('current_account')->onDelete('no action')->onUpdate('no action');
         });
     }
 
@@ -33,8 +32,8 @@ class CreateCurrentAccountHasClientTable extends Migration
     public function down()
     {
         Schema::table('current_account_has_client', function (Blueprint $table) {
-            $table->dropForeign(['current_account_id']);
             $table->dropForeign(['client_id']);
+            $table->dropForeign(['current_account_id']);
         });
 
         Schema::drop('current_account_has_client');

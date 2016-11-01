@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAccountTable extends Migration
+class CreateProductTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,14 @@ class CreateAccountTable extends Migration
      */
     public function up()
     {
-        Schema::create('account', function (Blueprint $table) {
+        Schema::create('product', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('interest_rate')->nullable();
+            $table->string('name');
+            $table->string('access_condition');
+            $table->string('description')->nullable()->default(NULL);
+            $table->double('min_amount');
+            $table->string('prod_type');
             $table->timestamps();
-            $table->timestamp('account_duration')->nullable();
-            $table->integer('account_type_id')->unsigned();
-
         });
     }
 
@@ -29,6 +30,6 @@ class CreateAccountTable extends Migration
      */
     public function down()
     {
-        Schema::drop('account');
+        Schema::drop('product');
     }
 }

@@ -14,11 +14,11 @@ class CreateBranchTable extends Migration
     {
         Schema::create('branch', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->nullable();
-            $table->string('address')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('mail')->nullable();
-	        $table->timestamps();
+            $table->string('name')->nullable()->default(NULL);
+            $table->string('address')->nullable()->default(NULL);
+            $table->string('phone')->nullable()->default(NULL);
+            $table->string('mail')->nullable()->default(NULL);
+            $table->timestamps();
         });
     }
 

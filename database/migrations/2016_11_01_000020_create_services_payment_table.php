@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInterbankOperationTable extends Migration
+class CreateServicesPaymentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,15 @@ class CreateInterbankOperationTable extends Migration
      */
     public function up()
     {
-        Schema::create('interbank_operation', function (Blueprint $table) {
+        Schema::create('services_payment', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('dest_name');
-            $table->string('dest_iban');
+            $table->string('entity');
+            $table->string('reference');
             $table->timestamps();
         });
 
         Schema::table('account_movements', function (Blueprint $table) {
-            $table->foreign('interbank_operation_id')->references('id')->on('interbank_operation')->onDelete('no action')->onUpdate('no action');
+            $table->foreign('services_payment_id')->references('id')->on('services_payment')->onDelete('no action')->onUpdate('no action');
         });
 
     }
@@ -34,9 +34,9 @@ class CreateInterbankOperationTable extends Migration
     {
 
         Schema::table('account_movements', function (Blueprint $table) {
-            $table->dropForeign(['interbank_operation_id']);
+            $table->dropForeign(['services_payment_id']);
         });
 
-        Schema::drop('interbank_operation');
+        Schema::drop('services_payment');
     }
 }
