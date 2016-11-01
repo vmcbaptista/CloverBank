@@ -29,4 +29,9 @@ class ClientController extends Controller
         $client->save();
         return json_encode(array("id" => $client->id, "name" => $client->name));
     }
+
+    public function search(Request $request)
+    {
+        return Client::where('nif', '=', $request->nif)->firstOrFail();
+    }
 }
