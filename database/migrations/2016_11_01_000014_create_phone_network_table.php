@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTranferencesTable extends Migration
+class CreatePhoneNetworkTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,15 @@ class CreateTranferencesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tranferences', function (Blueprint $table) {
+        Schema::create('phone_network', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('dest_name');
-            $table->string('dest_iban');
-	        $table->timestamps();
-	});
+            $table->string('entity');
+            $table->integer('phone_number')->nullable()->default(NULL);
+            $table->timestamps();
+        });
 
         Schema::table('account_movements', function (Blueprint $table) {
-            $table->foreign('tranferences_id')->references('id')->on('tranferences')->onDelete('no action')->onUpdate('no action');
+            $table->foreign('phone_network_id')->references('id')->on('phone_network')->onDelete('no action')->onUpdate('no action');
         });
 
     }
@@ -34,9 +34,9 @@ class CreateTranferencesTable extends Migration
     {
 
         Schema::table('account_movements', function (Blueprint $table) {
-            $table->dropForeign(['tranferences_id']);
+            $table->dropForeign(['phone_network_id']);
         });
 
-        Schema::drop('tranferences');
+        Schema::drop('phone_network');
     }
 }

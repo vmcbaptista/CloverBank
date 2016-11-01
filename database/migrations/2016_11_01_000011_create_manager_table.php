@@ -14,9 +14,10 @@ class CreateManagerTable extends Migration
     {
         Schema::create('manager', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('mail')->nullable();
+            $table->string('name');
+            $table->string('phone');
+            $table->string('mail');
+            $table->timestamps();
         });
 
         Schema::table('current_account', function (Blueprint $table) {

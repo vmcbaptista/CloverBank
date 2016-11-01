@@ -14,9 +14,9 @@ class CreateLoanTable extends Migration
     {
         Schema::create('loan', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id')->unsigned();
             $table->integer('current_account_id')->unsigned();
-            $table->timestamp('duration');
+            $table->integer('product_loan_id')->unsigned();
+            $table->timestamps();
 
             $table->foreign('current_account_id')->references('id')->on('current_account')->onDelete('no action')->onUpdate('no action');
         });

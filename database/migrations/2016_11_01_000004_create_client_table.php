@@ -18,10 +18,10 @@ class CreateClientTable extends Migration
             $table->string('address');
             $table->integer('nif');
             $table->integer('phone');
-            $table->string('email')->nullable();
-            $table->rememberToken();
-	        $table->timestamps();
+            $table->string('email')->nullable()->default(NULL);
+            $table->string('remember_token', 100)->nullable()->default(NULL);
             $table->integer('client_type_id')->unsigned();
+            $table->nullableTimestamps();
         });
     }
 

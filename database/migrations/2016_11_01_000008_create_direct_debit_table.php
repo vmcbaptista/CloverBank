@@ -16,10 +16,10 @@ class CreateDirectDebitTable extends Migration
             $table->increments('id');
             $table->integer('entity');
             $table->integer('autorization');
-            $table->float('max_amount');
+            $table->double('max_amount');
             $table->timestamp('limit_date');
             $table->string('service_type');
-	        $table->timestamps();
+            $table->timestamps();
         });
 
         Schema::table('account_movements', function (Blueprint $table) {

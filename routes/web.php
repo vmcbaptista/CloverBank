@@ -32,3 +32,7 @@ Route::get('/client/add', 'ClientController@addForm');
 Route::post('/client/add', 'ClientController@add');
 
 Route::post('/client/search', 'ClientController@search');
+
+Route::get('/product/create', 'ProductController@renderForm');
+
+Route::post('/product/create', 'ProductController@create');

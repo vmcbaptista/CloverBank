@@ -13,12 +13,13 @@ class CreateCurrentAccountTable extends Migration
     public function up()
     {
         Schema::create('current_account', function (Blueprint $table) {
-            $table->float('balance');
+            $table->increments('id');
             $table->integer('branch_id')->unsigned();
             $table->integer('manager_id')->unsigned();
-            $table->increments('id');
-            $table->integer('product_id')->unsigned();
-	        $table->timestamps();
+            $table->double('balance');
+            $table->integer('product_current_id')->unsigned();
+            $table->timestamps();
+
             $table->foreign('branch_id')->references('id')->on('branch')->onDelete('no action')->onUpdate('no action');
         });
 
