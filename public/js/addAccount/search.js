@@ -33,6 +33,7 @@ $().ready(function () {
             $("#clientId").val($("#cliId").val());
             resetModal();
             $("#searchModal").css('display','none');
+            $("#prod_type").removeAttr("disabled");
         })
         .on('click','#back',function () {
             resetModal();

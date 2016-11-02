@@ -17,15 +17,15 @@ class ClientController extends Controller
         return view("client.add",compact('client_types'));
     }
 
-    public function add(Request $request)
+    public static function add($clientData)
     {
         $client = new Client();
-        $client->name = $request->name;
-        $client->address = $request->address." ".$request->numPort." ".$request->zip1." - ".$request->zip2." ".$request->zipLoc." ";
-        $client->nif = $request->nif;
-        $client->phone = $request->phone;
-        $client->email = $request->email;
-        $client->client_type_id = $request->type;
+        $client->name = $clientData->name;
+        $client->address = $clientData->address." ".$clientData->numPort." ".$clientData->zip1." - ".$clientData->zip2." ".$clientData->zipLoc." ";
+        $client->nif = $clientData->nif;
+        $client->phone = $clientData->phone;
+        $client->email = $clientData->email;
+        $client->client_type_id = $clientData->type;
         $client->save();
         return json_encode(array("id" => $client->id, "name" => $client->name));
     }

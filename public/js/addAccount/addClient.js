@@ -42,6 +42,8 @@ $().ready(function () {
         $('#client').val(JSON.parse(sessionStorage.getItem("clientData")).name);
         $(this)[0].reset();
         $("#createModal").css('display','none');
+        $("#current").attr("selected","selected");
+        $("#prod_type").trigger('change');
         event.preventDefault();
     });
 });

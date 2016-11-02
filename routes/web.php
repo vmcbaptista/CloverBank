@@ -36,3 +36,11 @@ Route::post('/client/search', 'ClientController@search');
 Route::get('/product/create', 'ProductController@renderForm');
 
 Route::post('/product/create', 'ProductController@create');
+
+Route::get('/product/current', 'ProductController@getCurrent');
+
+Route::get('/product/loan', 'ProductController@getLoan');
+
+Route::get('/product/saving', 'ProductController@getSaving');
+
+Route::get('/product/{id}', 'ProductController@getProduct');

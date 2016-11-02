@@ -75,4 +75,24 @@ class ProductController extends Controller
     private function calculate_tanl($tanb, $retFont){
         return $tanb * (100 - $retFont);
     }
+
+    public function getProduct(Request $request)
+    {
+        return Product::findOrFail($request->id);
+    }
+
+    public function getCurrent()
+    {
+        return ProductCurrent::all();
+    }
+
+    public function getLoan()
+    {
+        return ProductLoan::all();
+    }
+
+    public function getSaving()
+    {
+        return ProductSaving::all();
+    }
 }
