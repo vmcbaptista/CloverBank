@@ -3,7 +3,9 @@
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <input type="text" name="name"><br>
     <label>Código Postal</label><br>
+    <div>
     <input type="text" id="zip1" name="zip1"> - <input type="text" id="zip2" name="zip2"> <input id="zipLoc" type="text" name="zipLoc"><br>
+    </div>
     <label>Morada</label>
     <input id="address" type="text" name="address">
     <label>Número de Porta</label>

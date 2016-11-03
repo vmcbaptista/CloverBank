@@ -43,7 +43,7 @@ $().ready(function () {
         $(this)[0].reset();
         $("#createModal").css('display','none');
         $("#current").attr("selected","selected");
-        $("#prod_type").trigger('change');
+        $("#product").removeAttr('disabled');
         event.preventDefault();
     });
 });

@@ -14,17 +14,15 @@
         <label>Cliente</label><br>
         <input disabled id="client" type="text"> <input type="button" id="create" value="Criar Novo Cliente"> <input type="button" id="search" value="Pesquisar Cliente"><br>
         <input type="hidden" id="clientId" name="clientId">
-        <label>Tipo de Produto</label><br>
-        <select name="prod_type" id="prod_type">
+        <label>Produto</label><br>
+        <select id="product" name="product" disabled>
             <option></option>
-            <option id="current" value="1">Conta à Ordem</option>
-            <option value="2">Conta Poupança</option>
-            <option value="3">Empréstimo</option>
-        </select><br>
-        <div id="prod">
-        </div>
+            @foreach($prod_list as $product)
+                <option value="{{ $product["id"] }}">{{ $product["name"] }}</option>
+            @endforeach
+        </select>
         <label>Depósito Inicial</label><br>
-        <input id="amount" name="amount" disabled><br>
+        <input id="amount" type="text" name="amount" disabled><br>
         <button type="submit">Criar nova conta</button>
     </form>
     <div id="createModal" class="modal">
