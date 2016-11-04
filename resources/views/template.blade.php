@@ -5,10 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="{{ URL::asset('js/jquery-3.1.1.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/base.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/font-awesome.css')}}">
+
     <title>CloverBank</title>
 </head>
 <body>
-    @yield('menu')
-    @yield('content')
+    <div class="upper-nav">
+        <ul class="brand-logo">
+            <li><img src="{{URL::asset('logo/clover_main.jpg')}}" /></li>
+        </ul>
+        <ul class="slogan">
+            <li><span>Give your money a lucky life</span></li>
+        </ul>
+    </div>
+
+    <div class="nav-bar">
+        <ul class="option-menu">
+            <li><a class="link" href="#">A nossa instituição</a></li>
+            <li><a class="link" href="#">Particulares</a></li>
+            <li><a class="link" href="#">Empresas</a></li>
+            <li><a class="link" href="#">Ajuda</a></li>
+            <li class="li_access"><a class="link" href="#"><i class="fa fa-lock" aria-hidden="true"></i> Acesso Online </a></li>
+        </ul>
+    </div>
+
+    <!--@yield('menu')-->
+    <!--@yield('content')-->
 </body>
 </html>
