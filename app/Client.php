@@ -1,0 +1,31 @@
+<?php
+
+namespace App;
+
+use App\Notifications\ClientResetPassword;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class Client extends Authenticatable
+{
+    use Notifiable;
+
+
+
+    protected $fillable = [
+        'name', 'email', 'password','address','nif','phone','username'
+    ];
+
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ClientResetPassword($token));
+    }
+
+
+}

@@ -19,7 +19,7 @@ class CreateCurrentAccountHasClientTable extends Migration
             $table->increments('pin');
             $table->timestamps();
 
-            $table->foreign('client_id')->references('id')->on('client')->onDelete('no action')->onUpdate('no action');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('no action')->onUpdate('no action');
             $table->foreign('current_account_id')->references('id')->on('current_account')->onDelete('no action')->onUpdate('no action');
         });
     }

@@ -12,16 +12,20 @@ class CreateManagerTable extends Migration
      */
     public function up()
     {
-        Schema::create('manager', function (Blueprint $table) {
+        Schema::create('managers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('phone');
-            $table->string('mail');
+            $table->string('email');
+            $table->string('username')->unique();
+            $table->string('password');
+            $table->timestamp('last_login');
+            $table->rememberToken();
             $table->timestamps();
         });
 
         Schema::table('current_account', function (Blueprint $table) {
-            $table->foreign('manager_id')->references('id')->on('manager')->onDelete('no action')->onUpdate('no action');
+            $table->foreign('manager_id')->references('id')->on('managers')->onDelete('no action')->onUpdate('no action');
         });
 
     }
@@ -38,6 +42,6 @@ class CreateManagerTable extends Migration
             $table->dropForeign(['manager_id']);
         });
 
-        Schema::drop('manager');
+        Schema::drop('managers');
     }
 }

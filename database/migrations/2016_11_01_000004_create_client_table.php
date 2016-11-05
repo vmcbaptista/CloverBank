@@ -12,16 +12,18 @@ class CreateClientTable extends Migration
      */
     public function up()
     {
-        Schema::create('client', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('address');
             $table->integer('nif');
             $table->integer('phone');
             $table->string('email')->nullable()->default(NULL);
-            $table->string('remember_token', 100)->nullable()->default(NULL);
-            $table->integer('client_type_id')->unsigned();
-            $table->nullableTimestamps();
+            $table->string('username')->unique();
+            $table->string('password');
+            $table->timestamp('last_login');
+            $table->timestamps();
+            $table->rememberToken();
         });
     }
 
@@ -32,6 +34,6 @@ class CreateClientTable extends Migration
      */
     public function down()
     {
-        Schema::drop('client');
+        Schema::drop('clients');
     }
 }
