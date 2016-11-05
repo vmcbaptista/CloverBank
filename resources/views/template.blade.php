@@ -5,8 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="{{ URL::asset('js/jquery-3.1.1.js') }}"></script>
+
+
+
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/base.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/font-awesome.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/slider.css')}}">
 
     <title>CloverBank</title>
 </head>
@@ -30,7 +34,34 @@
         </ul>
     </div>
 
+    <div class="slider-container">
+        <div class="slide fade">
+            <img src="{{URL::asset('img/credit_card.jpg')}}">
+        </div>
+
+        <div class="slide fade">
+            <img src="{{URL::asset('img/6817014-image.jpg')}}">
+        </div>
+
+        <div class="slide fade">
+            <img src="{{URL::asset('img/money.jpg')}}">
+        </div>
+
+        <a class="prev-btt" onclick="previous_slide(-1)">&#10094;</a>
+        <a class="next-btt" onclick="next_slide(1)">&#10095;</a>
+
+        <div class="dots">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+
+    </div>
+
     <!--@yield('menu')-->
     <!--@yield('content')-->
+
+    <script type="text/javascript" src="{{ URL::asset('js/slider.js') }}"></script>
+
 </body>
 </html>
