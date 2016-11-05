@@ -6,7 +6,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-
+use App\Client;
+use App\Manager;
 use App\Http\Requests;
 use Session;
 
@@ -27,8 +28,12 @@ class LoginController extends Controller
             return view("LoginFailed")->with("ErrorLogin",$ErroLogin);
         }
         //informações da base de dados
-        $userInfo = DB::table('current_account_has_client')->where('Username',$Username)->first();
-        $ManagerInfo = DB::table('manager')->where('username',$Username)->first();
+        //$userInfo = DB::table('client')->where('username',$Username)->first();
+        //$ManagerInfo = DB::table('manager')->where('username',$Username)->first();  //MODEL
+        $userInfo = Client::where('username','=',$Username)->first();
+        $ManagerInfo = Manager::where('username','=',$Username)->first();
+
+
 
         //verificações do Login
         if($userInfo!=NULL)

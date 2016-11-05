@@ -43,3 +43,7 @@ Route::get('managerpage',"LoginController@VerificaAutentificacaoGestor");
 
 Route::get('Logout',"LoginController@EfetuaLogout");
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
