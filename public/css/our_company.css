@@ -1,0 +1,10 @@
+.our_company h1{
+    text-align: center;
+}
+
+.our_company p{
+    text-align: justify;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+

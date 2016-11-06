@@ -1,0 +1,44 @@
+.particular{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    background-color: #113342;
+    color: white;
+}
+
+.particular h1{
+    align-self: center;
+}
+
+.product_type_row{
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+}
+
+.product_type{
+    text-align: center;
+    min-width: 33.3%;
+}
+
+
+.saving{
+    background-color: blue;
+}
+
+.loan{
+    background-color: yellow;
+
+}
+
+.current{
+    background-color: pink;
+}
+
+/*Enterprise part*/
+.enterprise{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
