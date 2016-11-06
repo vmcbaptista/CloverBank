@@ -14,16 +14,6 @@ use Illuminate\Support\Facades\DB;
 
 class CurrentAccountController extends Controller
 {
-    public function showForm(Request $request) {
-        $products = ProductCurrent::all();
-        $prod_list = array();
-        foreach ($products as $product) {
-            $prod = Product::findOrFail($product->id);
-            array_push($prod_list,array('id' => $product->id, 'name' => $prod->name));
-        }
-        $client_types = ClientType::all();
-        return view('account.formAdd')->with('prod_list',$prod_list)->with(compact('client_types'));
-    }
 
     public function add(Request $request)
     {

@@ -30,6 +30,10 @@ class ClientController extends Controller
         return json_encode(array("id" => $client->id, "name" => $client->name));
     }
 
+    public function showSearch() {
+        return view('client.search');
+    }
+
     public function search(Request $request)
     {
         return Client::where('nif', '=', $request->nif)->firstOrFail();

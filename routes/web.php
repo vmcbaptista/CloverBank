@@ -23,21 +23,19 @@ Route::get('/client', function () {
     return view('client.client');
 });
 
-Route::get('/account/current/add', 'CurrentAccountController@showForm');
+Route::get('/account/add', 'AccountController@showForm');
 
 Route::post('/account/current/add', 'CurrentAccountController@add');
 
-Route::get('/account/saving/add', 'SavingAccountController@showForm');
-
 Route::post('/account/saving/add', 'SavingAccountController@add');
-
-Route::get('/account/loan/add', 'LoanAccountController@showForm');
 
 Route::post('/account/loan/add', 'LoanAccountController@add');
 
 Route::get('/client/add', 'ClientController@addForm');
 
 Route::post('/client/add', 'ClientController@add');
+
+Route::get('/client/search', 'ClientController@showSearch');
 
 Route::post('/client/search', 'ClientController@search');
 

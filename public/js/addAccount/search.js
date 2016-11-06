@@ -1,26 +1,15 @@
-/**
- * Created by vmcb on 01-11-2016.
- */
-var form = ''+
-    '<form method="POST" id="searchCliForm">'+
-    '<label>Número de Contribuinte</label><br>'+
-    '<input type="text" name="nif"><br>'+
-    '<input id="submit" type="submit" value="Procurar cliente">'+
-    '</form>';
-
-$().ready(function () {
-    $("#searchModal .modal-content").append(form);
-
-    $("#searchModal").on('submit','#searchCliForm',(function (event) {
+function handleSearchForm() {
+    $("#body").on('submit', '#searchCliForm', (function (event) {
         $.ajax({
-            method:'POST',
+            method: 'POST',
             data: $("#searchCliForm").serialize(),
             headers: {
                 'X-CSRF-Token': $('meta[name="_token"]').attr('content')
             },
-            url:'/client/search',
+            url: '/client/search',
             success: function (data) {
-                createTableCli(data);
+                createResultTable(data);
+                $("#body").off('submit','#searchCliForm');
             },
             error: function (err) {
                 alert('Não existe nenhum cliente com o número de contribuinte introduzido.');
@@ -28,48 +17,50 @@ $().ready(function () {
         });
         event.preventDefault();
     }))
-        .on('click','#selCli',function () {
-            $("#client").val($('#clientName').text());
-            $("#clientId").val($("#cliId").val());
-            resetModal();
-            $("#searchModal").css('display','none');
-            $("#product").removeAttr("disabled");
-        })
-        .on('click','#back',function () {
-            resetModal();
+}
+
+function handleSearchResults() {
+    $("#body").on('click', '#selCli', function () {
+        var clientData = JSON.parse(sessionStorage.getItem('clientData'));
+        clientData.push({
+            "new": false,
+            "id": $("#cliId").val(),
+            "name": $('#clientName').text()
+        });
+        sessionStorage.setItem('clientData', JSON.stringify(clientData));
+        console.log(sessionStorage.getItem('clientData'));
+        $("#body").html(html.more_users)
+            .off('click','#selCli');
+    })
+        .on('click', '#back', function () {
+            $("#body").html(html.search_form)
+                .off('click','#back');
         });
 
-    function createTableCli(data) {
-        $("#searchCliForm").remove();
-        $("#searchModal .modal-content").append('' +
-            '<table id="result">'+
-            '<thead>'+
-            '<tr>'+
-            '<th>Nome do Cliente</th>'+
-            '<th>Morada</th>'+
-            '<th>Telefone</th>'+
-            '<th>Número de Contribuinte</th>'+
-            '</tr>'+
-            '</thead>' +
-            '<tbody>'+
-            '<tr>'+
-            '<td id="clientName">'+data.name+'</a></td>'+
-            '<td>'+data.address+'</td>'+
-            '<td>'+data.phone+'</td>'+
-            '<td>'+data.nif+'</td>'+
-            '<input id="cliId" type="hidden" value="'+data.id+'">'+
-            '</tr>'+
-            '</tbody>'+
-            '</table>' +
-            '<button id="back">Voltar atrás</button>' +
-            '<button id="selCli">Selecionar Cliente</button>'
-        )
-    }
+}
 
-    function resetModal() {
-        $("#result").remove();
-        $("#back").remove();
-        $("#selCli").remove();
-        $("#searchModal .modal-content").append(form);
-    }
-});
+function createResultTable(data) {
+    $("#body").html('' +
+        '<table id="result">'+
+        '<thead>'+
+        '<tr>'+
+        '<th>Nome do Cliente</th>'+
+        '<th>Morada</th>'+
+        '<th>Telefone</th>'+
+        '<th>Número de Contribuinte</th>'+
+        '</tr>'+
+        '</thead>' +
+        '<tbody>'+
+        '<tr>'+
+        '<td id="clientName">'+data.name+'</a></td>'+
+        '<td>'+data.address+'</td>'+
+        '<td>'+data.phone+'</td>'+
+        '<td>'+data.nif+'</td>'+
+        '<input id="cliId" type="hidden" value="'+data.id+'">'+
+        '</tr>'+
+        '</tbody>'+
+        '</table>' +
+        '<button id="back">Voltar atrás</button>' +
+        '<button id="selCli">Selecionar Cliente</button>'
+    )
+}
