@@ -18,12 +18,18 @@ class CurrentAccountController extends Controller
     public function add(Request $request)
     {
         DB::transaction(function () use($request) {
-            $cliId = $request->clientId;
-            if (empty ($cliId)) {
-                $clientData = json_decode($request->cliData);
-                $cli = ClientController::add($clientData);
-                $cliId = json_decode($cli,true)["id"];
+            $clientData = json_decode($request->cliData);
+            $cliId = array();
+            foreach ($clientData as $client) {
+                if ($client->new == true) {
+                    $cli = ClientController::add($client);
+                    array_push($cliId, json_decode($cli,true)["id"]);
+                }
+                else {
+                    array_push($cliId, $client->id);
+                }
             }
+
             $currentAccount = new CurrentAccount();
             $currentAccount->product_current_id = $request->product;
             $currentAccount->balance = $request->amount;
@@ -37,11 +43,13 @@ class CurrentAccountController extends Controller
         });
     }
 
-    private function associateClientAccount($account,$client)
+    private function associateClientAccount($account,$clients)
     {
-        $assoc = new CurrentAccountHasClient();
-        $assoc->client_id = $client;
-        $assoc->current_account_id = $account;
-        $assoc->save();
+        foreach ($clients as $client) {
+            $assoc = new CurrentAccountHasClient();
+            $assoc->client_id = $client;
+            $assoc->current_account_id = $account;
+            $assoc->save();
+        }
     }
 }

@@ -67,6 +67,13 @@ $().ready(function () {
         })
         .on("change","#product",function() {
             $("#amount").removeAttr("disabled");
+        })
+        .on("submit","#addAccount",function (e) {
+            $(this).append(
+                "<input type='hidden' name='_token' value='"+$('meta[name="_token"]').attr('content')+"'>"+
+                "<input type='hidden' name='cliData' value='"+sessionStorage.getItem("clientData")+"'>"
+            );
+            return true;
         });
 
     function getProducts(type) {
@@ -89,12 +96,4 @@ $().ready(function () {
     $("#product").change(function () {
         $("#amount").removeAttr("disabled");
     });
-
-
-    $("#addAccount").submit(function (e) {
-        $(this).append(
-            "<input type='hidden' name='cliData' value='"+sessionStorage.getItem("clientData")+"'>"
-        );
-        return true;
-    })
 });
