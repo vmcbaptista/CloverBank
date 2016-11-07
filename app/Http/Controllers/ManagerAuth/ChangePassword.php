@@ -28,14 +28,14 @@ class ChangePassword extends Controller
 
     function ApresentaForm()
     {
+
         $ErroVerificacao = 0;
         return view('/manager/auth/passwords/ChangePassword')->with("ErroVerificacao",$ErroVerificacao);
     }
 
-    function VerificaDadosIntroduzidos()
+    public static function VerificaDadosIntroduzidos()
     {
-
-        $username= $_REQUEST["username"];
+        $username= Auth::user()->username;
         $PasswordActual = $_REQUEST["PasswordAtual"];
         $NovaPassword = $_REQUEST['Newpassword'];
         $ConfirmNovaPassword = $_REQUEST['ConfirmNewpassword'];
@@ -56,26 +56,26 @@ class ChangePassword extends Controller
                     else
                     {
                         $ErroVerificacao = 4;
-                        return view('/manager/ChangePassword')->with("ErroVerificacao",$ErroVerificacao);
+                        return view('/manager/auth/passwords/ChangePassword')->with("ErroVerificacao",$ErroVerificacao);
                     }
                 }
                 else
                 {
                     $ErroVerificacao = 3;
-                    return view('/manager/ChangePassword')->with("ErroVerificacao",$ErroVerificacao);
+                    return view('/manager/auth/passwords/ChangePassword')->with("ErroVerificacao",$ErroVerificacao);
                 }
 
             }
             else
             {
                 $ErroVerificacao = 2;
-                return view('/manager/ChangePassword')->with("ErroVerificacao",$ErroVerificacao);
+                return view('/manager/auth/passwords/ChangePassword')->with("ErroVerificacao",$ErroVerificacao);
             }
         }
         else
         {
             $ErroVerificacao = 1;
-            return view('/manager/ChangePassword')->with("ErroVerificacao",$ErroVerificacao);
+            return view('/manager/auth/passwords/ChangePassword')->with("ErroVerificacao",$ErroVerificacao);
         }
 
 
@@ -84,6 +84,7 @@ class ChangePassword extends Controller
     protected function guard()
     {
         return Auth::guard('manager');
+
     }
 }
 
