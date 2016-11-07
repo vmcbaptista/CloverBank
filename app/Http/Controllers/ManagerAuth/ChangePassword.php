@@ -41,7 +41,7 @@ class ChangePassword extends Controller
         $ConfirmNovaPassword = $_REQUEST['ConfirmNewpassword'];
         $ManagerInfo = Manager::where('username','=',$username)->first();
 
-        if($username !="" && $PasswordActual !="" && $NovaPassword != "" && $ConfirmNovaPassword !="")
+        if($PasswordActual !="" && $NovaPassword != "" && $ConfirmNovaPassword !="")
         {
             if($ManagerInfo!=NULL)
             {
@@ -51,7 +51,7 @@ class ChangePassword extends Controller
                     {
                         Manager::where('username','=',$username)->update(['password' => bcrypt($NovaPassword)]);
                         Mail::to($ManagerInfo->email)->send(new MudancaDePassword($username,$NovaPassword,$ManagerInfo->name));
-                        Return view('/manager/home');
+                        Return redirect('manager/home');
                     }
                     else
                     {

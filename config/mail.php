@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => 'postmaster@sandbox841ab39bdbfe4e1eaf26953ce294f619.mailgun.org',
-        'name' => 'Cover Bank ',
+        'name' => 'Clover Bank ',
     ],
 
     /*
