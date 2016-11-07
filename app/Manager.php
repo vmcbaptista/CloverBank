@@ -10,13 +10,15 @@ class Manager extends Authenticatable
 {
     use Notifiable;
 
+    protected $table = 'managers';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','nif','phone','username'
     ];
 
     /**
@@ -38,4 +40,6 @@ class Manager extends Authenticatable
     {
         $this->notify(new ManagerResetPassword($token));
     }
+
+
 }

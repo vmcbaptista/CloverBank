@@ -9,7 +9,8 @@
         "laravel/framework": "5.3.*",
         "barryvdh/laravel-ide-helper": "v2.2.1",
         "mathiasgrimm/laravel-dot-env-gen": "v0.9",
-        "hesto/multi-auth": "^1.0"
+        "hesto/multi-auth": "^1.0",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -19,6 +19,7 @@ class CreateManagerTable extends Migration
             $table->string('email');
             $table->string('username')->unique();
             $table->string('password');
+            $table->integer('nif')->unique();
             $table->timestamp('last_login');
             $table->rememberToken();
             $table->timestamps();

@@ -7,6 +7,9 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendLoginInfo;
 
 class RegisterController extends Controller
 {
@@ -51,7 +54,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:managers',
-            'password' => 'required|min:6|confirmed',
+            //'password' => 'required|min:6|confirmed',
         ]);
     }
 
@@ -63,10 +66,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        Log::info("chegou aqui");
+        $nomeUsername = substr($data['name'],0,2);
+        $nomeusername2 = "G_".$nomeUsername.$data['nif'];
+        $nomeManager = $data['name'];
+        $password = str_random(8);
+        $mail = $data['email'];
+
+        Mail::to($mail)->send(new SendLoginInfo($nomeusername2,$password,$nomeManager));
         return Manager::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'phone'=>$data['phone'],
+            'nif'=>$data['nif'],
+            'username'=> $nomeusername2,
+            'password' => bcrypt($password)
         ]);
     }
 

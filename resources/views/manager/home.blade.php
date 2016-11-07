@@ -2,16 +2,14 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+    <a href="/account/add">Criar Conta</a>
+    <br>
+    <a href="#">Criar Produtos</a>
+    <br>
+    <a href="#">Efetuar Depósito</a>
+    <br>
+    <a href="/manager/passwords/ChangePassword">Mudar Password</a>
 
-                <div class="panel-body">
-                    You are logged in as Manager!
-                </div>
-            </div>
-        </div>
-    </div>
+    <br>
 </div>
 @endsection

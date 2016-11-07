@@ -38,33 +38,35 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
+                        <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                            <label for="Phone" class="col-md-4 control-label">Phone</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password">
+                                <input id="phone" type="tel" class="form-control" name="phone" value="{{ old('phone') }}">
 
-                                @if ($errors->has('password'))
+                                @if ($errors->has('phone'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        <strong>{{ $errors->first('phone') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+                        <div class="form-group{{ $errors->has('nif') ? ' has-error' : '' }}">
+                            <label for="nif" class="col-md-4 control-label">NIF</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
+                                <input id="nif" type="number" class="form-control" name="nif" value="{{ old('nif') }}">
 
-                                @if ($errors->has('password_confirmation'))
+                                @if ($errors->has('nif'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                        <strong>{{ $errors->first('nif') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
+
+
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">

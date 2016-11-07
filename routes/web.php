@@ -60,4 +60,8 @@ Route::post('manager/password/email', 'ManagerAuth\ForgotPasswordController@send
 Route::post('manager/password/reset', 'ManagerAuth\ResetPasswordController@reset');
 Route::get('manager/password/reset', 'ManagerAuth\ForgotPasswordController@showLinkRequestForm');
 Route::get('manager/password/reset/{token}', 'ManagerAuth\ResetPasswordController@showResetForm');
+//Manager change Password
+
+Route::get('/manager/passwords/ChangePassword','ManagerAuth\ChangePassword@ApresentaForm');
+Route::post('/manager/Passwords/ChangePassword/check','ManagerAuth\ChangePassword@VerificaDadosIntroduzidos');
 
