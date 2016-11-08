@@ -64,4 +64,8 @@ Route::get('manager/password/reset/{token}', 'ManagerAuth\ResetPasswordControlle
 
 Route::get('/manager/passwords/ChangePassword','ManagerAuth\ChangePassword@ApresentaForm');
 Route::post('/manager/Passwords/ChangePassword/check','ManagerAuth\ChangePassword@VerificaDadosIntroduzidos');
-
+//reset passwords manager
+Route::get('manager/password/resetPassword', 'ManagerAuth\ForgotPasswordController@ForgotPasswordForm');
+Route::post('/manager/passwords/resetPassword/verification', 'ManagerAuth\ForgotPasswordController@CheckEmail');
+Route::post('/manager/passwords/resetPassword/Codeverification', 'ManagerAuth\ForgotPasswordController@CheckVerificationCode');
+Route::post('/manager/passwords/resetPassword/NewPassword', 'ManagerAuth\ForgotPasswordController@CheckNewPasswords');
