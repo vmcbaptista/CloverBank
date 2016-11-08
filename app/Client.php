@@ -2,11 +2,30 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Notifications\ClientResetPassword;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Client extends Model
+class Client extends Authenticatable
 {
-    protected $table = 'client';
+    use Notifiable;
+
+
+
+    protected $fillable = [
+        'name', 'email', 'password','address','nif','phone','username'
+    ];
+
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ClientResetPassword($token));
+    }
 
     /**
      * The current accounts of the client
