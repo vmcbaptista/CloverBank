@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
 use App\CurrentAccount;
 use App\CurrentAccountHasClient;
 use App\Product;
@@ -15,6 +16,10 @@ use Illuminate\Support\Facades\DB;
 class CurrentAccountController extends Controller
 {
 
+    /**
+     * Add news current account and user if the person isn't yet a client of the bank
+     * @param Request $request
+     */
     public function add(Request $request)
     {
         DB::transaction(function () use($request) {
@@ -31,25 +36,43 @@ class CurrentAccountController extends Controller
             }
 
             $currentAccount = new CurrentAccount();
-            $currentAccount->product_current_id = $request->product;
+            $currentAccount->currentProduct()->associate($request->product);
             $currentAccount->balance = $request->amount;
             //TODO: Falta arranjar uma forma de introduzir o gestor e o balcão
-            $currentAccount->manager_id = 1;
-            $currentAccount->branch_id = 1;
+            $currentAccount->manager()->associate(1);
+            $currentAccount->branch()->associate(1);
             $currentAccount->save();
-            $this->associateClientAccount($currentAccount->id, $cliId);
+            $currentAccount->clients()->attach($cliId);
 
 
         });
     }
 
-    private function associateClientAccount($account,$clients)
+    /**
+     * Search for all the currents accounts that a given client has
+     * @param $clientId int the id of the client we are searching accounts
+     */
+    public function search($clientId)
     {
-        foreach ($clients as $client) {
-            $assoc = new CurrentAccountHasClient();
-            $assoc->client_id = $client;
-            $assoc->current_account_id = $account;
-            $assoc->save();
+        $client = Client::find($clientId);
+        $acc = array();
+        foreach ($client->accounts as $account) {
+            $name = $account->currentProduct->belongsTOne_product->name;
+            $clients = $account->clients;
+            $cli = array();
+            $cli['others'] = array();
+            $i = 0;
+            foreach ($clients as $aCli) {
+                if ($i == 0)
+                    $cli['first'] = $aCli->name;
+                else if ($i == 1)
+                    $cli['second'] = $aCli->name;
+                else
+                    array_push($cli['others'], $aCli->name);
+                $i++;
+            }
+            array_push($acc,array("id" => $account->id, "account" => $name, "clients" => $cli));
         }
+        return $acc;
     }
 }

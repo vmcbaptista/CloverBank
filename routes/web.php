@@ -27,9 +27,11 @@ Route::get('/account/add', 'AccountController@showForm');
 
 Route::post('/account/current/add', 'CurrentAccountController@add');
 
+Route::post('/account/current/search/{client_id}', 'CurrentAccountController@search');
+
 Route::post('/account/saving/add', 'SavingAccountController@add');
 
-Route::post('/account/loan/add', 'LoanAccountController@add');
+Route::post('/account/loan/add', 'LoanController@add');
 
 Route::get('/client/add', 'ClientController@addForm');
 
