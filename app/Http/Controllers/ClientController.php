@@ -22,10 +22,11 @@ class ClientController extends Controller
     public static function add($clientData)
     {
         $client = new Client();
-        $username =explode(" ",$clientData->name);
+        $username = explode(" ",$clientData->name);
+        var_dump($username);
         $username = end($username)[0];
-        $username += substr($clientData->name,0,2);
-        $username += $clientData->nif;
+        $username .=substr($clientData->name,0,2);
+        $username .= $clientData->nif;
         $nomeClient = $clientData->name;
         $password = str_random(8);
         $mail = $clientData->email;
@@ -38,7 +39,7 @@ class ClientController extends Controller
         $client->username = $username;
         $client->password = bcrypt($password);
         $client->save();
-        //Mail::to($mail)->send(new SendLoginInfo($username,$password,$nomeClient));
+        Mail::to($mail)->send(new SendLoginInfo($username,$password,$nomeClient));
         return $client->id;
     }
 
