@@ -30,15 +30,23 @@
     font-weight: bold;
 }
 
+
 .login_form input:focus{
     color: white;
     font-weight: bold;
 }
 
-::-webkit-input-placeholder{
+::-webkit-input-placeholder, .forgotten_password{
+    text-decoration: none;
     color: white;
     font-weight: bold;
     text-align: center;
+}
+
+.forgotten_password{
+    width:100%;
+    margin: auto;
+    font-size: 14px;
 }
 
 .subBar_login{
