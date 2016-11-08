@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Client;
 use App\CurrentAccount;
-use App\CurrentAccountHasClient;
-use App\Product;
-use App\ProductCurrent;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\ClientType;
+use Illuminate\Support\Facades\Auth;;
 use Illuminate\Support\Facades\DB;
 
 class CurrentAccountController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('manager');
+    }
 
     /**
      * Add news current account and user if the person isn't yet a client of the bank
@@ -28,23 +30,20 @@ class CurrentAccountController extends Controller
             foreach ($clientData as $client) {
                 if ($client->new == true) {
                     $cli = ClientController::add($client);
-                    array_push($cliId, json_decode($cli,true)["id"]);
+                    array_push($cliId, $cli);
                 }
                 else {
                     array_push($cliId, $client->id);
                 }
             }
-
             $currentAccount = new CurrentAccount();
             $currentAccount->currentProduct()->associate($request->product);
             $currentAccount->balance = $request->amount;
-            //TODO: Falta arranjar uma forma de introduzir o gestor e o balcão
-            $currentAccount->manager()->associate(1);
+            //TODO: Falta arranjar uma forma de introduzir o balcão
+            $currentAccount->manager()->associate(Auth::guard('manager')->id());
             $currentAccount->branch()->associate(1);
             $currentAccount->save();
             $currentAccount->clients()->attach($cliId);
-
-
         });
     }
 

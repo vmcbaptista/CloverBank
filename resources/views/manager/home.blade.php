@@ -5,7 +5,7 @@
 <div class="container">
     <a href="/account/add">Criar Conta</a>
     <br>
-    <a href="#">Criar Produtos</a>
+    <a href="/product/create">Criar Produtos</a>
     <br>
     <a href="#">Efetuar Depósito</a>
     <br>

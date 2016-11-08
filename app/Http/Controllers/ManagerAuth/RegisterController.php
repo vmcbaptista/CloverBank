@@ -66,7 +66,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        Log::info("chegou aqui");
         $nomeUsername = substr($data['name'],0,2);
         $nomeusername2 = "G_".$nomeUsername.$data['nif'];
         $nomeManager = $data['name'];

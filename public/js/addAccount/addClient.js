@@ -29,21 +29,20 @@ $().ready(function () {
     }
 
 
-    $("#addCliForm").submit(function (event) {
-        var serialized = $(this).serializeArray(),
-            clientData = {};
+    $("#body").on("submit","#addCliForm",function (event) {
+        var serialized = $(this).serializeArray();
+        var cliData = {};
 
         // build key-values
         $.each(serialized, function(){
-            clientData [this.name] = this.value;
+            cliData [this.name] = this.value;
         });
-        sessionStorage.SessionName = "clientData";
+        cliData['new'] = true;
+        var clientData = JSON.parse(sessionStorage.getItem('clientData'));
+        clientData.push(cliData);
         sessionStorage.setItem("clientData",JSON.stringify(clientData));
-        $('#client').val(JSON.parse(sessionStorage.getItem("clientData")).name);
         $(this)[0].reset();
-        $("#createModal").css('display','none');
-        $("#current").attr("selected","selected");
-        $("#product").removeAttr('disabled');
+        $("#body").html(html.more_users).off("submit","#addCliForm");
         event.preventDefault();
-    });
+    })
 });

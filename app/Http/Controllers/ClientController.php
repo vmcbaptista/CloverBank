@@ -8,6 +8,8 @@ use App\Http\Requests;
 
 use App\Client;
 use App\ClientType;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendLoginInfo;
 
 class ClientController extends Controller
 {
@@ -20,14 +22,24 @@ class ClientController extends Controller
     public static function add($clientData)
     {
         $client = new Client();
+        $username =explode(" ",$clientData->name);
+        $username = end($username)[0];
+        $username += substr($clientData->name,0,2);
+        $username += $clientData->nif;
+        $nomeClient = $clientData->name;
+        $password = str_random(8);
+        $mail = $clientData->email;
+
         $client->name = $clientData->name;
-        $client->address = $clientData->address." ".$clientData->numPort." ".$clientData->zip1." - ".$clientData->zip2." ".$clientData->zipLoc." ";
-        $client->nif = $clientData->nif;
-        $client->phone = $clientData->phone;
         $client->email = $clientData->email;
-        $client->client_type_id = $clientData->type;
+        $client->address = $clientData->address;
+        $client->phone = $clientData->phone;
+        $client->nif = $clientData->nif;
+        $client->username = $username;
+        $client->password = bcrypt($password);
         $client->save();
-        return json_encode(array("id" => $client->id, "name" => $client->name));
+        //Mail::to($mail)->send(new SendLoginInfo($username,$password,$nomeClient));
+        return $client->id;
     }
 
     public function showSearch() {

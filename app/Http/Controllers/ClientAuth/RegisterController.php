@@ -7,6 +7,8 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendLoginInfo;
 
 class RegisterController extends Controller
 {
@@ -63,14 +65,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $username = end(explode(" ",$data['name']))[0];
+        $username += substr($data['name'],0,2);
+        $username += $data['nif'];
+        $nomeClient = $data['name'];
+        $password = str_random(8);
+        $mail = $data['email'];
+
+        Mail::to($mail)->send(new SendLoginInfo($username,$password,$nomeClient));
         return Client::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'address'=>"bla bla bla",
-            'nif'=>1234567,
-            'phone'=>1111111,
-            'username'=>"MPAU2",
+            'address'=>$data['address'],
+            'phone'=>$data['phone'],
+            'nif'=>$data['nif'],
+            'username'=> $username,
+            'password' => bcrypt($password)
         ]);
     }
 
