@@ -10,7 +10,7 @@ class Client extends Authenticatable
 {
     use Notifiable;
 
-
+    protected $table = 'clients';
 
     protected $fillable = [
         'name', 'email', 'password','address','nif','phone','username'

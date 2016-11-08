@@ -70,7 +70,7 @@ class RegisterController extends Controller
             'address'=>"bla bla bla",
             'nif'=>1234567,
             'phone'=>1111111,
-            'username'=>"MPAU2",
+            'username'=>"MPAU3",
         ]);
     }
 

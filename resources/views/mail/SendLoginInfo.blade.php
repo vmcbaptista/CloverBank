@@ -5,7 +5,7 @@
 Ola {{$name}},
 <br>
 <br>
-As suas credenciais de acesso ao modo gestor sao as seguintes:
+As suas credênciais de acesso ao homebanking são as seguintes:
 <br>
 <br>
 <fieldset>

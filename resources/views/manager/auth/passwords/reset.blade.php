@@ -142,18 +142,18 @@
                             </form>
                         @endif
                         @if($VerificationStep==3)
-
                                 <div class="form-group">
                                     <div class="col-md-8 col-md-offset-4">
                                         <p style = "color: green ">A sua password foi alterada com sucesso!</p>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <div class="col-md-8 col-md-offset-4">
-                                        <a href="http://localhost:8000/manager/login">Login
+                                        <a href="http://localhost:8000/manager/login">Login </a>
                                     </div>
                                 </div>
+
+
 
                         @endif
                     </div>
@@ -161,4 +161,6 @@
             </div>
         </div>
     </div>
+
+
 @endsection

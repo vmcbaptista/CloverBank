@@ -69,3 +69,13 @@ Route::get('manager/password/resetPassword', 'ManagerAuth\ForgotPasswordControll
 Route::post('/manager/passwords/resetPassword/verification', 'ManagerAuth\ForgotPasswordController@CheckEmail');
 Route::post('/manager/passwords/resetPassword/Codeverification', 'ManagerAuth\ForgotPasswordController@CheckVerificationCode');
 Route::post('/manager/passwords/resetPassword/NewPassword', 'ManagerAuth\ForgotPasswordController@CheckNewPasswords');
+//client change Password
+
+Route::get('/client/passwords/ChangePassword','ManagerAuth\ChangePassword@ApresentaForm');
+Route::post('/client/Passwords/ChangePassword/check','ManagerAuth\ChangePassword@VerificaDadosIntroduzidos');
+
+//reset passwords client
+Route::get('client/password/resetPassword', 'ClientAuth\ForgotPasswordController@ForgotPasswordForm');
+Route::post('/client/passwords/resetPassword/verification', 'ClientAuth\ForgotPasswordController@CheckEmail');
+Route::post('/client/passwords/resetPassword/Codeverification', 'ClientAuth\ForgotPasswordController@CheckVerificationCode');
+Route::post('/client/passwords/resetPassword/NewPassword', 'ClientAuth\ForgotPasswordController@CheckNewPasswords');
