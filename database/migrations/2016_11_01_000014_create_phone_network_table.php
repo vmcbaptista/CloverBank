@@ -14,15 +14,12 @@ class CreatePhoneNetworkTable extends Migration
     {
         Schema::create('phone_network', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('account_movements_id')->unsigned();
+            $table->foreign('account_movements_id')->references('id')->on('account_movements')->onDelete('no action')->onUpdate('no action');
             $table->string('entity');
             $table->integer('phone_number')->nullable()->default(NULL);
             $table->timestamps();
         });
-
-        Schema::table('account_movements', function (Blueprint $table) {
-            $table->foreign('phone_network_id')->references('id')->on('phone_network')->onDelete('no action')->onUpdate('no action');
-        });
-
     }
 
     /**
@@ -32,11 +29,6 @@ class CreatePhoneNetworkTable extends Migration
      */
     public function down()
     {
-
-        Schema::table('account_movements', function (Blueprint $table) {
-            $table->dropForeign(['phone_network_id']);
-        });
-
         Schema::drop('phone_network');
     }
 }

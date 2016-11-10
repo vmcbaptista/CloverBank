@@ -33,11 +33,17 @@ Route::post('/account/saving/add', 'SavingAccountController@add');
 
 Route::post('/account/loan/add', 'LoanController@add');
 
+Route::get('/account/balance/{id}', 'CurrentAccountController@balance');
+
 Route::get('/client/add', 'ClientController@addForm');
 
 Route::post('/client/add', 'ClientController@add');
 
 Route::get('/client/search', 'ClientController@showSearch');
+
+Route::get('/payments/services', 'AccountMovementController@showForm');
+
+Route::post('/payments/services', 'AccountMovementController@servicePayment');
 
 Route::post('/client/search', 'ClientController@search');
 

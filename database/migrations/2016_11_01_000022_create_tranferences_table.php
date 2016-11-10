@@ -14,15 +14,12 @@ class CreateTranferencesTable extends Migration
     {
         Schema::create('tranferences', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('account_movements_id')->unsigned();
+            $table->foreign('account_movements_id')->references('id')->on('account_movements')->onDelete('no action')->onUpdate('no action');
             $table->string('dest_name');
             $table->string('dest_iban');
             $table->timestamps();
         });
-
-        Schema::table('account_movements', function (Blueprint $table) {
-            $table->foreign('tranferences_id')->references('id')->on('tranferences')->onDelete('no action')->onUpdate('no action');
-        });
-
     }
 
     /**
@@ -32,11 +29,6 @@ class CreateTranferencesTable extends Migration
      */
     public function down()
     {
-
-        Schema::table('account_movements', function (Blueprint $table) {
-            $table->dropForeign(['tranferences_id']);
-        });
-
         Schema::drop('tranferences');
     }
 }

@@ -14,6 +14,8 @@ class CreateDirectDebitTable extends Migration
     {
         Schema::create('direct_debit', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('account_movements_id')->unsigned();
+            $table->foreign('account_movements_id')->references('id')->on('account_movements')->onDelete('no action')->onUpdate('no action');
             $table->integer('entity');
             $table->integer('autorization');
             $table->double('max_amount');
@@ -21,11 +23,6 @@ class CreateDirectDebitTable extends Migration
             $table->string('service_type');
             $table->timestamps();
         });
-
-        Schema::table('account_movements', function (Blueprint $table) {
-            $table->foreign('direct_debit_id')->references('id')->on('direct_debit')->onDelete('no action')->onUpdate('no action');
-        });
-
     }
 
     /**
@@ -35,11 +32,6 @@ class CreateDirectDebitTable extends Migration
      */
     public function down()
     {
-
-        Schema::table('account_movements', function (Blueprint $table) {
-            $table->dropForeign(['direct_debit_id']);
-        });
-
         Schema::drop('direct_debit');
     }
 }

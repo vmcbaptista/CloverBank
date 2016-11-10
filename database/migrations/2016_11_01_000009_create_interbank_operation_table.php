@@ -14,15 +14,12 @@ class CreateInterbankOperationTable extends Migration
     {
         Schema::create('interbank_operation', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('account_movements_id')->unsigned();
+            $table->foreign('account_movements_id')->references('id')->on('account_movements')->onDelete('no action')->onUpdate('no action');
             $table->string('dest_name');
             $table->string('dest_iban');
             $table->timestamps();
         });
-
-        Schema::table('account_movements', function (Blueprint $table) {
-            $table->foreign('interbank_operation_id')->references('id')->on('interbank_operation')->onDelete('no action')->onUpdate('no action');
-        });
-
     }
 
     /**
@@ -32,11 +29,6 @@ class CreateInterbankOperationTable extends Migration
      */
     public function down()
     {
-
-        Schema::table('account_movements', function (Blueprint $table) {
-            $table->dropForeign(['interbank_operation_id']);
-        });
-
         Schema::drop('interbank_operation');
     }
 }

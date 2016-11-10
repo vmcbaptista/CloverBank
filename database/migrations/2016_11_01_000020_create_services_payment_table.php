@@ -14,15 +14,12 @@ class CreateServicesPaymentTable extends Migration
     {
         Schema::create('services_payment', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('account_movements_id')->unsigned();
+            $table->foreign('account_movements_id')->references('id')->on('account_movements')->onDelete('no action')->onUpdate('no action');
             $table->string('entity');
             $table->string('reference');
             $table->timestamps();
         });
-
-        Schema::table('account_movements', function (Blueprint $table) {
-            $table->foreign('services_payment_id')->references('id')->on('services_payment')->onDelete('no action')->onUpdate('no action');
-        });
-
     }
 
     /**
@@ -32,11 +29,6 @@ class CreateServicesPaymentTable extends Migration
      */
     public function down()
     {
-
-        Schema::table('account_movements', function (Blueprint $table) {
-            $table->dropForeign(['services_payment_id']);
-        });
-
         Schema::drop('services_payment');
     }
 }

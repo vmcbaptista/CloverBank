@@ -39,4 +39,12 @@ class CurrentAccount extends Model
     {
         return $this->belongsTo('App\Branch','branch_id');
     }
+
+    /**
+     * Each account will have many movements
+     */
+    public function movements()
+    {
+        return $this->hasMany('App\AccountMovement','current_account_id');
+    }
 }

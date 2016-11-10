@@ -74,4 +74,9 @@ class CurrentAccountController extends Controller
         }
         return $acc;
     }
+
+    public function balance($id)
+    {
+        return CurrentAccount::find($id)->balance;
+    }
 }
