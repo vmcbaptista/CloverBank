@@ -39,6 +39,7 @@ class AccountMovementController extends Controller
             } else {
                 $movement->description = $request->description;
             }
+            $movement->balance_after = $account->balance;
 
             $movement->currentAccount()->associate($account);
             $movement->save();
@@ -48,5 +49,12 @@ class AccountMovementController extends Controller
 
             $account->save();
         });
+    }
+
+    public function getMovements($account_id)
+    {
+        $account = CurrentAccount::find($account_id);
+        $movements = $account->movements()->orderBy('created_at','DESC')->get();
+        return $movements;
     }
 }

@@ -15,14 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/manager', function () {
-    return view('manager.manager');
-});
-
-Route::get('/client', function () {
-    return view('client.client');
-});
-
 Route::get('/account/add', 'AccountController@showForm');
 
 Route::post('/account/current/add', 'CurrentAccountController@add');
@@ -44,6 +36,8 @@ Route::get('/client/search', 'ClientController@showSearch');
 Route::get('/payments/services', 'AccountMovementController@showForm');
 
 Route::post('/payments/services', 'AccountMovementController@servicePayment');
+
+Route::get('/movements/{account_id}', 'AccountMovementController@getMovements');
 
 Route::post('/client/search', 'ClientController@search');
 

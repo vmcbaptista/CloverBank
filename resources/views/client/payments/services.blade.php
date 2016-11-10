@@ -24,7 +24,7 @@
 
     <script>
         $().ready(function () {
-            $("#account").click(function () {
+            $("#account").change(function () {
                 $.get('/account/balance/'+$("#account").val(), function(data) {
                     $("#balance").text(data+' €');
                 });

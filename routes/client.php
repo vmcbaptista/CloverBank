@@ -1,13 +1,16 @@
 <?php
 
-Route::get('/home', function () {
+Route::get('/', function () {
     $users[] = Auth::user();
     $users[] = Auth::guard()->user();
     $users[] = Auth::guard('client')->user();
 
     //dd($users);
 
-    return view('client.home');
+    $client = \Auth::guard('client')->user();
+    $accounts = $client->accounts;
+
+    return view('client.home',compact('accounts'));
 })->name('home');
 
 Route::get('/passwords/ChangePassword', function () {
