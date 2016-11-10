@@ -34,7 +34,11 @@ class AccountMovementController extends Controller
 
             $movement = new AccountMovement();
             $movement->amount = -$request->amount;
-            $movement->description = $request->description;
+            if (empty($request->description)) {
+                $movement->description = "Pag. Serviço Ent.".$service_payment->entity." Ref. ".$service_payment->reference;
+            } else {
+                $movement->description = $request->description;
+            }
 
             $movement->currentAccount()->associate($account);
             $movement->save();
