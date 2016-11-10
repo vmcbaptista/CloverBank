@@ -37,6 +37,8 @@
 
         </ul>
     </div>
+
+<div class="main-interface">
     <div class="side-bar">
         <h3>Atendimento ao Publico</h3>
 
@@ -64,8 +66,10 @@
         <a href="#" >Site</a>
         <a href="#" >Random</a>
     </div>
+    <div class="main-body">
 
-
+</div>
+</div>
 
     <script type="text/javascript" src="{{ URL::asset('js/manager/dropdown_navbar.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/manager/sidebar.js') }}"></script>

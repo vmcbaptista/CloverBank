@@ -1,8 +1,16 @@
+.main-interface {
+    display: flex;
+    height: calc(100% - 119px);
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
 .side-bar{
     display: flex;
     flex-direction: column;
     width: 200px;
-    height: calc(100% - 117px);
     background-color: #2ab27b;
     border-right: solid thin gray;
 }
@@ -13,6 +21,7 @@
     color: white;
     text-decoration: none;
 }
+
 .side-bar > a{
     border-bottom: solid thin gray;
 }
