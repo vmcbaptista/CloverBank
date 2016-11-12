@@ -1,30 +1,4 @@
-@section('nav-bar')
-    <div class="nav-bar">
-        <ul class="option-menu">
-            <li><a class="link" href="#">A nossa instituição</a></li>
-            <li><a class="link" href="#">Particulares</a></li>
-            <li><a class="link" href="#">Empresas</a></li>
-            <li><a class="link" href="#">Ajuda</a></li>
-            <li class="li_access" id="openLogin"><a class="link" href="#"><i class="fa fa-lock" aria-hidden="true" ></i> Acesso Online </a></li>
-        </ul>
-    </div>
 
-    <div class="login_form" id="form_to_login">
-        <form action="#" method="POST">
-            <input name="username" placeholder="Nome Utilizador">
-            <input name="password" type="password" placeholder="Palavra-Passe">
-            <button>  <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
-        </form>
-        <a class="forgotten_password" href="#">Esqueceu a Palavra-Passe?</a>
-        <div class="subBar_login">
-            <a href="#"><i class="fa fa-mobile" aria-hidden="true"></i>
-                Faça ja Download da nossa App</a>
-            <a href="#"><i class="fa fa-shield" aria-hidden="true"></i>
-                Medidas de Segurança</a>
-            <a href="#">Ainda nao e cliente CloverBank?<span class="underline"> Adira Ja</span> </a>
-        </div>
-    </div>
-@endsection
 
 
 @section('slider')
