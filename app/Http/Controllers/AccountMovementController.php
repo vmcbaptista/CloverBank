@@ -10,13 +10,21 @@ use Illuminate\Support\Facades\DB;
 
 class AccountMovementController extends Controller
 {
-
+    /**
+     * Renders the form that allow clients to do payments of services
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showForm(Request $request) {
         $client = \Auth::guard('client')->user();
         $accounts = $client->accounts;
         return view('client.payments.services',compact('accounts'));
     }
 
+    /**
+     * Create a payment of a a service
+     * @param Request $request
+     */
     public function servicePayment(Request $request)
     {
         #TODO: Verificar se o cliente tem saldo antes de efetuar transação
@@ -47,6 +55,11 @@ class AccountMovementController extends Controller
         });
     }
 
+    /**
+     * Get all the movements related with a specific account
+     * @param $account_id
+     * @return mixed
+     */
     public function getMovements($account_id)
     {
         $account = CurrentAccount::find($account_id);

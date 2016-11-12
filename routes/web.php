@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/account/add', 'AccountController@showForm')->middleware('manager');
 
 Route::post('/account/current/add', 'CurrentAccountController@add')->middleware('manager');

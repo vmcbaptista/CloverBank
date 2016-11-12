@@ -70,6 +70,11 @@ class CurrentAccountController extends Controller
         return $acc;
     }
 
+    /**
+     * Get the balance of a given current account
+     * @param $id int the id of the account
+     * @return mixed
+     */
     public function balance($id)
     {
         return CurrentAccount::find($id)->balance;
