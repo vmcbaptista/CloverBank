@@ -21,4 +21,20 @@ class AccountMovement extends Model
     {
         return $this->hasOne('App\ServicesPayment','account_movements_id');
     }
+
+    /**
+     * A movement could be a phone payment
+     */
+    public function phone_payment()
+    {
+        return $this->hasOne('App\PhoneNetwork','account_movements_id');
+    }
+
+    /**
+     * A movement could be a state payment
+     */
+    public function state_payment()
+    {
+        return $this->hasOne('App\StatePayment','account_movements_id');
+    }
 }

@@ -15,7 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::get('/account/add', 'AccountController@showForm')->middleware('manager');
 
 Route::post('/account/current/add', 'CurrentAccountController@add')->middleware('manager');
@@ -32,11 +31,19 @@ Route::get('/client/add', 'ClientController@addForm');
 
 Route::post('/client/add', 'ClientController@add');
 
-Route::get('/payments/services', 'AccountMovementController@showForm')->middleware('client');
+Route::get('/payments/services', 'AccountMovementController@showServicesForm')->middleware('client');
 
 Route::post('/payments/services', 'AccountMovementController@servicePayment')->middleware('client');
 
-Route::get('/movements/{account_id}', 'AccountMovementController@getMovements')->middleware('manager');
+Route::get('/payments/phone', 'AccountMovementController@showPhoneForm')->middleware('client');
+
+Route::post('/payments/phone', 'AccountMovementController@phonePayment')->middleware('client');
+
+Route::get('/payments/state', 'AccountMovementController@showStateForm')->middleware('client');
+
+Route::post('/payments/state', 'AccountMovementController@statePayment')->middleware('client');
+
+Route::get('/movements/{account_id}', 'AccountMovementController@getMovements')->middleware('client');
 
 Route::post('/client/search', 'ClientController@search')->middleware('manager');
 

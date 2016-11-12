@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ServicesPayment extends Model
+class PhoneNetwork extends Model
 {
-    protected $table = 'services_payment';
+    protected $table = 'phone_network';
 
     /**
      * Each service payment is related with a movement

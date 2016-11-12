@@ -6,6 +6,8 @@
         <a href="#">Dados da Conta</a><br>
         <a href="#">Pagamentos</a><br>
         <a href="/payments/services">Pagamento de Serviços</a><br>
+        <a href="/payments/phone">Pagamento de Telemóveis</a><br>
+        <a href="/payments/state">Pagamento ao Estado</a><br>
         <a href="#">Transferências</a><br>
         <a href="/client/passwords/ChangePassword">Mudar password</a><br>
 
