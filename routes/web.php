@@ -15,15 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/account/add', 'AccountController@showForm');
+Route::get('/account/add', 'AccountController@showForm')->middleware('manager');
 
-Route::post('/account/current/add', 'CurrentAccountController@add');
+Route::post('/account/current/add', 'CurrentAccountController@add')->middleware('manager');
 
-Route::post('/account/current/search/{client_id}', 'CurrentAccountController@search');
+Route::post('/account/current/search/{client_id}', 'CurrentAccountController@search')->middleware('manager');
 
-Route::post('/account/saving/add', 'SavingAccountController@add');
+Route::post('/account/saving/add', 'SavingAccountController@add')->middleware('manager');
 
-Route::post('/account/loan/add', 'LoanController@add');
+Route::post('/account/loan/add', 'LoanController@add')->middleware('manager');
 
 Route::get('/account/balance/{id}', 'CurrentAccountController@balance');
 
@@ -31,19 +31,17 @@ Route::get('/client/add', 'ClientController@addForm');
 
 Route::post('/client/add', 'ClientController@add');
 
-Route::get('/client/search', 'ClientController@showSearch');
+Route::get('/payments/services', 'AccountMovementController@showForm')->middleware('client');
 
-Route::get('/payments/services', 'AccountMovementController@showForm');
+Route::post('/payments/services', 'AccountMovementController@servicePayment')->middleware('client');
 
-Route::post('/payments/services', 'AccountMovementController@servicePayment');
+Route::get('/movements/{account_id}', 'AccountMovementController@getMovements')->middleware('manager');
 
-Route::get('/movements/{account_id}', 'AccountMovementController@getMovements');
+Route::post('/client/search', 'ClientController@search')->middleware('manager');
 
-Route::post('/client/search', 'ClientController@search');
+Route::get('/product/create', 'ProductController@renderForm')->middleware('manager');
 
-Route::get('/product/create', 'ProductController@renderForm');
-
-Route::post('/product/create', 'ProductController@create');
+Route::post('/product/create', 'ProductController@create')->middleware('manager');
 
 Route::get('/product/current', 'ProductController@getCurrent');
 

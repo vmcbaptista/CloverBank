@@ -43,10 +43,6 @@ class ClientController extends Controller
         return $client->id;
     }
 
-    public function showSearch() {
-        return view('client.search');
-    }
-
     public function search(Request $request)
     {
         return Client::where('nif', '=', $request->nif)->firstOrFail();

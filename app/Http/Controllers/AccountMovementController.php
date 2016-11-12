@@ -10,10 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class AccountMovementController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('client');
-    }
 
     public function showForm(Request $request) {
         $client = \Auth::guard('client')->user();

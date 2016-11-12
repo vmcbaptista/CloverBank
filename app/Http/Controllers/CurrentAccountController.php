@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\DB;
 class CurrentAccountController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('manager');
-    }
-
     /**
      * Add news current account and user if the person isn't yet a client of the bank
      * @param Request $request
