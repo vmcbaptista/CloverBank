@@ -15,35 +15,41 @@ Route::get('/', function () {
     return view('main_page');
 });
 
-Route::get('/manager', function () {
-    return view('manager.manager');
-});
+Route::get('/account/add', 'AccountController@showForm')->middleware('manager');
 
-Route::get('/client', function () {
-    return view('client.client');
-});
+Route::post('/account/current/add', 'CurrentAccountController@add')->middleware('manager');
 
-Route::get('/account/add', 'AccountController@showForm');
+Route::post('/account/current/search/{client_id}', 'CurrentAccountController@search')->middleware('manager');
 
-Route::post('/account/current/add', 'CurrentAccountController@add');
+Route::post('/account/saving/add', 'SavingAccountController@add')->middleware('manager');
 
-Route::post('/account/current/search/{client_id}', 'CurrentAccountController@search');
+Route::post('/account/loan/add', 'LoanController@add')->middleware('manager');
 
-Route::post('/account/saving/add', 'SavingAccountController@add');
-
-Route::post('/account/loan/add', 'LoanController@add');
+Route::get('/account/balance/{id}', 'CurrentAccountController@balance');
 
 Route::get('/client/add', 'ClientController@addForm');
 
 Route::post('/client/add', 'ClientController@add');
 
-Route::get('/client/search', 'ClientController@showSearch');
+Route::get('/payments/services', 'AccountMovementController@showServicesForm')->middleware('client');
 
-Route::post('/client/search', 'ClientController@search');
+Route::post('/payments/services', 'AccountMovementController@servicePayment')->middleware('client');
 
-Route::get('/product/create', 'ProductController@renderForm');
+Route::get('/payments/phone', 'AccountMovementController@showPhoneForm')->middleware('client');
 
-Route::post('/product/create', 'ProductController@create');
+Route::post('/payments/phone', 'AccountMovementController@phonePayment')->middleware('client');
+
+Route::get('/payments/state', 'AccountMovementController@showStateForm')->middleware('client');
+
+Route::post('/payments/state', 'AccountMovementController@statePayment')->middleware('client');
+
+Route::get('/movements/{account_id}', 'AccountMovementController@getMovements')->middleware('client');
+
+Route::post('/client/search', 'ClientController@search')->middleware('manager');
+
+Route::get('/product/create', 'ProductController@renderForm')->middleware('manager');
+
+Route::post('/product/create', 'ProductController@create')->middleware('manager');
 
 Route::get('/product/current', 'ProductController@getCurrent');
 

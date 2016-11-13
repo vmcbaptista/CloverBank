@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddAmmountSaving extends Migration
+class AddBalanceAfterMovement extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddAmmountSaving extends Migration
      */
     public function up()
     {
-        Schema::table('savings', function (Blueprint $table) {
-            $table->double('amount');
+        Schema::table('account_movements', function (Blueprint $table) {
+            $table->double('balance_after');
         });
     }
 
@@ -25,8 +25,8 @@ class AddAmmountSaving extends Migration
      */
     public function down()
     {
-        Schema::table('savings', function (Blueprint $table) {
-            $table->dropColumn('amount');
+        Schema::table('account_movements', function (Blueprint $table) {
+            $table->dropColumn('balance_after');
         });
     }
 }

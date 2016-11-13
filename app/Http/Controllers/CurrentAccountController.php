@@ -13,10 +13,11 @@ use Illuminate\Support\Facades\DB;
 class CurrentAccountController extends Controller
 {
 
-    public function __construct()
+    /*public function __construct()
     {
         $this->middleware('manager');
     }
+    */
 
     /**
      * Add news current account and user if the person isn't yet a client of the bank
@@ -73,5 +74,10 @@ class CurrentAccountController extends Controller
             array_push($acc,array("id" => $account->id, "account" => $name, "clients" => $cli));
         }
         return $acc;
+    }
+
+    public function balance($id)
+    {
+        return CurrentAccount::find($id)->balance;
     }
 }

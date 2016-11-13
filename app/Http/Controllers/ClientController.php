@@ -13,12 +13,12 @@ use App\Mail\SendLoginInfo;
 
 class ClientController extends Controller
 {
-    public function addForm()
-    {
-        $client_types = ClientType::all();
-        return view("client.add",compact('client_types'));
-    }
 
+    /**
+     * Create a new client
+     * @param $clientData the data of the client that is sent through a AJAX request
+     * @return mixed
+     */
     public static function add($clientData)
     {
         $client = new Client();
@@ -43,10 +43,11 @@ class ClientController extends Controller
         return $client->id;
     }
 
-    public function showSearch() {
-        return view('client.search');
-    }
-
+    /**
+     * Returns the client with a specific NIF
+     * @param Request $request
+     * @return mixed
+     */
     public function search(Request $request)
     {
         return Client::where('nif', '=', $request->nif)->firstOrFail();

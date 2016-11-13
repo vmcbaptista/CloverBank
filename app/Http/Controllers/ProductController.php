@@ -76,21 +76,41 @@ class ProductController extends Controller
         return $tanb * (100 - $retFont);
     }
 
+    /**
+     * Returns all the Products available in the bank
+     * @param Request $request
+     * @return mixed
+     */
     public function getProduct(Request $request)
     {
         return Product::findOrFail($request->id);
     }
 
+    /**
+     * Returns all the current account products available in the bank
+     * @param Request $request
+     * @return mixed
+     */
     public function getCurrent()
     {
         return ProductCurrent::all();
     }
 
+    /**
+     * Returns all the loan products available in the bank
+     * @param Request $request
+     * @return mixed
+     */
     public function getLoan()
     {
         return ProductLoan::all();
     }
 
+    /**
+     * Returns all the savings account products available in the bank
+     * @param Request $request
+     * @return mixed
+     */
     public function getSaving()
     {
         return ProductSaving::all();

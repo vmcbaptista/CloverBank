@@ -34,7 +34,14 @@ class ChangePassword extends Controller
         return view('/client/auth/passwords/ChangePassword')->with("ErroVerificacao",$ErroVerificacao);
     }
 
-    public static function VerificaDadosIntroduzidos()
+    public function passwordCheck()
+    {
+
+        $ErroVerificacao = 0;
+        return view('/client/auth/passwords/ChangePassword')->with("ErroVerificacao",$ErroVerificacao);
+    }
+
+    public function VerificaDadosIntroduzidos()
     {
         $username= Auth::user()->username;
         $PasswordActual = $_REQUEST["PasswordAtual"];

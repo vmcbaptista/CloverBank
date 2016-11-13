@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAccountMovementsTable extends Migration
+class AddAmountSaving extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +13,8 @@ class CreateAccountMovementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('account_movements', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('description')->nullable();
+        Schema::table('savings', function (Blueprint $table) {
             $table->double('amount');
-            $table->integer('current_account_id')->unsigned();
-            $table->timestamps();
-
-
         });
     }
 
@@ -30,6 +25,8 @@ class CreateAccountMovementsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('account_movements');
+        Schema::table('savings', function (Blueprint $table) {
+            $table->dropColumn('amount');
+        });
     }
 }

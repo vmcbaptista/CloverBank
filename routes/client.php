@@ -1,31 +1,13 @@
 <?php
 
-Route::get('/home', function () {
-    $users[] = Auth::user();
-    $users[] = Auth::guard()->user();
-    $users[] = Auth::guard('client')->user();
+Route::get('/home', "ClientAuth\HomeController@showHome")->name('home');
 
-    //dd($users);
+Route::get('/passwords/ChangePassword', "ClientAuth\ChangePassword@ApresentaForm")->name('passwords.change');
 
-    return view('client.home');
-})->name('home');
+Route::post('/Passwords/ChangePassword/check', "ClientAuth\ChangePassword@VerificaDadosIntroduzidos")->name('passwords.change.check');
 
-Route::get('/passwords/ChangePassword', function () {
-    $users[] = Auth::user();
-    $users[] = Auth::guard()->user();
-    $users[] = Auth::guard('client')->user();
+Route::get('/transfers/', "TransferenciasController@showForm")->name('transfers');
 
-    //dd($users);
-    $ErroVerificacao=0;
-    return view('client.auth.passwords.ChangePassword')->with("ErroVerificacao",$ErroVerificacao);
-})->name('home');
+Route::post('/transfers/', "TransferenciasController@VerificaTransferencia")->name('transfers.post');
 
-Route::post('/Passwords/ChangePassword/check', function () {
-    $users[] = Auth::user();
-    $users[] = Auth::guard()->user();
-    $users[] = Auth::guard('client')->user();
-
-    //dd($users);
-    $ErroVerificacao = \App\Http\Controllers\ClientAuth\ChangePassword::VerificaDadosIntroduzidos();
-    echo $ErroVerificacao;
-})->name('home');
+Route::post('/transfers/check', "TransferenciasController@CheckVerificationCode")->name('transfers.check');

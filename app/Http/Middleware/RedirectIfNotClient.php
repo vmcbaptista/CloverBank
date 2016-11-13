@@ -18,7 +18,7 @@ class RedirectIfNotClient
 	public function handle($request, Closure $next, $guard = 'client')
 	{
 	    if (!Auth::guard($guard)->check()) {
-	        return view('client/login');
+	        return view('main_page');
 	    }
 
 	    return $next($request);
