@@ -9,9 +9,9 @@ class HomeController extends Controller
 {
     public function showHome()
     {
-        $client = \Auth::guard('client')->user();
+        $client = \Auth::guard('manager')->user();
         $accounts = $client->accounts;
 
-        return view('client.home',compact('accounts'));
+        return view('manager.home',compact('accounts'));
     }
 }
