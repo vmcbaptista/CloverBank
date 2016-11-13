@@ -65,7 +65,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $username = explode(" ",$data['name'])
+        $username = explode(" ",$data['name']);
         $username = end($username)[0];
         $username .= substr($data['name'],0,2);
         $username .= $data['nif'];

@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('main_page');
 });
 
 Route::get('/manager', function () {
@@ -52,20 +52,23 @@ Route::get('/product/loan', 'ProductController@getLoan');
 Route::get('/product/saving', 'ProductController@getSaving');
 
 Route::get('/product/{id}', 'ProductController@getProduct');
+
+
 //Client Login
-Route::get('client/login', 'ClientAuth\LoginController@showLoginForm');
 Route::post('client/login', 'ClientAuth\LoginController@login');
 Route::post('client/logout', 'ClientAuth\LoginController@logout');
 
-//Client Register
-Route::get('client/register', 'ClientAuth\RegisterController@showRegistrationForm');
-Route::post('client/register', 'ClientAuth\RegisterController@register');
 
 //Client Passwords
 Route::post('client/password/email', 'ClientAuth\ForgotPasswordController@sendResetLinkEmail');
 Route::post('client/password/reset', 'ClientAuth\ResetPasswordController@reset');
 Route::get('client/password/reset', 'ClientAuth\ForgotPasswordController@showLinkRequestForm');
 Route::get('client/password/reset/{token}', 'ClientAuth\ResetPasswordController@showResetForm');
+
+
+//Client Register
+Route::get('client/register', 'ClientAuth\RegisterController@showRegistrationForm');
+Route::post('client/register', 'ClientAuth\RegisterController@register');
 
 
 //Manager Login
@@ -92,7 +95,6 @@ Route::post('/manager/passwords/resetPassword/verification', 'ManagerAuth\Forgot
 Route::post('/manager/passwords/resetPassword/Codeverification', 'ManagerAuth\ForgotPasswordController@CheckVerificationCode');
 Route::post('/manager/passwords/resetPassword/NewPassword', 'ManagerAuth\ForgotPasswordController@CheckNewPasswords');
 //client change Password
-
 Route::get('/client/passwords/ChangePassword','ManagerAuth\ChangePassword@ApresentaForm');
 Route::post('/client/Passwords/ChangePassword/check','ManagerAuth\ChangePassword@VerificaDadosIntroduzidos');
 
@@ -101,3 +103,5 @@ Route::get('client/password/resetPassword', 'ClientAuth\ForgotPasswordController
 Route::post('/client/passwords/resetPassword/verification', 'ClientAuth\ForgotPasswordController@CheckEmail');
 Route::post('/client/passwords/resetPassword/Codeverification', 'ClientAuth\ForgotPasswordController@CheckVerificationCode');
 Route::post('/client/passwords/resetPassword/NewPassword', 'ClientAuth\ForgotPasswordController@CheckNewPasswords');
+
+Route::get('/help', 'HelpController@renderPage');

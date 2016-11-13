@@ -13,6 +13,6 @@ class AccountController extends Controller
     }
 
     public function showForm(Request $request) {
-        return view('account.formAdd');
+        return view('manager.add_account_client');
     }
 }
