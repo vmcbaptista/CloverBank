@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 class ProductController extends Controller
 {
     public function renderForm(){
-        return view('create_product');
+        return view('manager.create_product');
     }
 
     /**

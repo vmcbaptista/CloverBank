@@ -1,4 +1,4 @@
-@extends('client.layout.auth')
+@extends('template')
 
 @section('content')
 <div class="container">

@@ -43,10 +43,10 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showLoginForm()
+    /*public function showLoginForm()
     {
         return view('client.auth.login');
-    }
+    }*/
 
     /**
      * Get the guard to be used during authentication.

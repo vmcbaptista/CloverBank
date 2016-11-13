@@ -1,164 +1,92 @@
-@extends('client.layout.auth')
+@extends('template')
+
+
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/reset_password.css')}}">
+@endsection
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Encontrar a tua conta</div>
-                    <div class="panel-body">
+<div class="content">
+    <div class="background-wrapping"></div>
+    <!--Ask for password-->
+    @if($VerificationStep==0)
+        <form  class="form-forgotten_password" method="POST" action="{{ url('/client/passwords/resetPassword/verification') }}">
+            {{ csrf_field() }}
+                <h4> Esqueceu a palavra-passe</h4>
 
-                        @if($VerificationStep==0)
-                            <form class="form-horizontal" role="form" method="POST" action="{{ url('/client/passwords/resetPassword/verification') }}">
-                                {{ csrf_field() }}
-                                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                    <label for="email" class="col-md-4 control-label">Email</label>
+                <input class="email" type="text" name="EmailClient" placeholder="Email" >
 
-                                    <div class="col-md-6">
-                                        <input id="Email" type="text" class="form-control" name="EmailClient" required>
-
-                                        @if ($errors->has('Email'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('Email') }}</strong>
-                                    </span>
-                                        @endif
-                                    </div>
-                                    @if($ErroVerification == 1)
-                                        <div class="form-group">
-                                            <div class="col-md-8 col-md-offset-4">
-                                                <p style = "color: red ">Nao pode existir campos vazios</p>
-                                            </div>
-                                        </div>
-                                    @endif
-                                    @if($ErroVerification == 2)
-                                        <div class="form-group">
-                                            <div class="col-md-8 col-md-offset-4">
-                                                <p style = "color: red ">Não existe nenhuma conta associada com o email introduzido</p>
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-8 col-md-offset-4">
-                                        <button type="submit" class="btn btn-primary">
-                                            Continuar
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        @endif
-                        @if($VerificationStep==1)
-                            <form class="form-horizontal" role="form" method="POST" action="{{ url('/client/passwords/resetPassword/Codeverification') }}">
-                                {{ csrf_field() }}
-                                <div class="form-group{{ $errors->has('verificationCode') ? ' has-error' : '' }}">
-                                    <label for="verificationCode" class="col-md-4 control-label">Código de verificação</label>
-
-                                    <div class="col-md-6">
-                                        <input id="verificationCode" type="text" class="form-control" name="verificationCode" required>
-
-                                        @if ($errors->has('verificationCode'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('verificationCode') }}</strong>
-                                    </span>
-                                        @endif
-                                    </div>
-                                    @if($ErroVerification == 1)
-                                        <div class="form-group">
-                                            <div class="col-md-8 col-md-offset-4">
-                                                <p style = "color: red ">Nao pode existir campos vazios</p>
-                                            </div>
-                                        </div>
-                                    @endif
-                                    @if($ErroVerification == 2)
-                                        <div class="form-group">
-                                            <div class="col-md-8 col-md-offset-4">
-                                                <p style = "color: red ">O código de verificação introduzido está incorreto</p>
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-8 col-md-offset-4">
-                                        <button type="submit" class="btn btn-primary">
-                                            Continuar
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-
-                        @endif
-                        @if($VerificationStep==2)
-                            <form class="form-horizontal" role="form" method="POST" action="{{ url('/client/passwords/resetPassword/NewPassword') }}">
-                                {{ csrf_field() }}
-                                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                    <label for="password" class="col-md-4 control-label"> Nova Password</label>
-
-                                    <div class="col-md-6">
-                                        <input id="Newpassword" type="password" class="form-control" name="Newpassword" required>
-
-                                        @if ($errors->has('password'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                        @endif
-                                    </div>
-                                </div>
-
-                                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                    <label for="password" class="col-md-4 control-label">Confirme Password</label>
-
-                                    <div class="col-md-6">
-                                        <input id="ConfirmNewpassword" type="password" class="form-control" name="ConfirmNewpassword"  required>
-
-                                        @if ($errors->has('password'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                        @endif
-                                    </div>
-                                </div>
-                                @if($ErroVerification == 1)
-                                    <div class="form-group">
-                                        <div class="col-md-8 col-md-offset-4">
-                                            <p style = "color: red ">Nao pode existir campos vazios</p>
-                                        </div>
-                                    </div>
-                                @endif
-                                @if($ErroVerification == 2)
-                                    <div class="form-group">
-                                        <div class="col-md-8 col-md-offset-4">
-                                            <p style = "color: red ">As passwords introduzidas não correspondem</p>
-                                        </div>
-                                    </div>
-                                @endif
-
-                                <div class="form-group">
-                                    <div class="col-md-8 col-md-offset-4">
-                                        <button type="submit" class="btn btn-primary">
-                                            Continuar
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        @endif
-                        @if($VerificationStep==3)
-
-                            <div class="form-group">
-                                <div class="col-md-8 col-md-offset-4">
-                                    <p style = "color: green ">A sua password foi alterada com sucesso!</p>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-8 col-md-offset-4">
-                                    <a href="http://localhost:8000/client/login">Login </a>
-                                </div>
-                            </div>
-
-                        @endif
+                @if($ErroVerification == 1)
+                    <div class="error">
+                            <p>Nao podem existir campos vazios</p>
                     </div>
+                @endif
+                @if($ErroVerification == 2)
+                    <div class="error">
+                            <p >Não existe nenhuma conta associada com o email introduzido</p>
+                    </div>
+                @endif
+                <button type="submit" class="">Continuar</button>
+        </form>
+    @endif
+    <!--Code insertion-->
+    @if($VerificationStep==1)
+        <form class="form-forgotten_password" method="POST" action="{{ url('/client/passwords/resetPassword/Codeverification') }}">
+            {{ csrf_field() }}
+                <h4> Esqueceu a palavra-passe</h4>
+
+                <input id="verificationCode" type="text" class="form-control" name="verificationCode" placeholder="Código de verificação">
+
+
+                @if($ErroVerification == 1)
+                    <div class="error">
+                        <p>Nao podem existir campos vazios</p>
+                    </div>
+                @endif
+                @if($ErroVerification == 2)
+                    <div class="error">
+                        <p>O código de verificação introduzido está incorreto</p>
+                    </div>
+                @endif
+                <button type="submit" >Continuar</button>
+        </form>
+    @endif
+
+
+    <!-- New pasword defenition -->
+    @if($VerificationStep==2)
+        <form class="form-forgotten_password" method="POST" action="{{ url('/client/passwords/resetPassword/NewPassword') }}">
+            {{ csrf_field() }}
+                <h4> Esqueceu a palavra-passe</h4>
+                <input class="password" id="newpassword" type="password" class="form-control" name="Newpassword" placeholder="Nova palavra-passe">
+                <input class="password"  id="ConfirmNewpassword" type="password" class="form-control" name="ConfirmNewpassword"  placeholder="Confirme palavra-passe">
+
+            @if($ErroVerification == 1)
+                <div class="error">
+                        <p>Nao pode existir campos vazios</p>
                 </div>
-            </div>
-        </div>
-    </div>
+            @endif
+            @if($ErroVerification == 2)
+                <div class="error">
+                        <p>As passwords introduzidas não correspondem</p>
+                </div>
+            @endif
+            <button type="submit">Continuar</button>
+        </form>
+    @endif
+
+
+    <!-- Show the user that the procedure was ok -->
+    @if($VerificationStep==3)
+        <div class="form-forgotten_password">
+            <h4> Esqueceu a palavra-passe</h4>
+            <h5> A sua palavra-passe foi redefinida</h5>
+            <button id="loginBt" >Clique para que possa fazer login</button>
+        <div>
+    @endif
+
+@endsection
+
+@section('javascript')
+                <script type="text/javascript" src="{{ URL::asset('js/forgotten_password_show_login.js') }}"></script>
 @endsection
