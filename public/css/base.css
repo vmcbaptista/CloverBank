@@ -7,8 +7,17 @@
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     outline: none;
-
 }
+
+input, button{
+    padding: 10px;
+    margin: 3px;
+    opacity: 0.9;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
 
 html {
 

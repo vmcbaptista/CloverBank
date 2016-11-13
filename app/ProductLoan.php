@@ -10,6 +10,13 @@ class ProductLoan extends Model
 
     #One loan product only extends from one product
     public function belongsTOne_product(){
-       return $this->hasOne('App\Product');
+       return $this->belongsTo('App\Product');
+    }
+
+    /**
+     * Each loan product as many Loans
+     */
+    public function loans(){
+        return $this->hasMany('App\Loan');
     }
 }

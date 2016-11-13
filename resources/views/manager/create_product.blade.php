@@ -1,4 +1,4 @@
-@extends('template')
+@extends('manager.manager_template')
 
 @section('content')
 

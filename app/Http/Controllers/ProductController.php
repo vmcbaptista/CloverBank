@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 class ProductController extends Controller
 {
     public function renderForm(){
-        return view('create_product');
+        return view('manager.create_product');
     }
 
     /**
@@ -74,5 +74,25 @@ class ProductController extends Controller
      */
     private function calculate_tanl($tanb, $retFont){
         return $tanb * (100 - $retFont);
+    }
+
+    public function getProduct(Request $request)
+    {
+        return Product::findOrFail($request->id);
+    }
+
+    public function getCurrent()
+    {
+        return ProductCurrent::all();
+    }
+
+    public function getLoan()
+    {
+        return ProductLoan::all();
+    }
+
+    public function getSaving()
+    {
+        return ProductSaving::all();
     }
 }

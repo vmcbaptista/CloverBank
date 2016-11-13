@@ -6,6 +6,9 @@
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/base.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/font-awesome.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/manager/manager.css')}}">
+
+
+    @yield('head')
 </head>
 <body>
 
@@ -27,24 +30,30 @@
                 <div id="user-image">
                     <img style="height: 22px; width: 22px;" src="/img/user.png">
                 </div>
-                <a class="link" href="#">Utilizador X</a>
+                <a class="link" href="#"> {{ Auth::user()->name }} </a>
                 <ul class="user-options">
                     <li><i class="fa fa-address-card-o" aria-hidden="true"></i> <span class="profile">Perfil</span> </li>
-                    <li><i class="fa fa-cog" aria-hidden="true"></i>            <span class="settings">Definiçoes</span> </li>
-                    <li class="bottom-logout"><i class="fa fa-sign-out" aria-hidden="true"></i>       <span class="logout">Sair</span> </li>
+                    <li><i class="fa fa-cog" aria-hidden="true"></i>            <span href="/manager/passwords/ChangePassword" class="settings">Definiçoes</span> </li>
+                    <li class="bottom-logout"><i class="fa fa-sign-out" aria-hidden="true"
+                                                 onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();"></i>
+                        <span class="logout">Sair</span> </li>
+
+                        <form id="logout-form" action="{{ url('/manager/logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
                 </ul>
             </li>
 
         </ul>
     </div>
-
 <div class="main-interface">
     <div class="side-bar">
         <h3>Atendimento ao Publico</h3>
 
         <a href="#" >Contas Correntes</a>
         <div id="dropdown-current" class="dropdown-content">
-            <a href="#">Link 1</a>
+            <a href="/account/add">Criar Conta</a>
             <a href="#">Link 2</a>
             <a href="#">Link 3</a>
         </div>
@@ -59,7 +68,7 @@
         <h3>Gestao</h3>
         <a href="#" >Produtos</a>
         <div id="dropdown-products" class="dropdown-content">
-            <a href="#">Link 1</a>
+            <a href="/product/create">Criar Produto</a>
             <a href="#">Link 2</a>
             <a href="#">Link 3</a>
         </div>
@@ -67,8 +76,9 @@
         <a href="#" >Random</a>
     </div>
     <div class="main-body">
+        @yield('content')
 
-</div>
+    </div>
 </div>
 
     <script type="text/javascript" src="{{ URL::asset('js/manager/dropdown_navbar.js') }}"></script>

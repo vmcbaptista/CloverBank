@@ -15,11 +15,9 @@ class CreateCurrentAccountHasClientTable extends Migration
         Schema::create('current_account_has_client', function (Blueprint $table) {
             $table->integer('current_account_id')->unsigned();
             $table->integer('client_id')->unsigned();
-            $table->string('password');
-            $table->increments('pin');
             $table->timestamps();
 
-            $table->foreign('client_id')->references('id')->on('client')->onDelete('no action')->onUpdate('no action');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('no action')->onUpdate('no action');
             $table->foreign('current_account_id')->references('id')->on('current_account')->onDelete('no action')->onUpdate('no action');
         });
     }

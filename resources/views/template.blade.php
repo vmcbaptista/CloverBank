@@ -10,7 +10,8 @@
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/slider.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/login_form.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/our_company.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/products.css')}}">
+
+    @yield('css')
     <title>CloverBank</title>
 </head>
 <body>
@@ -34,28 +35,32 @@
         </div>
 
         <div class="login_form" id="form_to_login">
-            <form action="#" method="POST">
+
+            <form method="POST" action="{{ url('/client/login') }}">
+                {{ csrf_field() }}
                 <input name="username" placeholder="Nome Utilizador">
                 <input name="password" type="password" placeholder="Palavra-Passe">
-                <button>  <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                <button type="submit">  <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
             </form>
-            <a class="forgotten_password" href="#">Esqueceu a Palavra-Passe?</a>
+
+            <a class="forgotten_password" href="{{ url('/client/password/resetPassword') }}">Esqueceu a Palavra-Passe?</a>
             <div class="subBar_login">
                 <a href="#"><i class="fa fa-mobile" aria-hidden="true"></i>
                     Faça ja Download da nossa App</a>
                 <a href="#"><i class="fa fa-shield" aria-hidden="true"></i>
                     Medidas de Segurança</a>
-                <a href="#">Ainda nao e cliente CloverBank?<span class="underline"> Adira Ja</span> </a>
+                <a href="client/register">Ainda nao e cliente CloverBank?<span class="underline"> Adira Ja</span> </a>
             </div>
         </div>
 
-    @yield('slider')
+        @yield('slider')
+        @yield('menu')
 
-    <!--@yield('menu')-->
-    <!--@yield('content')-->
+
+                @yield('content')
 
     <script type="text/javascript" src="{{ URL::asset('js/slider.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/login_form.js') }}"></script>
-
+    @yield('javascript')
 </body>
 </html>

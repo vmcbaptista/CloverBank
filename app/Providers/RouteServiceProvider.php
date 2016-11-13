@@ -39,7 +39,49 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapManagerRoutes();
+
+        $this->mapClientRoutes();
+
         //
+    }
+
+    /**
+     * Define the "client" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapClientRoutes()
+    {
+        Route::group([
+            'middleware' => ['web', 'client', 'auth:client'],
+            'prefix' => 'client',
+            'as' => 'client.',
+            'namespace' => $this->namespace,
+        ], function ($router) {
+            require base_path('routes/client.php');
+        });
+    }
+
+    /**
+     * Define the "manager" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapManagerRoutes()
+    {
+        Route::group([
+            'middleware' => ['web', 'manager', 'auth:manager'],
+            'prefix' => 'manager',
+            'as' => 'manager.',
+            'namespace' => $this->namespace,
+        ], function ($router) {
+            require base_path('routes/manager.php');
+        });
     }
 
     /**
