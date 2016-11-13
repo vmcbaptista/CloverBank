@@ -1,4 +1,5 @@
-@extends('template')
+@extends('client.client_template')
+
 @section('content')
     <form method="POST" id="addCliForm">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">

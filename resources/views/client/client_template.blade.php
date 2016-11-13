@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Gestor de Conta</title>
+    <title>CloverBank - Cliente</title>
     <script type="text/javascript" src="{{ URL::asset('js/jquery-3.1.1.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/base.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/font-awesome.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/manager/manager.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/client/client.css')}}">
 
 
     @yield('head')
@@ -30,16 +30,16 @@
                 <div id="user-image">
                     <img style="height: 22px; width: 22px;" src="/img/user.png">
                 </div>
-                <a class="link" href="#"> {{ Auth::guard('manager')->user()->name }} </a>
+                <a class="link" href="#"> {{ Auth::guard('client')->user()->name }} </a>
                 <ul class="user-options">
                     <li><i class="fa fa-address-card-o" aria-hidden="true"></i> <span class="profile">Perfil</span> </li>
-                    <li><i class="fa fa-cog" aria-hidden="true"></i>            <span href="/manager/passwords/ChangePassword" class="settings">Definiçoes</span> </li>
+                    <li><i class="fa fa-cog" aria-hidden="true"></i>            <span href="/client/passwords/ChangePassword" class="settings">Definiçoes</span> </li>
                     <li class="bottom-logout"><i class="fa fa-sign-out" aria-hidden="true"
                                                  onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();"></i>
                         <span class="logout">Sair</span> </li>
 
-                        <form id="logout-form" action="{{ url('/manager/logout') }}" method="POST" style="display: none;">
+                        <form id="logout-form" action="{{ url('/client/logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
                         </form>
                 </ul>
@@ -49,13 +49,16 @@
     </div>
 <div class="main-interface">
     <div class="side-bar">
-        <h3>Atendimento ao Publico</h3>
+        <h3>Cliente</h3>
 
-        <a href="#" >Contas Correntes</a>
-        <div id="dropdown-current" class="dropdown-content">
-            <a href="/account/add">Criar Conta</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
+        <br>
+        <a href="#">Dados da Conta</a>
+        <a href="#">Pagamentos</a>
+        <div id="dropdown-payments" class="dropdown-content">
+            <a href="/payments/services">Pagamento de Serviços</a><br>
+            <a href="/payments/phone">Pagamento de Telemóveis</a><br>
+            <a href="/payments/state">Pagamento ao Estado</a><br>
+            <a href="/client/transfers/">Transferências</a><br>
         </div>
         <a href="#" >Poupanças</a>
         <div id="dropdown-saving" class="dropdown-content">
@@ -65,15 +68,6 @@
         </div>
         <a href="#" >Emprestimos</a>
         <a href="#" >Simulaçoes</a>
-        <h3>Gestao</h3>
-        <a href="#" >Produtos</a>
-        <div id="dropdown-products" class="dropdown-content">
-            <a href="/product/create">Criar Produto</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
-        </div>
-        <a href="#" >Site</a>
-        <a href="#" >Random</a>
     </div>
     <div class="main-body">
         @yield('content')

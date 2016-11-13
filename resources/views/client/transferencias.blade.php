@@ -1,4 +1,4 @@
-@extends('template')
+@extends('client.client_template')
 
 @section('content')
     @if($VerificationStep == 0)

@@ -180,6 +180,7 @@ return [
 
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         'MathiasGrimm\LaravelDotEnvGen\DotEnvGenServiceProvider',
+        Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
 
