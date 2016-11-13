@@ -13,4 +13,12 @@ use Illuminate\Database\Eloquent\Model;
 class Transferences extends model
 {
     protected $table = 'tranferences';
+
+    /**
+     * Each transference is related with a movement
+     */
+    public function account_movement()
+    {
+        return $this->belongsTo('App\AccountMovement','account_movements_id');
+    }
 }

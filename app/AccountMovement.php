@@ -40,4 +40,12 @@ class AccountMovement extends Model
     {
         return $this->hasOne('App\StatePayment','account_movements_id');
     }
+
+    /**
+     * A movement could be a transference
+     */
+    public function transference()
+    {
+        return $this->hasOne('App\StatePayment','account_movements_id');
+    }
 }

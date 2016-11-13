@@ -32,104 +32,143 @@ class TransferenciasController extends Controller
         return view('client.transferencias',compact('accounts'))->with(['ErroVerificacao'=>$ErroVerificacao,'VerificationStep'=>$VerificactionStep]);
     }
 
-   public function VerificaTransferencia()
-   {
-       $idConta = $_REQUEST['account'];
-       $IBANDest = $_REQUEST['IBAN'];
-       $Montantetransf = $_REQUEST['Montante'];
-       $Descricaotransf=$_REQUEST['DescricaoTransferencia'];
-       //$PIN = $_REQUEST['PinCliente'];
-       $Erroverificacao=0;
-       $TransferenciaInfoDest = CurrentAccount::where('id','=',$IBANDest)->first();
-       $TransferenciaInfoOrigem = CurrentAccount::where('id','=',$idConta)->first();
-       $IDClientDest = CurrentAccountHasClient::where('current_account_id','=',$IBANDest)->first();
-       $ClientInfo = Client::where('id','=',$IDClientDest->client_id)->first();
-       if($idConta != "" && $IBANDest !="" && $Montantetransf != "")
-       {
-           if($TransferenciaInfoDest != NULL)
-           {
-               if($Montantetransf >0)
-               {
-                   if($Montantetransf <= $TransferenciaInfoOrigem->balance)
-                   {
-                       $MontanteOrigem = $TransferenciaInfoOrigem->balance;
-                       $MontanteOrigem = $MontanteOrigem - $Montantetransf;
-                       $MontanteDestino = $TransferenciaInfoDest->balance;
-                       $MontanteDestino = $MontanteDestino + $Montantetransf;
-                       $VerificationCode = str_random(5);
-                       session()->put('VerificationCode',$VerificationCode);
-                       session()->put('MontanteOrigem',$MontanteOrigem);
-                       session()->put('MontanteDestino',$MontanteDestino);
-                       session()->put('idContaOrigem',$idConta);
-                       session()->put('idContaDestino',$IBANDest);
-                       session()->put('Description',$Descricaotransf);
-                       session()->put('Montante',$Montantetransf);
-                       session()->put('NomeClientDest',$ClientInfo->name);
-                       $Erroverificacao =0;
-                       $VerificactionStep = 1;
-                       Mail::to(Auth::user()->email)->send(new CodigoVerificacaoTransferencia($VerificationCode,Auth::user()->name));
-                       return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
-                   }
-                   else
-                   {
-                       $Erroverificacao = 4;
-                       return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]); // nao tem fundos suficientes para realizar a transferencia
-                   }
-               }
-               else
-               {
-                   $Erroverificacao = 3; // Montante tem que ser maior que 0
-                   return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
-               }
-           }
-           else
-           {
-               $Erroverificacao =2; // o iBAN introduzido nao existe
-               return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
-           }
-       }
-       else
-       {
-           $Erroverificacao=1; //nao pode haver espaços vazios
-           return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
-       }
-
-
-
-   }
-    public function CheckVerificationCode()
+    public function VerificaTransferencia(Request $request)
     {
-        $PinIntroduzido = $_REQUEST['PinCliente'];
+        $idConta = $request->account;
+        $IBANDest = $request->IBAN;
+        $Montantetransf = $request->Montante;
+        $Descricaotransf= $request->DescricaoTransferencia;
+        //$PIN = $_REQUEST['PinCliente'];
+        $VerificactionStep = 0;
+        $TransferenciaInfoDest = CurrentAccount::find($IBANDest);
+        $TransferenciaInfoOrigem = CurrentAccount::find($idConta);
+        $IDClientDest = $TransferenciaInfoDest->clients()->first();
+        $ClientDestInfo = Client::find($IDClientDest->id);
+        $ClientOrInfo = Client::find(Auth::id());
+        if($idConta != "" && $IBANDest !="" && $Montantetransf != "")
+        {
+            if($TransferenciaInfoDest != NULL)
+            {
+                if($Montantetransf > 0)
+                {
+                    if($Montantetransf <= $TransferenciaInfoOrigem->balance)
+                    {
+                        $MontanteOrigem = $TransferenciaInfoOrigem->balance;
+                        $MontanteOrigem = $MontanteOrigem - $Montantetransf;
+                        $MontanteDestino = $TransferenciaInfoDest->balance;
+                        $MontanteDestino = $MontanteDestino + $Montantetransf;
+                        $VerificationCode = str_random(5);
+                        session()->put('VerificationCode',$VerificationCode);
+                        session()->put('MontanteOrigem',$MontanteOrigem);
+                        session()->put('MontanteDestino',$MontanteDestino);
+                        session()->put('idContaOrigem',$idConta);
+                        session()->put('idContaDestino',$IBANDest);
+                        session()->put('Description',$Descricaotransf);
+                        session()->put('Montante',$Montantetransf);
+                        session()->put('NomeClientDest',$ClientDestInfo->name);
+                        session()->put('NomeClientOrigem',$ClientOrInfo->name);
+                        $Erroverificacao =0;
+                        $VerificactionStep = 1;
+                        Mail::to(Auth::user()->email)->send(new CodigoVerificacaoTransferencia($VerificationCode,Auth::user()->name));
+                        return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
+                    }
+                    else
+                    {
+                        $Erroverificacao = 4;
+                        return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]); // nao tem fundos suficientes para realizar a transferencia
+                    }
+                }
+                else
+                {
+                    $Erroverificacao = 3; // Montante tem que ser maior que 0
+                    return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
+                }
+            }
+            else
+            {
+                $Erroverificacao =2; // o iBAN introduzido nao existe
+                return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
+            }
+        }
+        else
+        {
+            $Erroverificacao=1; //nao pode haver espaços vazios
+            return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
+        }
+
+
+
+    }
+    public function CheckVerificationCode(Request $request)
+    {
+        $PinIntroduzido = $request->PinCliente;
 
         if($PinIntroduzido !="")
         {
             if($PinIntroduzido == session()->get('VerificationCode'))
             {
-                CurrentAccount::where('id', '=', session()->get('idContaOrigem'))->update(['balance' => session()->get('MontanteOrigem')]);
-                CurrentAccount::where('id', '=', session()->get('idContaDestino'))->update(['balance' => session()->get('MontanteDestino')]);
-                $idAccMovement = DB::table('account_movements')->insertGetId(
-                    array('description' => session()->get('Description'), 'amount' => session()->get('Montante'),
-                        'current_account_id'=>session()->get('idContaOrigem'),
-                        'balance_after'=>session()->get('MontanteOrigem'))
-                );
-                DB::table('tranferences')->insert(
-                    array('account_movements_id'=>$idAccMovement,'dest_name'=>session()->get('NomeClientDest'),
-                        'dest_iban'=>session()->get('idContaDestino'))
-                );
+                DB::transaction(function () {
+                    $contaOrigem = CurrentAccount::find(session()->get('idContaOrigem'));
+                    $contaDestino = CurrentAccount::find(session()->get('idContaDestino'));
 
+                    $contaOrigem->balance = session()->get('MontanteOrigem');
+                    $contaDestino->balance = session()->get('MontanteDestino');
 
-                session()->forget('VerificationCode');
-                session()->forget('MontanteOrigem');
-                session()->forget('MontanteDestino');
-                session()->forget('idContaOrigem');
-                session()->forget('idContaDestino');
-                session()->forget('Description');
-                session()->forget('Montante');
-                session()->forget('NomeClientDest');
+                    $transference = new Transferences();
+                    $transference->dest_name = session()->get('NomeClientDest');
+                    $transference->dest_iban = session()->get('idContaDestino');
 
-                $Erroverificacao = 0;//sucesso
-                $VerificactionStep = 2;
-                return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
+                    $movementOrigem = new AccountMovement();
+                    if (empty(session()->get('Description')))
+                    {
+                        $Descricaotransf = "Trânsferência para ". session()->get('NomeClientDest');
+                    }
+                    else
+                    {
+                        $Descricaotransf = session()->get('Description');
+                    }
+                    $movementOrigem->description = $Descricaotransf;
+                    $movementOrigem->amount = -session()->get('Montante');
+                    $movementOrigem->balance_after = session()->get('MontanteOrigem');
+
+                    $movementDestino = new AccountMovement();
+                    if (empty(session()->get('Description')))
+                    {
+                        $Descricaotransf = "Trânsferência de ". session()->get('NomeClientOrigem');
+                    }
+                    else
+                    {
+                        $Descricaotransf = session()->get('Description');
+                    }
+                    $movementDestino->description = $Descricaotransf;
+                    $movementDestino->amount = session()->get('Montante');
+                    $movementDestino->balance_after = session()->get('MontanteDestino');
+
+                    $movementOrigem->currentAccount()->associate($contaOrigem);
+                    $movementOrigem->save();
+
+                    $movementDestino->currentAccount()->associate($contaDestino);
+                    $movementDestino->save();
+
+                    $transference->account_movement()->associate($movementOrigem);
+                    $transference->save();
+
+                    $contaOrigem->save();
+                    $contaDestino->save();
+
+                    session()->forget('VerificationCode');
+                    session()->forget('MontanteOrigem');
+                    session()->forget('MontanteDestino');
+                    session()->forget('idContaOrigem');
+                    session()->forget('idContaDestino');
+                    session()->forget('Description');
+                    session()->forget('Montante');
+                    session()->forget('NomeClientDest');
+
+                    $Erroverificacao = 0;//sucesso
+                    $VerificactionStep = 2;
+                    return view('client.transferencias')->with(['ErroVerificacao' => $Erroverificacao, 'VerificationStep' => $VerificactionStep]);
+                });
             }
             else
             {
