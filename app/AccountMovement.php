@@ -9,6 +9,9 @@ class AccountMovement extends Model
     /**
      * Each movement is related with an account
      */
+
+    protected $table = 'account_movements';
+
     public function currentAccount()
     {
         return $this->belongsTo('App\CurrentAccount','current_account_id');

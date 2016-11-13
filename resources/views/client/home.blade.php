@@ -6,9 +6,7 @@
         <a href="#">Dados da Conta</a><br>
         <a href="#">Pagamentos</a><br>
         <a href="/payments/services">Pagamento de Serviços</a><br>
-        <a href="/payments/phone">Pagamento de Telemóveis</a><br>
-        <a href="/payments/state">Pagamento ao Estado</a><br>
-        <a href="#">Transferências</a><br>
+        <a href="/client/transfers/">Transferências</a><br>
         <a href="/client/passwords/ChangePassword">Mudar password</a><br>
 
         <label>Selecione a conta</label><br>
@@ -45,6 +43,7 @@
         function updateMovements() {
             $.get('/movements/'+$("#account").val(), function(data) {
                 console.log(data);
+
                 $.each(data,function (i,val) {
                     $("#movements").append(
                             '<tr>' +
