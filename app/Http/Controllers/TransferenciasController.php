@@ -22,7 +22,17 @@ use Illuminate\Support\Facades\DB;
 
 class TransferenciasController extends Controller
 {
-   public static function VerificaTransferencia()
+    public function showForm()
+    {
+        $client = \Auth::guard('client')->user();
+        $accounts = $client->accounts;
+
+        $ErroVerificacao = 0;
+        $VerificactionStep = 0;
+        return view('client.transferencias',compact('accounts'))->with(['ErroVerificacao'=>$ErroVerificacao,'VerificationStep'=>$VerificactionStep]);
+    }
+
+   public function VerificaTransferencia()
    {
        $idConta = $_REQUEST['account'];
        $IBANDest = $_REQUEST['IBAN'];
@@ -63,31 +73,31 @@ class TransferenciasController extends Controller
                    else
                    {
                        $Erroverificacao = 4;
-                       return $Erroverificacao; // nao tem fundos suficientes para realizar a transferencia
+                       return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]); // nao tem fundos suficientes para realizar a transferencia
                    }
                }
                else
                {
                    $Erroverificacao = 3; // Montante tem que ser maior que 0
-                   return $Erroverificacao;
+                   return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
                }
            }
            else
            {
                $Erroverificacao =2; // o iBAN introduzido nao existe
-               return $Erroverificacao;
+               return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
            }
        }
        else
        {
            $Erroverificacao=1; //nao pode haver espaços vazios
-            return $Erroverificacao;
+           return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
        }
 
 
 
    }
-    public static function CheckVerificationCode()
+    public function CheckVerificationCode()
     {
         $PinIntroduzido = $_REQUEST['PinCliente'];
 

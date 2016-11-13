@@ -34,6 +34,6 @@ class CodigoVerificacaoTransferencia extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.CodigoVerificacaotransferencia')->with(['name'=>$this->name,'VerificationCode'=>$this->VerificationCode]);
+        return $this->view('mail.CodigoVerificacaoTransferencia')->with(['name'=>$this->name,'VerificationCode'=>$this->VerificationCode]);
     }
 }
