@@ -55,11 +55,11 @@
         <a href="#">Dados da Conta</a>
         <a href="#">Pagamentos</a>
         <div id="dropdown-payments" class="dropdown-content">
-            <a href="/payments/services">Pagamento de Serviços</a><br>
-            <a href="/payments/phone">Pagamento de Telemóveis</a><br>
-            <a href="/payments/state">Pagamento ao Estado</a><br>
-            <a href="/client/transfers/">Transferências</a><br>
+            <a href="/payments/services">Pagamento de Serviços</a>
+            <a href="/payments/phone">Pagamento de Telemóveis</a>
+            <a href="/payments/state">Pagamento ao Estado</a>
         </div>
+        <a href="/client/transfers/">Transferências</a>
         <a href="#" >Poupanças</a>
         <div id="dropdown-saving" class="dropdown-content">
             <a href="#">Link 1</a>

@@ -34,19 +34,23 @@ class TransferenciasController extends Controller
 
     public function VerificaTransferencia(Request $request)
     {
+
+        $client = \Auth::guard('client')->user();
+        $accounts = $client->accounts;
+
         $idConta = $request->account;
         $IBANDest = $request->IBAN;
         $Montantetransf = $request->Montante;
         $Descricaotransf= $request->DescricaoTransferencia;
         //$PIN = $_REQUEST['PinCliente'];
         $VerificactionStep = 0;
-        $TransferenciaInfoDest = CurrentAccount::find($IBANDest);
-        $TransferenciaInfoOrigem = CurrentAccount::find($idConta);
-        $IDClientDest = $TransferenciaInfoDest->clients()->first();
-        $ClientDestInfo = Client::find($IDClientDest->id);
-        $ClientOrInfo = Client::find(Auth::id());
         if($idConta != "" && $IBANDest !="" && $Montantetransf != "")
         {
+            $TransferenciaInfoDest = CurrentAccount::find($IBANDest);
+            $TransferenciaInfoOrigem = CurrentAccount::find($idConta);
+            $IDClientDest = $TransferenciaInfoDest->clients()->first();
+            $ClientDestInfo = Client::find($IDClientDest->id);
+            $ClientOrInfo = Client::find(Auth::id());
             if($TransferenciaInfoDest != NULL)
             {
                 if($Montantetransf > 0)
@@ -70,30 +74,30 @@ class TransferenciasController extends Controller
                         $Erroverificacao =0;
                         $VerificactionStep = 1;
                         Mail::to(Auth::user()->email)->send(new CodigoVerificacaoTransferencia($VerificationCode,Auth::user()->name));
-                        return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
+                        return view('client.transferencias',compact('accounts'))->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
                     }
                     else
                     {
                         $Erroverificacao = 4;
-                        return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]); // nao tem fundos suficientes para realizar a transferencia
+                        return view('client.transferencias',compact('accounts'))->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
                     }
                 }
                 else
                 {
                     $Erroverificacao = 3; // Montante tem que ser maior que 0
-                    return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
+                    return view('client.transferencias',compact('accounts'))->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
                 }
             }
             else
             {
                 $Erroverificacao =2; // o iBAN introduzido nao existe
-                return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
+                return view('client.transferencias',compact('accounts'))->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
             }
         }
         else
         {
             $Erroverificacao=1; //nao pode haver espaços vazios
-            return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
+            return view('client.transferencias',compact('accounts'))->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
         }
 
 
@@ -101,6 +105,9 @@ class TransferenciasController extends Controller
     }
     public function CheckVerificationCode(Request $request)
     {
+        $client = \Auth::guard('client')->user();
+        $accounts = $client->accounts;
+
         $PinIntroduzido = $request->PinCliente;
 
         if($PinIntroduzido !="")
@@ -167,21 +174,21 @@ class TransferenciasController extends Controller
 
                     $Erroverificacao = 0;//sucesso
                     $VerificactionStep = 2;
-                    return view('client.transferencias')->with(['ErroVerificacao' => $Erroverificacao, 'VerificationStep' => $VerificactionStep]);
+                    return view('client.transferencias',compact('accounts'))->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
                 });
             }
             else
             {
                 $Erroverificacao = 2;//o pin nao corresponde
                 $VerificactionStep = 1;
-                return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
+                return view('client.transferencias',compact('accounts'))->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
             }
         }
         else
         {
             $Erroverificacao = 1;//nao pode haver espacos vazios
             $VerificactionStep = 1;
-            return view('client.transferencias')->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
+            return view('client.transferencias',compact('accounts'))->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
         }
 
     }

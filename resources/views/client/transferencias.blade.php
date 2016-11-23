@@ -1,6 +1,7 @@
 @extends('client.client_template')
 
 @section('content')
+
     @if($VerificationStep == 0)
         <form method="POST" id="Transferencia">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
