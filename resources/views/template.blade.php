@@ -17,7 +17,11 @@
 <body>
     <div class="upper-nav">
         <ul class="brand-logo">
-            <li><img src="{{URL::asset('logo/clover_main.jpg')}}" /></li>
+            <li>
+                <a href="/">
+                    <img src="{{URL::asset('logo/clover_main.jpg')}}" />
+                </a>
+            </li>
         </ul>
         <ul class="slogan">
             <li><span>Give your money a lucky life</span></li>
