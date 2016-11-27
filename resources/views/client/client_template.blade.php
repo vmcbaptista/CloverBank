@@ -5,10 +5,10 @@
     <script type="text/javascript" src="{{ URL::asset('js/jquery-3.1.1.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/base.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/font-awesome.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/forms.css')}}">
+
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/client/client.css')}}">
-
-
-    @yield('head')
+    @yield('css')
 </head>
 <body>
 
@@ -49,36 +49,34 @@
 
         </ul>
     </div>
-<div class="main-interface">
-    <div class="side-bar">
-        <h3>Cliente</h3>
+    <div class="main-interface">
+        <div class="side-bar">
+            <h3>Cliente</h3>
 
-        <br>
-        <a href="#">Dados da Conta</a>
-        <a href="#">Pagamentos</a>
-        <div id="dropdown-payments" class="dropdown-content">
-            <a href="/payments/services">Pagamento de Serviços</a>
-            <a href="/payments/phone">Pagamento de Telemóveis</a>
-            <a href="/payments/state">Pagamento ao Estado</a>
+            <br>
+            <a href="#">Dados da Conta</a>
+            <a href="#">Pagamentos</a>
+            <div id="dropdown-payments" class="dropdown-content">
+                <a href="/payments/services">Pagamento de Serviços</a>
+                <a href="/payments/phone">Pagamento de Telemóveis</a>
+                <a href="/payments/state">Pagamento ao Estado</a>
+            </div>
+            <a href="/client/transfers/">Transferências</a>
+            <a href="#" >Poupanças</a>
+            <div id="dropdown-saving" class="dropdown-content">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+            </div>
+            <a href="#" >Emprestimos</a>
+            <a href="#" >Simulaçoes</a>
         </div>
-        <a href="/client/transfers/">Transferências</a>
-        <a href="#" >Poupanças</a>
-        <div id="dropdown-saving" class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
-        </div>
-        <a href="#" >Emprestimos</a>
-        <a href="#" >Simulaçoes</a>
-    </div>
-    <div class="main-body">
         @yield('content')
 
     </div>
-</div>
 
     <script type="text/javascript" src="{{ URL::asset('js/manager/dropdown_navbar.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/manager/sidebar.js') }}"></script>
-
+    @yield('js')
 </body>
 </html>
