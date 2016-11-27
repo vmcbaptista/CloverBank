@@ -15,7 +15,7 @@
 <div class="upper-nav">
     <ul class="brand-logo">
             <li>
-                <a href="/client/home"><img src="{{URL::asset('logo/clover_main.jpg')}}" />  </a>
+                <a href="/client/home"><img src="{{URL::asset('logo/clover_main.png')}}" />  </a>
             </li>
     </ul>
     <ul class="slogan">

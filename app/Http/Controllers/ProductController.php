@@ -115,4 +115,46 @@ class ProductController extends Controller
     {
         return ProductSaving::all();
     }
+
+    /**
+     * Returns all the products of the bank
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getProducts()
+    {
+        return Product::all();
+    }
+
+    /**
+     * Returns a view of all current accounts of the bank
+     * @return $this
+     */
+    public function presentCurrentAccountProducts()
+    {
+        $currents = $this->getCurrent();
+        $products = $this->getProducts();
+        return view('products.current_accounts')->with('currents',$currents)->with('products',$products);
+    }
+
+    /**
+     * Returns a view of all savings accounts of the bank
+     * @return $this
+     */
+    public function presentSavingsAccountProducts()
+    {
+        $savings = $this->getSaving();
+        $products = $this->getProducts();
+        return view('products.savings_accounts')->with('savings',$savings)->with('products',$products);
+    }
+
+    /**
+     * Returns a view of all loans accounts of the bank
+     * @return $this
+     */
+    public function presentLoansAccountProducts()
+    {
+        $loans = $this->getLoan();
+        $products = $this->getProducts();
+        return view('products.loans_accounts')->with('loans',$loans)->with('products',$products);
+    }
 }

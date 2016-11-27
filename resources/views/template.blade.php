@@ -11,6 +11,8 @@
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/login_form.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/font-awesome.css')}}">
 
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/contacts.css')}}">
+
     @yield('css')
     <title>CloverBank</title>
 </head>
@@ -19,7 +21,7 @@
         <ul class="brand-logo">
             <li>
                 <a href="/">
-                    <img src="{{URL::asset('logo/clover_main.jpg')}}" />
+                    <img src="{{URL::asset('logo/clover_main.png')}}" />
                 </a>
             </li>
         </ul>
@@ -30,9 +32,8 @@
 
         <div class="nav-bar">
             <ul class="option-menu">
-                <li><a class="link" href="#">A nossa instituição</a></li>
-                <li><a class="link" href="#">Particulares</a></li>
-                <li><a class="link" href="#">Empresas</a></li>
+                <li><a class="link" href="/#our_company">A nossa instituição</a></li>
+                <li><a class="link" href="/#products">Produtos</a></li>
                 <li><a class="link" href="#">Ajuda</a></li>
                 <li class="li_access" id="openLogin"><a class="link" href="#"><i class="fa fa-lock" aria-hidden="true" ></i> Acesso Online </a></li>
             </ul>
@@ -65,8 +66,69 @@
         @yield('contacts')
         @yield('content')
 
-        @yield('help')
+        @yield('products_list')
 
+        @yield('help')
+    <div class="contacts-container">
+        <h3>Quer falar connosco?</h3>
+        <ul class="contacts">
+            <li>
+                <div class="icon-contact">
+                    <i class="fa fa-user-o fa-2x" aria-hidden="true"></i>
+                </div>
+                <div class="contact_msg">
+                    <p>Nos Ligamos</p>
+                    <p> Deixe-nos o seu contacto e nos ligamos-lhe</p>
+                </div>
+            </li>
+            <li>
+                <div class="icon-contact">
+                    <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
+                </div>
+
+                <div class="contact_msg">
+                    <p>Nos nossos Balcoes</p>
+                    <p>Encontre-nos num balcao perto de si</p>
+                </div>
+            </li>
+            <li>
+                <div class="icon-contact">
+                    <i class="fa fa-comments fa-2x" aria-hidden="true"></i>
+                </div>
+                <div class="contact_msg">
+                    <p>O nosso chat</p>
+                    <p> Todos os dias 24/7 </p>
+                </div>
+            </li>
+            <li>
+                <div class="icon-contact">
+                    <i class="fa fa-envelope-o fa-2x" aria-hidden="true"></i>
+                </div>
+                <div class="contact_msg">
+                    <p>Por email</p>
+                    <p>Pelo nosso email</p>
+                </div>
+            </li>
+            <li>
+                <div class="icon-contact">
+                    <i class="fa fa-mobile fa-2x" aria-hidden="true"></i>
+                </div>
+                <div class="contact_msg">
+                    <p>700 000 000</p>
+                    <p>Atendimento a medida 24/7</p>
+                </div>
+            </li>
+
+        </ul>
+
+        <div class="social_networks">
+            <a href="https://www.facebook.com"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+            <a href="https://www.twitter.com"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
+            <a href="https://www.youtube.com"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+            <a href="https://plus.google.com"><i class="fa fa-google-plus-official" aria-hidden="true"></i></a>
+            <a href="https://www.linkedin.com/"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+        </div>
+    </div>
 
         <script type="text/javascript" src="{{ URL::asset('js/login_form.js') }}"></script>
         @yield('javascript')

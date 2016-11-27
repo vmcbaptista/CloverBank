@@ -7,16 +7,7 @@
     min-height: 300px;
     justify-content: space-around;
     align-items: center;
-}
-
-.products a{
-    text-decoration: none;
-    color: white;
-}
-
-.currents, .savings, .loans{
-    flex-basis:33%;
-    text-align: center;
+    flex-basis: 50%;
 }
 
 .circle-img{
@@ -28,4 +19,12 @@
     -webkit-border-radius: 75px;
     border-radius: 75px;
     background: gray;
+}
+
+.products>ul {
+    padding: 0;
+}
+
+.products_name {
+    list-style: none;
 }
