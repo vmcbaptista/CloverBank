@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="{{ URL::asset('js/jquery-3.1.1.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/base.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/font-awesome.css')}}">
+
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/slider.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/login_form.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/our_company.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/font-awesome.css')}}">
 
     @yield('css')
     <title>CloverBank</title>
@@ -59,12 +59,17 @@
 
         @yield('slider')
         @yield('menu')
+        @yield('about_us')
+        @yield('products')
+        @yield('simulator')
+        @yield('contacts')
+        @yield('content')
+
+        @yield('help')
 
 
-                @yield('content')
+        <script type="text/javascript" src="{{ URL::asset('js/login_form.js') }}"></script>
+        @yield('javascript')
 
-    <script type="text/javascript" src="{{ URL::asset('js/slider.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('js/login_form.js') }}"></script>
-    @yield('javascript')
 </body>
 </html>

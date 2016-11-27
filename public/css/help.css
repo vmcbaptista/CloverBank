@@ -1,0 +1,39 @@
+.title{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-self: center;
+    border-bottom: solid thin gray;
+}
+
+.title h2{
+    margin-bottom: 5px;
+}
+
+.container-help{
+    display: flex;
+    flex-direction: row;
+    cursor: default;
+
+}
+.container-faq{
+    width:100%;
+}
+.container-faq h3, .container-help p{
+    margin-left: 20px;
+    margin-right: 20px;
+    padding:10px;
+}
+
+.container-faq h3{
+    border: solid thin gray;
+    margin-bottom:0;
+}
+.container-help p{
+    display: none;
+    text-align: justify;
+    margin-top:0;
+    border-bottom: solid thin gray;
+    border-left: solid thin gray;
+    border-right: solid thin gray;
+}
