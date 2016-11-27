@@ -33,7 +33,7 @@
                 <li><a class="link" href="#">A nossa instituição</a></li>
                 <li><a class="link" href="#">Particulares</a></li>
                 <li><a class="link" href="#">Empresas</a></li>
-                <li><a class="link" href="#">Ajuda</a></li>
+                <li><a class="link" href="/help">Ajuda</a></li>
                 <li class="li_access" id="openLogin"><a class="link" href="#"><i class="fa fa-lock" aria-hidden="true" ></i> Acesso Online </a></li>
             </ul>
         </div>

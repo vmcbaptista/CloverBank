@@ -1,0 +1,49 @@
+/*This will be used when users are logged in*/
+table {
+    border-collapse: collapse;
+    text-align: left;
+    width: 100%;
+    word-break: break-all
+
+}
+
+table td, table th {
+    padding: 4px 5px;
+}
+
+table thead th {
+    background-color:#2ab27b;
+    color:#FFFFFF;
+    font-size: 13px;
+    font-weight: bold;
+    border-left: 1px solid gray;
+}
+
+table thead th:first-child {
+    border: none;
+}
+
+table tbody td {
+    color: #113342;
+    font-size: 12px;
+    font-weight: normal;
+}
+table tbody td {
+    background: rgba(158,158,158,0.28);
+
+    color: #113342;
+}
+
+table tbody td:first-child {
+    border-left: none;
+}
+
+table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+select{
+    width: 90px;
+    background-color: white;
+    padding:2px;
+}

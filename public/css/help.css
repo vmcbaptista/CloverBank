@@ -19,7 +19,7 @@
 .container-faq{
     width:100%;
 }
-.container-faq h3, .container-help p{
+.container-faq h3, .container-faq p{
     margin-left: 20px;
     margin-right: 20px;
     padding:10px;
@@ -29,7 +29,9 @@
     border: solid thin gray;
     margin-bottom:0;
 }
-.container-help p{
+
+
+.help-text{
     display: none;
     text-align: justify;
     margin-top:0;
@@ -37,3 +39,9 @@
     border-left: solid thin gray;
     border-right: solid thin gray;
 }
+
+
+.show{
+    display:block;
+}
+

@@ -1,63 +1,37 @@
 @extends('client.client_template')
 
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/client/clientBalance.css')}}">
+@endsection
+
 @section('content')
     <div class="container">
-        <label>Selecione a conta</label><br>
+        <div class="accountBalanceBar">
+        <label for="account" >Selecione a conta  </label>
         <select id="account" name="account">
             @foreach($accounts as $account)
                 <option>{{ $account->id }}</option>
             @endforeach
-        </select><br>
-        <label>Saldo:</label>
-        <p id="balance"></p>
-        <div>
-            <table>
-                <thead>
+        </select>
+        <label id="balanceLabel">Saldo: <span id="balance"></span></label>
+        </div>
+
+        <table  id="account_movements">
+            <thead>
                 <tr>
-                    <th>Data do Movimento</th>
-                    <th>Descrição</th>
+                    <th>Data Movimento</th>
+                    <th>Descriçao</th>
                     <th>Montante</th>
                     <th>Saldo</th>
                 </tr>
-                </thead>
-                <tbody id="movements">
-                </tbody>
-            </table>
-        </div>
+            </thead>
+            <tbody id="movements">
+
+            </tbody>
+        </table>
     </div>
+@endsection
 
-    <script>
-        function updateBalance() {
-            $.get('/account/balance/'+$("#account").val(), function(data) {
-                $("#balance").text(data+' €');
-            });
-        }
-
-        function updateMovements() {
-            $.get('/movements/'+$("#account").val(), function(data) {
-                console.log(data);
-
-                $.each(data,function (i,val) {
-                    $("#movements").append(
-                            '<tr>' +
-                            '<td>'+val["created_at"]+'</td>' +
-                            '<td>'+val["description"]+'</td>' +
-                            '<td>'+val["amount"]+'</td>' +
-                            '<td>'+val["balance_after"]+'</td>' +
-                            '</tr>'
-                    )
-                })
-            });
-        }
-
-        $().ready(function () {
-            updateBalance();
-            updateMovements();
-            $("#account").change(function () {
-                updateBalance();
-                $("#movements").empty();
-                updateMovements();
-            });
-        });
-    </script>
+@section('js')
+    <script type="text/javascript" src="{{ URL::asset('js/client/updateMovementsBalance.js') }}"></script>
 @endsection
