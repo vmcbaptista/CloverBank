@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ClientAuth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -19,7 +20,9 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers{
+        login as mainLogin;
+    }
 
     /**
      * Where to redirect users after login / registration.
@@ -38,15 +41,14 @@ class LoginController extends Controller
         $this->middleware('client.guest', ['except' => 'logout']);
     }
 
-    /**
-     * Show the application's login form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /*public function showLoginForm()
-    {
-        return view('client.auth.login');
-    }*/
+    public function login(Request $request) {
+        if (Auth::guard('manager')->check()) {
+            return 'Não é possível iniciar sessão uma vez que um gestor encontra-se a utilizar este equipamento.';
+        }
+        else {
+            return $this->mainLogin($request);
+        }
+    }
 
     /**
      * Get the guard to be used during authentication.
