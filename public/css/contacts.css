@@ -1,8 +1,6 @@
 .contacts-container{
     background-color: #30b27b;
     color: white;
-    min-height: 300px;
-
 }
 
 .contacts{
@@ -23,7 +21,7 @@
 .contacts-container h3{
     width: 100%;
     margin: 0;
-    padding-top: 50px;
+    padding-top: 25px;
     padding-bottom: 20px;
     padding-left: 20px;
 }
@@ -57,6 +55,7 @@
     flex-wrap: wrap;
     justify-content: center;
     margin-top:20px;
+    padding-bottom: 20px;
 }
 
 .social_networks a{

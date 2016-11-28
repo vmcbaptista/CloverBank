@@ -82,9 +82,9 @@
             <h4> Esqueceu a palavra-passe</h4>
             <h5> A sua palavra-passe foi redefinida</h5>
             <button id="loginBt" >Clique para que possa fazer login</button>
-        <div>
+        </div>
     @endif
-
+</div>
 @endsection
 
 @section('javascript')
