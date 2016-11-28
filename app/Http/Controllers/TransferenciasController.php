@@ -29,6 +29,7 @@ class TransferenciasController extends Controller
 
         $ErroVerificacao = 0;
         $VerificactionStep = 0;
+
         return view('client.transferencias',compact('accounts'))->with(['ErroVerificacao'=>$ErroVerificacao,'VerificationStep'=>$VerificactionStep]);
     }
 

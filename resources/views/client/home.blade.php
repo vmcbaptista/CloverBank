@@ -32,6 +32,6 @@
     </div>
 @endsection
 
-@section('js')
+@section('javascript')
     <script type="text/javascript" src="{{ URL::asset('js/client/updateMovementsBalance.js') }}"></script>
 @endsection

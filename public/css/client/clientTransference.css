@@ -1,0 +1,84 @@
+/*This css is for the client main page after its login*/
+.container{
+    width: calc(100% - 200px);
+    display: flex;
+    flex-direction: column;
+}
+
+
+.accountBalanceBar{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 20px;
+    border: solid thin gray;
+    padding: 10px;
+    align-items: flex-start;
+
+}
+
+#account_movements{
+    margin: 0 20px 20px 20px;
+    max-width: calc(100% - 40px);
+}
+
+#balanceLabel{
+margin-left: auto;
+margin-right: 10px;
+}
+
+.accountBalanceBar > label{
+    padding-right:10px;
+}
+
+.label-title{
+    margin-left: 20px;
+}
+
+.form-wrapper{
+    border: solid thin gray;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 10px;
+}
+
+input{
+    width: calc(100% - 5px);
+}
+
+input[type="submit"]{
+    float: right;
+    margin-right: 20px;
+    width: 100px;
+    height: 35px;
+    color: white;
+}
+
+
+p.success{
+    color: green;
+}
+
+
+.form-step2{
+    margin-top: 20px;
+}
+
+.continue-after-transf{
+    float: right;
+    text-decoration: none;
+    color: gray;
+}
+.form-wrapper.step3{
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 651px){
+    .accountBalanceBar{
+        justify-content: center;
+    }
+    #balanceLabel{
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
