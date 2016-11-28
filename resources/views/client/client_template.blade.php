@@ -34,12 +34,16 @@
                 </div>
                 <a class="link" href="#"> {{ Auth::guard('client')->user()->name }} </a>
                 <ul class="user-options">
-                    <li><i class="fa fa-address-card-o" aria-hidden="true"></i> <span class="profile">Perfil</span> </li>
-                    <li><i class="fa fa-cog" aria-hidden="true"></i>            <span href="/client/passwords/ChangePassword" class="settings">Definiçoes</span> </li>
-                    <li class="bottom-logout"><i class="fa fa-sign-out" aria-hidden="true"
-                                                 onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();"></i>
-                        <span class="logout">Sair</span> </li>
+                    <li>
+                        <i class="fa fa-address-card-o" aria-hidden="true"></i><span class="profile">Perfil</span>
+                    </li>
+                    <li>
+                        <i class="fa fa-cog" aria-hidden="true"></i><span href="/client/passwords/ChangePassword" class="settings">Definiçoes</span>
+                    </li>
+                    <li class="bottom-logout" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        <span class="logout">Sair</span>
+                    </li>
 
                         <form id="logout-form" action="{{ url('/client/logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
@@ -77,6 +81,6 @@
 
     <script type="text/javascript" src="{{ URL::asset('js/manager/dropdown_navbar.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/manager/sidebar.js') }}"></script>
-    @yield('js')
+    @yield('javascript')
 </body>
 </html>
