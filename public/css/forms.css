@@ -60,6 +60,11 @@ input{
     color: gray;
 }
 
+input[type="radio"] {
+    height: 16px;
+    width: initial;
+}
+
 .error{
     margin-top: 5px;
     color: red;

@@ -3,7 +3,7 @@
 
 @push('css')
 <link rel="stylesheet" type="text/css" href="/css/forms.css">
-<link rel="stylesheet" type="text/css" href="/css/manager/addAccount    .css">
+<link rel="stylesheet" type="text/css" href="/css/manager/addAccount.css">
 @endpush
 
 @section('main_content')

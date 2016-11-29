@@ -5,10 +5,6 @@
     margin: 20px;
 }
 
-#back {
-    float: right;
-}
-
 p {
     margin-top:0px;
 }
@@ -22,6 +18,8 @@ input[type="submit"], button[type="submit"]{
     height: 35px;
     color: white;
 }
-select {
-    width:100%;
+
+.selProd, #form {
+    border: solid thin gray;
+    padding: 10px;
 }

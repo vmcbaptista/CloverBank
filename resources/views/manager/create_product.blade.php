@@ -1,28 +1,38 @@
 @extends('manager.layout.template')
 
+@push('css')
+<link rel="stylesheet" type="text/css" href="/css/forms.css">
+<link rel="stylesheet" type="text/css" href="/css/manager/addProducts.css">
+@endpush
 @section('main_content')
-
+<div class="container">
     <form method="POST">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <label>Tipo Produto: </label><br>
-        <label for="current">Ordem: </label>
+        <label>Selecione o Tipo de Produto que pretende criar: </label><br>
+        <div class="selProd">
+        <label for="current">Conta à Ordem: </label>
         <input type="radio" name="prod_type" id="current"  value="current" checked="checked">
-        <label for="saving">Poupança: </label>
+        <label for="saving">Conta Poupança: </label>
         <input type="radio" name="prod_type" id="saving" value="saving">
         <label for="loan">Emprestímo: </label>
-        <input type="radio" name="prod_type" id="loan" value="loan"><br>
+        <input type="radio" name="prod_type" id="loan" value="loan">
+        </div><br>
+        <label>Insira os dados do novo produto</label>
         <div id="form">
 
         </div>
+        <div>
+            <input type="submit" value="Adicionar Novo Produto" />
+            </div>
     </form>
-
+</div>
     <!--This if for development only-->
     <script>
         /*when the page is charged*/
         $().ready(function(){
             if($("input[name='prod_type']").is(":checked")){
             /*This will show the things that a a user will see by default*/
-            $("#form").append(htmlForm.basePart + htmlForm.currentPart +htmlForm.bottomPart)
+            $("#form").append(htmlForm.basePart + htmlForm.currentPart)
 
             }
         })
@@ -31,13 +41,13 @@
             $("#form").empty()
             if(this.id=="current")
             {
-                $("#form").append(htmlForm.basePart + htmlForm.currentPart + htmlForm.bottomPart)
+                $("#form").append(htmlForm.basePart + htmlForm.currentPart)
             }
             else if(this.id=="saving"){
-                $("#form").append(htmlForm.basePart + htmlForm.savingPart + htmlForm.bottomPart)
+                $("#form").append(htmlForm.basePart + htmlForm.savingPart)
             }
             else{
-                $("#form").append(htmlForm.basePart + htmlForm.loanPart+ htmlForm.bottomPart)
+                $("#form").append(htmlForm.basePart + htmlForm.loanPart)
 
             }
         })
@@ -84,9 +94,6 @@
             currentPart:
                 '<label for="maint_costs">Custos de Manutenção</label><br>'+
                 '<input type="text" name="maint_costs" id="maint_costs"><br>'
-                ,
-            bottomPart:
-                '<input type="submit" value="Adicionar Novo Produto" />'
         }
 
     </script>
