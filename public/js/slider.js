@@ -1,7 +1,8 @@
  var slideIndex = 0;
  var timer;
-
- showAuto(); //The first call of the script when the page starts
+$().ready(function () {
+    showAuto(); //The first call of the script when the page starts
+});
 
  /**
   * When a button is clicked the control variable is changed

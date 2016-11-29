@@ -1,4 +1,4 @@
-@extends('manager.layout.auth')
+@extends('layouts.template')
 
 @section('content')
 

@@ -1,9 +1,9 @@
-@extends('template')
+@extends('layouts.template_guest')
 
-
-@section('css')
+@push('css')
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/products_list.css')}}">
-@endsection
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/contacts.css')}}">
+@endpush
 
 @section('products_list')
     <div class="products">

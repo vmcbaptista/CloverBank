@@ -1,8 +1,8 @@
-@extends('manager.manager_template')
+@extends('manager.layout.auth')
 
-@section('css')
+@push('css')
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/manager/manager_login.css')}}">
-@endsection
+@endpush
 @section('content')
     <div class="container">
         <form class="manager-login-form" role="form" method="POST" action="{{ url('/manager/register') }}">

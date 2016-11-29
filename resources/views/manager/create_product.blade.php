@@ -1,6 +1,6 @@
-@extends('manager.manager_template')
+@extends('manager.layout.template')
 
-@section('content')
+@section('main_content')
 
     <form method="POST">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">

@@ -1,6 +1,6 @@
-@extends('client.client_template')
+@extends('client.layout.template')
 
-@section('content')
+@section('main_content')
     <form method="POST" id="addCliForm">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <label>Conta a Debitar</label><br>

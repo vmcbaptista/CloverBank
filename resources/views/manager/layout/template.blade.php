@@ -1,8 +1,9 @@
-@extends('manager.layout.template')
+@extends('auth.template')
 
 @push('css')
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/manager/manager.css')}}">
 @endpush
+
 @section('side-bar')
         <div class="side-bar">
             <h3>Atendimento ao Publico</h3>

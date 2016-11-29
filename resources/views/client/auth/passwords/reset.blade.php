@@ -1,9 +1,9 @@
-@extends('template')
+@extends('layouts.template')
 
 
-@section('css')
+@push('css')
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/reset_password.css')}}">
-@endsection
+@endpush
 
 @section('content')
 <div class="content">
@@ -87,6 +87,6 @@
 </div>
 @endsection
 
-@section('javascript')
+@push('javascript')
                 <script type="text/javascript" src="{{ URL::asset('js/forgotten_password_show_login.js') }}"></script>
-@endsection
+@endpush

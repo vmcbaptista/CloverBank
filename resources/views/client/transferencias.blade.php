@@ -1,11 +1,11 @@
-@extends('client.client_template')
+@extends('client.layout.template')
 
 
-@section('css')
+@push('css')
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/client/clientTransference.css')}}">
-@endsection
+@endpush
 
-@section('content')
+@section('main_content')
 
     @if($VerificationStep == 0)
         <div class="container">
@@ -87,6 +87,6 @@
     @endif
 @endsection
 
-@section('javascript')
+@push('javascript')
     <script type="text/javascript" src="{{ URL::asset('js/client/clientTransference.js') }}"></script>
-@endsection
+@endpush

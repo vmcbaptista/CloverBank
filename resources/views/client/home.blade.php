@@ -1,10 +1,10 @@
-@extends('client.client_template')
+@extends('client.layout.template')
 
-@section('css')
+@push('css')
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/client/clientBalance.css')}}">
-@endsection
+@endpush
 
-@section('content')
+@section('main_content')
     <div class="container">
         <div class="accountBalanceBar">
         <label for="account" >Selecione a conta  </label>
@@ -32,6 +32,6 @@
     </div>
 @endsection
 
-@section('javascript')
+@push('javascript')
     <script type="text/javascript" src="{{ URL::asset('js/client/updateMovementsBalance.js') }}"></script>
-@endsection
+@endpush

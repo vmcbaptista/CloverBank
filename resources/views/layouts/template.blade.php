@@ -4,16 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_token" content="{{ csrf_token() }}">
     <script type="text/javascript" src="{{ URL::asset('js/jquery-3.1.1.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/base.css')}}">
-
-    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/slider.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/login_form.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/font-awesome.css')}}">
-
-    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/contacts.css')}}">
-
-    @yield('css')
+    @stack('css')
     <title>CloverBank</title>
 </head>
 <body>
@@ -35,7 +31,28 @@
         <li><a class="link" href="/#our_company">A nossa instituição</a></li>
         <li><a class="link" href="/#products">Produtos</a></li>
         <li><a class="link" href="/help">Ajuda</a></li>
+
+        @if (Auth::guard('client')->check() || Auth::guard('manager')->check())
+            <li class="li_access">
+                <div id="user-image">
+                    <img style="height: 22px; width: 22px;" src="/img/user.png">
+                </div>
+                <a class="link" href="#">@if (Auth::guard('client')->check()) {{ Auth::guard('client')->user()->name }} @else {{ Auth::guard('manager')->user()->name }} @endif</a>
+                <ul class="user-options">
+                    <li><i class="fa fa-address-card-o" aria-hidden="true"></i> <span @if (Auth::guard('client')->check()) href="/client/profile" @else href="/manager/profile" @endif class="profile">Perfil</span> </li>
+                    <li><i class="fa fa-cog" aria-hidden="true"></i>            <span @if (Auth::guard('client')->check()) href="/client/settings" @else href="/manager/settings" @endif class="settings">Definiçoes</span> </li>
+                    <li class="bottom-logout" onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();"><i class="fa fa-sign-out" aria-hidden="true"></i>
+                        <span class="logout">Sair</span> </li>
+
+                    <form id="logout-form" action="@if (Auth::guard('client')->check()) /client/logout @else /manager/logout @endif" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                </ul>
+            </li>
+        @else
         <li class="li_access" id="openLogin"><a class="link" href="#"><i class="fa fa-lock" aria-hidden="true" ></i> Acesso Online </a></li>
+        @endif
     </ul>
 </div>
 
@@ -66,81 +83,12 @@
         <a href="client/register">Ainda nao e cliente CloverBank?<span class="underline"> Adira Ja</span> </a>
     </div>
 </div>
-
-@yield('slider')
-@yield('menu')
-@yield('about_us')
-@yield('products')
-@yield('simulator')
-@yield('contacts')
+<div class="main-interface">
 @yield('content')
-
-@yield('products_list')
-
-@yield('help')
-<div class="contacts-container">
-    <h3>Quer falar connosco?</h3>
-    <ul class="contacts">
-        <li>
-            <div class="icon-contact">
-                <i class="fa fa-user-o fa-2x" aria-hidden="true"></i>
-            </div>
-            <div class="contact_msg">
-                <p>Nos Ligamos</p>
-                <p> Deixe-nos o seu contacto e nos ligamos-lhe</p>
-            </div>
-        </li>
-        <li>
-            <div class="icon-contact">
-                <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
-            </div>
-
-            <div class="contact_msg">
-                <p>Nos nossos Balcoes</p>
-                <p>Encontre-nos num balcao perto de si</p>
-            </div>
-        </li>
-        <li>
-            <div class="icon-contact">
-                <i class="fa fa-comments fa-2x" aria-hidden="true"></i>
-            </div>
-            <div class="contact_msg">
-                <p>O nosso chat</p>
-                <p> Todos os dias 24/7 </p>
-            </div>
-        </li>
-        <li>
-            <div class="icon-contact">
-                <i class="fa fa-envelope-o fa-2x" aria-hidden="true"></i>
-            </div>
-            <div class="contact_msg">
-                <p>Por email</p>
-                <p>Pelo nosso email</p>
-            </div>
-        </li>
-        <li>
-            <div class="icon-contact">
-                <i class="fa fa-mobile fa-2x" aria-hidden="true"></i>
-            </div>
-            <div class="contact_msg">
-                <p>700 000 000</p>
-                <p>Atendimento a medida 24/7</p>
-            </div>
-        </li>
-
-    </ul>
-
-    <div class="social_networks">
-        <a href="https://www.facebook.com"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-        <a href="https://www.twitter.com"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
-        <a href="https://www.youtube.com"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
-        <a href="https://plus.google.com"><i class="fa fa-google-plus-official" aria-hidden="true"></i></a>
-        <a href="https://www.linkedin.com/"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
-    </div>
 </div>
-
 <script type="text/javascript" src="{{ URL::asset('js/login_form.js') }}"></script>
-@yield('javascript')
+<script type="text/javascript" src="{{ URL::asset('js/util/dropdown_navbar.js') }}"></script>
+@stack('javascript')
 
 </body>
 </html>

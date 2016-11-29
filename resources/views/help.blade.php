@@ -1,8 +1,8 @@
-@extends('template')
+@extends('layouts.template_guest')
 
-@section('css')
+@push('css')
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/help.css')}}">
-@endsection
+@endpush
 
 
 
@@ -29,6 +29,6 @@
     </div>
 @endsection
 
-@section('javascript')
+@push('javascript')
     <script type="text/javascript" src="{{ URL::asset('js/help.js') }}"></script>
-@endsection
+@endpush

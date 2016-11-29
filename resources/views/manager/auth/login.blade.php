@@ -1,8 +1,7 @@
-@extends('manager.manager_template')
-
-@section('css')
+@extends('manager.layout.auth')
+@push('css')
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/manager/manager_login.css')}}">
-@endsection
+@endpush
 
 
 @section('content')
