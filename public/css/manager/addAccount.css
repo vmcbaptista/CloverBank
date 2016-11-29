@@ -25,3 +25,8 @@ input[type="submit"], button[type="submit"]{
 select {
     width:100%;
 }
+
+.form-wrapper {
+    border: solid thin gray;
+    padding: 10px;
+}

@@ -5,6 +5,7 @@
 var html = {
     add_client:'' +
     '<form id="addCliForm" method="POST">' +
+    '<label>Insira os dados do novo cliente</label>' +
     '<div class="form-wrapper">' +
     '<label>Nome</label>' +
     '<input id="name" type="text" name="name">' +
@@ -16,12 +17,12 @@ var html = {
     '<input id="phone" type="tel" name="phone">' +
     '<label>Número de Contribuinte</label>' +
     '<input id="nif" type="number" name="nif">' +
-    '<button type="submit">Registar</button>' +
     '</div>' +
+    '<button type="submit">Novo Cliente</button>' +
     '</form>',
     search_form:''+
     '<form method="POST" id="searchCliForm">'+
-    '<label>Número de Contribuinte</label><br>'+
+    '<label>Insira o Número de Contribuinte do Cliente que deseja procurar</label><br>'+
     '<input type="text" name="nif"><br>'+
     '<input id="submit" type="submit" class="searchButton" value="Procurar cliente">'+
     '</form>',
@@ -33,13 +34,16 @@ var html = {
     '<button id="loan">Empréstimo</button>' +
     '</div>',
     account_form:'' +
-    '<form method="post" id="addAccount">'+
+    '<form method="post" id="addAccount">' +
+    '<label>Insira os dados da nova conta</label>'+
+    '<div class="form-wrapper">' +
     '<label>Produto</label>'+
     '<select id="product" name="product">'+
     '<option></option>'+
     '</select>'+
     '<label id="amountLabel">Depósito Inicial</label>'+
     '<input id="amount" type="text" name="amount" disabled>'+
+    '</div>' +
     '<button type="submit" class="addAccountButton">Criar nova conta</button>' +
     '</form>',
     first_user:'' +
