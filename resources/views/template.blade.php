@@ -39,7 +39,7 @@
     </ul>
 </div>
 
-<div class="login_form" id="form_to_login">
+<div class="login_form" id="form_to_login" @if ($errors->has('username') || $errors->has('password')) style="display: flex" @endif>
 
     <form method="POST" action="{{ url('/client/login') }}">
         {{ csrf_field() }}
@@ -47,7 +47,16 @@
         <input name="password" type="password" placeholder="Palavra-Passe">
         <button type="submit">  <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
     </form>
-
+    @if ($errors->has('username'))
+        <span class="error">
+                <strong>{{ $errors->first('username') }}</strong>
+            </span>
+    @endif
+    @if ($errors->has('password'))
+        <span class="error">
+                <strong>{{ $errors->first('password') }}</strong>
+            </span>
+    @endif
     <a class="forgotten_password" href="{{ url('/client/password/resetPassword') }}">Esqueceu a Palavra-Passe?</a>
     <div class="subBar_login">
         <a href="#"><i class="fa fa-mobile" aria-hidden="true"></i>

@@ -99,6 +99,15 @@ body{
 
 }
 
+.error{
+    margin-top: 5px;
+    color: red;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    width:100%;
+}
+
 @media all and (max-width: 767px) {
     .upper-nav{
         flex-direction: column;
