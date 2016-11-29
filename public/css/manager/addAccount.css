@@ -1,0 +1,33 @@
+.container{
+    width: calc(100% - 240px);
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+#back {
+    float: right;
+}
+
+p {
+    margin-top:0px;
+}
+
+input[type="submit"], button[type="submit"]{
+    float: right;
+    margin-right: 0px;
+    width: 100px;
+    height: 35px;
+    color: white;
+}
+.searchButton {
+    width: 150px!important;
+}
+
+.addAccountButton {
+    width: 150px!important;
+}
+
+select {
+    width:100%;
+}

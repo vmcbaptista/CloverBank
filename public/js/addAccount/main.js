@@ -3,36 +3,58 @@
  */
 
 var html = {
+    add_client:'' +
+    '<form id="addCliForm" method="POST">' +
+    '<div class="form-wrapper">' +
+    '<label>Nome</label>' +
+    '<input id="name" type="text" name="name">' +
+    '<label>Morada</label>' +
+    '<input id="address" type="text" name="address">' +
+    '<label>E-mail</label>' +
+    '<input id="email" type="email" name="email">' +
+    '<label>Telefone</label>' +
+    '<input id="phone" type="tel" name="phone">' +
+    '<label>Número de Contribuinte</label>' +
+    '<input id="nif" type="number" name="nif">' +
+    '<button type="submit">Registar</button>' +
+    '</div>' +
+    '</form>',
     search_form:''+
     '<form method="POST" id="searchCliForm">'+
     '<label>Número de Contribuinte</label><br>'+
     '<input type="text" name="nif"><br>'+
-    '<input id="submit" type="submit" value="Procurar cliente">'+
+    '<input id="submit" type="submit" class="searchButton" value="Procurar cliente">'+
     '</form>',
     product_type:'' +
     '<p>Selecione o tipo de conta que pretende criar:</p>' +
+    '<div class="buttons">' +
     '<button id="current">Conta à Ordem</button>' +
     '<button id="saving">Conta Poupança</button>' +
-    '<button id="loan">Empréstimo</button>',
+    '<button id="loan">Empréstimo</button>' +
+    '</div>',
     account_form:'' +
     '<form method="post" id="addAccount">'+
-    '<label>Produto</label><br>'+
+    '<label>Produto</label>'+
     '<select id="product" name="product">'+
     '<option></option>'+
     '</select>'+
-    '<label id="amountLabel">Depósito Inicial</label><br>'+
-    '<input id="amount" type="text" name="amount" disabled><br>'+
-    '<button type="submit">Criar nova conta</button>' +
+    '<label id="amountLabel">Depósito Inicial</label>'+
+    '<input id="amount" type="text" name="amount" disabled>'+
+    '<button type="submit" class="addAccountButton">Criar nova conta</button>' +
     '</form>',
     first_user:'' +
     '<p>Selecione uma das seguintes opções para o 1º Titular da Conta</p>' +
-    '<button id="new">Novo cliente</button>' +
-    '<button id="existing">Cliente já existente</button>',
-    more_users:'' +
-    '<p>Deseja juntar mais algum titular a esta conta?' +
+    '<div class="buttons">' +
     '<button id="new">Novo cliente</button>' +
     '<button id="existing">Cliente já existente</button>' +
-    '<button id="next">Não desejo adicionar mais nenhum titular</button>'
+    '</div>',
+    more_users:'' +
+    '<p>Deseja juntar mais algum titular a esta conta?' +
+    '<div class="buttons">' +
+    '<button id="new">Novo cliente</button>' +
+    '<button id="existing">Cliente já existente</button>' +
+    '<button id="next">Não desejo adicionar mais nenhum titular</button>' +
+    '</div>'
 };
 
 function getProducts(type) {
@@ -89,9 +111,8 @@ $().ready(function () {
             handleSearchResults();
         })
         .on("click","#new",function () {
-            $.get("/client/register", function(data){
-                $("#body").html(data);
-            })
+            $("#body").html(html.add_client);
+            handleAddClientForm();
         })
         .on("change","#product",function() {
             $("#amount").removeAttr("disabled");

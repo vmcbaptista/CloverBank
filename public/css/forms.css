@@ -44,6 +44,7 @@ table tbody tr:last-child td {
 
 select{
     width: 90px;
+    height: 30px;
     background-color: white;
     padding:2px;
 }

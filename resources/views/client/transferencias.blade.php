@@ -3,6 +3,7 @@
 
 @push('css')
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/client/clientTransference.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/forms.css')}}">
 @endpush
 
 @section('main_content')

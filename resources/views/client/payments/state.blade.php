@@ -1,4 +1,7 @@
 @extends('client.layout.template')
+@push('css')
+<link rel="stylesheet" type="text/css" href="{{URL::asset('css/forms.css')}}">
+@endpush
 @section('main_content')
     <form method="POST" id="addCliForm">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">

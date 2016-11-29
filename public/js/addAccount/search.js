@@ -79,6 +79,7 @@ function createResultTable(data) {
         '<th>Morada</th>'+
         '<th>Telefone</th>'+
         '<th>Número de Contribuinte</th>'+
+        '<th>Ação</th>'+
         '</tr>'+
         '</thead>' +
         '<tbody>'+
@@ -86,13 +87,15 @@ function createResultTable(data) {
         '<td id="clientName">'+data.name+'</a></td>'+
         '<td>'+data.address+'</td>'+
         '<td>'+data.phone+'</td>'+
-        '<td>'+data.nif+'</td>'+
+        '<td>'+data.nif+'</td>' +
+        '<td><button id="selCli">Selecionar Cliente</button></td>'+
         '<input id="cliId" type="hidden" value="'+data.id+'">'+
         '</tr>'+
         '</tbody>'+
         '</table>' +
+        '<div class="buttons">' +
         '<button id="back">Voltar atrás</button>' +
-        '<button id="selCli">Selecionar Cliente</button>'
+        '</div>'
     )
 }
 function createAccountTable(data) {
@@ -145,7 +148,9 @@ function createAccountTable(data) {
     table += '' +
         '</tbody>'+
         '</table>' +
-        '<button id="back">Voltar atrás</button>';
+        '<div>' +
+        '<button id="back">Voltar atrás</button>' +
+        '</div>';
 
     $("#body").html(p+table);
 }
