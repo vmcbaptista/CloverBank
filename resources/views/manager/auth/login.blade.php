@@ -13,19 +13,19 @@
             <a href="{{ url('/') }}">
                 <img  src="/logo/horizontal_transparent.png">
             </a>
-            <input id="username"  class="" name="username" value="{{ old('username') }}" autofocus placeholder="Utilizador">
+            <input id="username" name="username" value="{{ old('username') }}" autofocus placeholder="Utilizador">
             @if ($errors->has('username'))
                 <span class="error">
                 <strong>{{ $errors->first('username') }}</strong>
             </span>
             @endif
-            <input id="password" type="password" class="" name="password" placeholder="Password">
+            <input id="password" type="password" name="password" placeholder="Password">
             @if ($errors->has('password'))
                 <span class="error">
                     <strong>{{ $errors->first('password') }}</strong>
                 </span>
             @endif
-            <div clasS="remenber-me">
+            <div class="remember-me">
                 <input type="checkbox" name="remember"><span class="rem-font">Lembrar-me</span>
             </div>
             <button type="submit" class="">Login</button>
