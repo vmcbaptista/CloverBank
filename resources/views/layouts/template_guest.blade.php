@@ -10,6 +10,7 @@
     @yield('simulator')
     @yield('products_list')
     @yield('help')
+    @yield('reset')
 <div class="contacts-container">
     <h3>Quer falar connosco?</h3>
     <ul class="contacts">

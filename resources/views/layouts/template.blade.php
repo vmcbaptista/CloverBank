@@ -83,9 +83,7 @@
         <a href="client/register">Ainda nao e cliente CloverBank?<span class="underline"> Adira Ja</span> </a>
     </div>
 </div>
-<div class="main-interface">
 @yield('content')
-</div>
 <script type="text/javascript" src="{{ URL::asset('js/login_form.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/util/dropdown_navbar.js') }}"></script>
 @stack('javascript')

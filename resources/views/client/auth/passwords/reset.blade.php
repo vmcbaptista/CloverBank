@@ -1,11 +1,11 @@
-@extends('layouts.template')
+@extends('layouts.template_guest')
 
 
 @push('css')
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/reset_password.css')}}">
 @endpush
 
-@section('content')
+@section('reset')
 <div class="content">
     <div class="background-wrapping"></div>
     <!--Ask for password-->
