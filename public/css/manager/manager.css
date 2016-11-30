@@ -29,3 +29,9 @@
 .side-bar a:hover{
     background-color: rgba(0, 0, 0, 0.1);
 }
+
+@media screen and (max-width: 766px ){
+    .main-interface {
+        height: 100%;
+    }
+}
