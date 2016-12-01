@@ -1,46 +1,52 @@
 @extends('layouts.template_guest')
-@section('content')
-    <form id="addCliForm" class="form-horizontal" role="form" method="POST" action="{{ url('/client/register') }}">
+@push('css')
+<link rel="stylesheet" type="text/css" href="{{URL::asset('css/reset_password.css')}}">
+<link rel="stylesheet" type="text/css" href="{{URL::asset('css/client/register.css')}}">
+@endpush
+@section('reset')
+    <div class="content">
+        <div class="background-wrapping"></div>
+    <form id="addCliForm" class="form-forgotten_password" method="POST" action="{{ url('/client/register') }}">
+        <h4>Adira ao Clover Bank</h4>
         {{ csrf_field() }}
 
-        <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus>
+        <input id="name" type="text" name="name" value="{{ old('name') }}" placeholder="Nome">
 
         @if ($errors->has('name'))
-            <span class="help-block">
+            <span class="error">
                 <strong>{{ $errors->first('name') }}</strong>
             </span>
         @endif
-        <input id="address" type="text" class="form-control" name="address" value="{{ old('address') }}" autofocus>
+        <input id="address" type="text" name="address" value="{{ old('address') }}" placeholder="Morada">
 
         @if ($errors->has('address'))
-            <span class="help-block">
+            <span class="error">
                 <strong>{{ $errors->first('address') }}</strong>
             </span>
         @endif
-        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+        <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="E-mail">
 
         @if ($errors->has('email'))
-            <span class="help-block">
+            <span class="error">
                 <strong>{{ $errors->first('email') }}</strong>
             </span>
         @endif
-        <input id="phone" type="tel" class="form-control" name="phone" value="{{ old('phone') }}">
+        <input id="phone" type="tel" name="phone" value="{{ old('phone') }}" placeholder="Telefone">
 
         @if ($errors->has('phone'))
-            <span class="help-block">
+            <span class="error">
                 <strong>{{ $errors->first('phone') }}</strong>
             </span>
         @endif
-        <input id="nif" type="number" class="form-control" name="nif" value="{{ old('nif') }}">
+        <input id="nif" type="number" name="nif" value="{{ old('nif') }}" placeholder="Número de Contribuinte">
 
         @if ($errors->has('nif'))
-            <span class="help-block">
+            <span class="error">
                 <strong>{{ $errors->first('nif') }}</strong>
             </span>
         @endif
-        <button type="submit" class="btn btn-primary">
-            Register
-        </button>
+        <button type="submit">Solicitar Conta</button>
     </form>
+    </div>
 @endsection
 
