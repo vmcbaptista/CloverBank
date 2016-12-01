@@ -18,7 +18,7 @@
             <div class="icon-contact">
                 <i class="fa fa-user-o fa-2x" aria-hidden="true"></i>
             </div>
-            <div class="contact_msg">
+            <div class="contact_msg min-size-2">
                 <p>Nos Ligamos</p>
                 <p> Deixe-nos o seu contacto e nos ligamos-lhe</p>
             </div>
@@ -28,7 +28,7 @@
                 <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
             </div>
 
-            <div class="contact_msg">
+            <div class="contact_msg  min-size">
                 <p>Nos nossos Balcoes</p>
                 <p>Encontre-nos num balcao perto de si</p>
             </div>
@@ -55,7 +55,7 @@
             <div class="icon-contact">
                 <i class="fa fa-mobile fa-2x" aria-hidden="true"></i>
             </div>
-            <div class="contact_msg">
+            <div class="contact_msg min-size">
                 <p>700 000 000</p>
                 <p>Atendimento a medida 24/7</p>
             </div>
