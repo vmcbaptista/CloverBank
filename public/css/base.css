@@ -142,6 +142,11 @@ body{
     padding: 0;
 }
 
+.user-options a{
+    color:white;
+    text-decoration: none;
+}
+
 .user-options li{
     list-style-type: none;
     padding: 10px;

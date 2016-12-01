@@ -15,10 +15,10 @@
         <div class="person-wrapper">
             <div class="person-box">
                 <div class="person-info">
-                    <span> Olaa++a++a+a+aaaaa {{Auth::guard('manager')->user()->name}}. </span>
+                    <span> Olá {{Auth::guard('manager')->user()->name}}. </span>
                     <br>
-                    <span> Este e o seu perfil pessoal.</span>
-                    <span> Neste espaço podera ter acesso a sua informaçao pessoal.</span>
+                    <span> Este é o seu perfil pessoal.</span>
+                    <span> Neste espaço poderá ter acesso à sua informação pessoal.</span>
                     <br>
                     <hr>
                     <div class="row">
@@ -37,13 +37,13 @@
                             <span>{{Auth::guard('manager')->user()->nif}}</span>
                         </div>
                         <div class="column">
-                            <h3><i class="fa fa-clock-o" aria-hidden="true"></i> Ultimo Acesso: </h3>
+                            <h3><i class="fa fa-clock-o" aria-hidden="true"></i> Ùltimo Acesso: </h3>
                             <span>{{Auth::guard('manager')->user()->last_login}}</span>
                         </div>
                     </div>
 
                     <div class="row">
-                        <input type="submit" name="generate_card" id="generate_card" value="Gerar Cartao">
+                        <input type="submit" name="generate_card" id="generate_card" value="Gerar Cartão de Contacto">
                         <input type="submit" name="add_pic" id="add_pic" value="Adicionar Foto">
                     </div>
                 </div>
