@@ -7,22 +7,23 @@
 
 .form-forgotten_password input {
     background-color: white;
-    color: black;
+    color: gray;
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    color: black;
+    color: gray;
 }
 ::-moz-placeholder { /* Firefox 19+ */
-    color: black;
+    color: gray;
 }
 :-ms-input-placeholder { /* IE 10+ */
-    color: black;
+    color: gray;
 }
 :-moz-placeholder { /* Firefox 18- */
-    color: black;
+    color: gray;
 }
 
 .background-wrapping {
-    background-image: url('/img/bg.jpg');
+    background-image: initial;/*url('/img/bg.jpg');*/
+    background-color: #113342;
 }

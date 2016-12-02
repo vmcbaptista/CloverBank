@@ -5,15 +5,11 @@
     margin: 20px;
 }
 
-#back {
-    float: right;
-}
-
 p {
     margin-top:0px;
 }
 
-input[type="submit"], button[type="submit"]{
+input[type="submit"], button[type="submit"], #back{
     float: right;
     width: initial;
     margin-right: 0px;

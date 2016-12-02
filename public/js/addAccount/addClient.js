@@ -16,7 +16,8 @@ function handleAddClientForm() {
         clientData.push(cliData);
         sessionStorage.setItem("clientData",JSON.stringify(clientData));
         $(this)[0].reset();
-        $("#body").html(html.more_users).off("submit","#addCliForm");
+        $("#body").html(html.more_users);
+        history.pushState({html: $("#body").html()},'','?moreUsers');
         event.preventDefault();
     })
 }

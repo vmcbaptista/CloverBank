@@ -23,17 +23,25 @@ Route::get('/account/add', 'AccountController@showForm')->middleware('manager');
 
 Route::post('/account/current/add', 'CurrentAccountController@add')->middleware('manager');
 
+Route::get('/account/current/validateAmount', 'CurrentAccountController@validateInitialAmount')->middleware('manager');
+
 Route::post('/account/current/search/{client_id}', 'CurrentAccountController@search')->middleware('manager');
 
 Route::post('/account/saving/add', 'SavingAccountController@add')->middleware('manager');
 
+Route::get('/account/saving/validateAmount', 'SavingAccountController@validateInitialAmount')->middleware('manager');
+
 Route::post('/account/loan/add', 'LoanController@add')->middleware('manager');
+
+Route::get('/account/loan/validateAmount', 'LoanController@validateInitialAmount')->middleware('manager');
 
 Route::get('/account/balance/{id}', 'CurrentAccountController@balance');
 
 Route::get('/client/add', 'ClientController@addForm');
 
 Route::post('/client/add', 'ClientController@add');
+
+Route::get('/client/checkNif', 'ClientController@checkNif');
 
 Route::get('/payments/services', 'AccountMovementController@showServicesForm')->middleware('client');
 

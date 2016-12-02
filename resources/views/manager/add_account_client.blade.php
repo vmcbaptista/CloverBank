@@ -21,4 +21,6 @@
 <script src="/js/addAccount/main.js"></script>
 <script src="/js/addAccount/search.js"></script>
 <script src="/js/addAccount/addClient.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/addAccount/validate.js"></script>
 @endpush

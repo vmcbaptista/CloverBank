@@ -9,7 +9,6 @@ function handleSearchForm() {
             url: '/client/search',
             success: function (data) {
                 createResultTable(data);
-                $("#body").off('submit','#searchCliForm');
             },
             error: function (err) {
                 alert('Não existe nenhum cliente com o número de contribuinte introduzido.');
@@ -25,13 +24,17 @@ function handleSearchResults() {
         clientData.push({
             "new": false,
             "id": $("#cliId").val(),
-            "name": $('#clientName').text()
+            "name": $('#clientName').text(),
+            "address": $("#cliAddress").text(),
+            "email": $("#cliMail").val(),
+            "phone": $("#cliPhone").text(),
+            "nif":$("#cliNif").text()
         });
         sessionStorage.setItem('clientData', JSON.stringify(clientData));
         console.log(sessionStorage.getItem('clientData'));
         if (sessionStorage.getItem('accountType') == 'current') {
-            $("#body").html(html.more_users)
-                .off('click','#selCli');
+            $("#body").html(html.more_users).off('click','#selcCli');
+            history.pushState({html: $("#body").html()},'','?moreClients');
         } else {
             $.ajax({
                 method: 'POST',
@@ -48,23 +51,23 @@ function handleSearchResults() {
             });
         }
     })
-        .on('click', '#back', function () {
-            $("#body").html(html.search_form)
-                .off('click','#back');
-        })
         .on('click', '.selAccount', function () {
             if (sessionStorage.getItem('accountType') == 'loan') {
                 sessionStorage.setItem('account', $(this).val());
                 $("#body").html(html.account_form).off('click','.selAccount');
                 $("#amountLabel").text("Montante Pretendido");
                 $("#addAccount").attr('action','/account/loan/add');
+                history.pushState({html: $("#body").html()},'','?createLoan');
                 getProducts('loan');
+                validateAccountForm();
             }
             else {
                 sessionStorage.setItem('account', $(this).val());
                 $("#body").html(html.account_form).off('click','.selAccount');
                 $("#addAccount").attr('action','/account/saving/add');
+                history.pushState({html: $("#body").html()},'','?createSaving');
                 getProducts('saving');
+                validateAccountForm();
             }
         });
 
@@ -85,11 +88,12 @@ function createResultTable(data) {
         '<tbody>'+
         '<tr>'+
         '<td id="clientName">'+data.name+'</a></td>'+
-        '<td>'+data.address+'</td>'+
-        '<td>'+data.phone+'</td>'+
-        '<td>'+data.nif+'</td>' +
+        '<td id="cliAddress">'+data.address+'</td>'+
+        '<td id="cliPhone">'+data.phone+'</td>'+
+        '<td id="cliNif">'+data.nif+'</td>' +
         '<td><button id="selCli">Selecionar Cliente</button></td>'+
         '<input id="cliId" type="hidden" value="'+data.id+'">'+
+        '<input id="cliMail" type="hidden" value="'+data.email+'">'+
         '</tr>'+
         '</tbody>'+
         '</table>' +
@@ -97,6 +101,7 @@ function createResultTable(data) {
         '<button id="back">Voltar atrás</button>' +
         '</div>'
     )
+    history.pushState({html: $("#body").html()},'','?searchResults');
 }
 function createAccountTable(data) {
     var p = '';
@@ -153,4 +158,5 @@ function createAccountTable(data) {
         '</div>';
 
     $("#body").html(p+table);
+    history.pushState({html: $("#body").html()},'','?selectAccount');
 }

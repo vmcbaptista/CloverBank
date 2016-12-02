@@ -52,4 +52,12 @@ class ClientController extends Controller
     {
         return Client::where('nif', '=', $request->nif)->firstOrFail();
     }
+
+    public function checkNif(Request $request)
+    {
+        if (!Client::where('nif', '=', $request->nif)->first()) {
+            return "true";
+        }
+        return "false";
+    }
 }
