@@ -5,7 +5,6 @@
 Olá {{$name}},
 <br>
 <br>
-A sua conta foi desbloqueada por um dos nossos gestores.
 As suas credênciais de acesso ao homebanking são as seguintes:
 <br>
 <br>
@@ -16,7 +15,7 @@ Password: {{$password}}
 <br>
 </fieldset>
 <br>
-Aconselhamos que mude a sua palavra passe após realizar o primeiro login na página.
+Aconselhamos que mude a sua palavra passe após realizar o primeiro login na pagina.
 <br>
 <br>
 Com os melhores cumprimentos,

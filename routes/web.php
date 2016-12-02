@@ -19,15 +19,18 @@ Route::get('/products/current','ProductController@presentCurrentAccountProducts'
 Route::get('/products/loans','ProductController@presentLoansAccountProducts');
 Route::get('/products/savings','ProductController@presentSavingsAccountProducts');
 
+
 Route::get('/account/add', 'AccountController@showForm')->middleware('manager');
-
 Route::post('/account/current/add', 'CurrentAccountController@add')->middleware('manager');
-
 Route::post('/account/current/search/{client_id}', 'CurrentAccountController@search')->middleware('manager');
-
 Route::post('/account/saving/add', 'SavingAccountController@add')->middleware('manager');
-
 Route::post('/account/loan/add', 'LoanController@add')->middleware('manager');
+
+//Handles the account activation
+Route::get('/account/activate', 'ActivateAccountController@showInactiveAccount')->middleware('manager');
+Route::post('/account/activate', 'ActivateAccountController@middleStep')->middleware('manager');
+Route::post('/account/activate/finalstep','ActivateAccountController@activationStateFinal')->middleware('manager');
+
 
 Route::get('/account/balance/{id}', 'CurrentAccountController@balance');
 

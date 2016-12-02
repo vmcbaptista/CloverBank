@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\ClientAuth;
 
 use App\Client;
+use App\Mail\InactiveAccount;
+use Illuminate\Auth\Events\Registered;
+use Mail;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SendLoginInfo;
+use Illuminate\Http\Request;
+
+
 
 class RegisterController extends Controller
 {
@@ -53,9 +57,10 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:clients',
-            'password' => 'required|min:6|confirmed',
+            //'password' => 'required|min:6|confirmed',
         ]);
     }
+
 
     /**
      * Create a new user instance after a valid registration.
@@ -73,17 +78,33 @@ class RegisterController extends Controller
         $password = str_random(8);
         $mail = $data['email'];
 
-        Mail::to($mail)->send(new SendLoginInfo($username,$password,$nomeClient));
+
         return Client::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'address'=>$data['address'],
             'phone'=>$data['phone'],
             'nif'=>$data['nif'],
+            'accountState' => 0,
             'username'=> $username,
             'password' => bcrypt($password)
         ]);
+
     }
+
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        Mail::to($request->email)->send(new InactiveAccount($request->name));
+
+        $askForAccount = true;
+        return view('client.auth.register',compact('askForAccount'));
+    }
+
 
     /**
      * Show the application registration form.
@@ -92,7 +113,8 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('client.auth.register');
+        $askForAccount = false;
+        return view('client.auth.register',compact("askForAccount"));
     }
 
     /**

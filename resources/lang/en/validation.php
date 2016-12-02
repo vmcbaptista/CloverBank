@@ -91,6 +91,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'accountState' => [
+            'unique' => 'A sua conta encontra-se inativa, entre em contacto com um gestor'
+        ]
     ],
 
     /*
