@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\ClientAuth;
 
+use App\Client;
 use App\Http\Controllers\Controller;
+use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+
 
 class LoginController extends Controller
 {
@@ -42,10 +45,18 @@ class LoginController extends Controller
     }
 
     public function login(Request $request) {
+
+
         if (Auth::guard('manager')->check()) {
             return 'Não é possível iniciar sessão uma vez que um gestor encontra-se a utilizar este equipamento.';
         }
-        else {
+        else if(Auth::guard('client')->attempt(['username'=>$request['username'], 'password'=> $request['password'],'accountState' => 1 ])){
+            return $this->mainLogin($request);
+        }
+        else
+        {
+            //Add accountState Field from database
+            $request->merge(array('accountState' => Client::where(['username' => $request['username']])->first()->accountState));
             return $this->mainLogin($request);
         }
     }
@@ -64,4 +75,21 @@ class LoginController extends Controller
     {
         return 'username';
     }
+
+    /**
+     * Redefinition of validator this way we will check if the account is active or inactive.
+     * @param Request $request
+     */
+    protected function validateLogin(Request $request)
+    {
+
+        $this->validate($request, [
+            $this->username() => 'required',
+            'password' => 'required',
+            'accountState' => Rule::unique('clients')->where(function($query){
+                $query->where('accountState',0);
+            })
+        ]);
+    }
+
 }

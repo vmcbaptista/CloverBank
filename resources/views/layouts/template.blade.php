@@ -62,7 +62,7 @@
     </ul>
 </div>
 
-<div class="login_form" id="form_to_login" @if ($errors->has('username') || $errors->has('password')) style="display: flex" @endif>
+<div class="login_form" id="form_to_login" @if ($errors->has('username') || $errors->has('password') || $errors->has('accountState')) style="display: flex" @endif>
 
     <form method="POST" action="{{ url('/client/login') }}">
         {{ csrf_field() }}
@@ -70,6 +70,11 @@
         <input name="password" type="password" placeholder="Palavra-Passe">
         <button type="submit">  <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
     </form>
+    @if ($errors->has('accountState'))
+        <span class="error">
+                <strong>{{ $errors->first('accountState') }}</strong>
+            </span>
+    @endif
     @if ($errors->has('username'))
         <span class="error">
                 <strong>{{ $errors->first('username') }}</strong>

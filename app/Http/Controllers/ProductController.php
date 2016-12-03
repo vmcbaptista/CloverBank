@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use DB;
 use App\ProductCurrent;
 use App\ProductLoan;
 use App\ProductSaving;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-use Illuminate\Support\Facades\DB;
+use Redirect;
+
 
 class ProductController extends Controller
 {
@@ -32,7 +33,6 @@ class ProductController extends Controller
             $product->description = $request->description;
             $product->min_amount = $request->min_amount;
             $product->prod_type = $request->prod_type;
-             #TODO FINISH THE FORMULAS TO CALCULATE EVERYTHING TAXES
             $product->save();
             if ($product->prod_type == "loan") {
                 $loan = new ProductLoan();
@@ -41,9 +41,6 @@ class ProductController extends Controller
                 $loan->spread = $request->spread;
                 $loan->comissions_impost = $request->IPC_tax;
                 $loan->tanl = $request->rate;
-
-
-
                 $product->products_type_loan()->save($loan);
             } else if ($product->prod_type == "saving") {
                 $saving = new ProductSaving();
@@ -63,6 +60,7 @@ class ProductController extends Controller
             }
         });
 
+        return Redirect::to('/manager/home');
 
     }
 

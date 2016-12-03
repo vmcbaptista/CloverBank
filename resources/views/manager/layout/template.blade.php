@@ -13,7 +13,7 @@
             <a href="#" >Contas Correntes</a>
             <div id="dropdown-current" class="dropdown-content">
                 <a href="/account/add">Criar Conta</a>
-                <a href="#">Link 2</a>
+                <a href="/account/activate">Ativar Contas</a>
                 <a href="#">Link 3</a>
             </div>
             <a href="#" >Poupanças</a>
