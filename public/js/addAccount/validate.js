@@ -1,3 +1,6 @@
+/**
+ * Validates the forms used to create all the types of account
+ */
 function validateAccountForm() {
     $("#addAccount").validate({
         errorElement:'div',
@@ -6,6 +9,7 @@ function validateAccountForm() {
             amount: {
                 required: true,
                 digits: true,
+                // Checks if the amount filled satisfies the conditions of the selected account
                 remote: {
                     url: '/account/' + sessionStorage.getItem('accountType') + '/validateAmount/',
                     type: 'get',
@@ -30,6 +34,10 @@ function validateAccountForm() {
         }
     });
 }
+
+/**
+ * Validates the forms that allow the creation of clients
+ */
 function validateAddClientForm() {
     $("#addCliForm").validate({
         errorElement:'div',
@@ -51,6 +59,7 @@ function validateAddClientForm() {
                 minlength: 9,
                 maxlength: 9,
                 digits:true,
+                // Check if the NIF already exists on the DB
                 remote: {
                     url: '/client/checkNif',
                     type: 'get',

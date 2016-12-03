@@ -1,3 +1,7 @@
+/**
+ * Uses AJAX to check if there is any client with the NIF introduced,
+ * if so presents a table with the iformation of that client
+ */
 function handleSearchForm() {
     $("#body").on('submit', '#searchCliForm', (function (event) {
         $.ajax({
@@ -18,6 +22,13 @@ function handleSearchForm() {
     }))
 }
 
+/**
+ * When a client is selected this method is invoked
+ * It adds the data od the client into a SessionStorage that is used afterwards when
+ * associating the account that is being created with this user.
+ * After that it presents the final form that allows the manager to fill information
+ * about the product that the client will subscribe.
+ */
 function handleSearchResults() {
     $("#body").on('click', '#selCli', function () {
         var clientData = JSON.parse(sessionStorage.getItem('clientData'));
@@ -32,6 +43,10 @@ function handleSearchResults() {
         });
         sessionStorage.setItem('clientData', JSON.stringify(clientData));
         console.log(sessionStorage.getItem('clientData'));
+        // The saving and loans require an already created current account
+        // If we are creating one of this types of accounts we do an AJAX request to check
+        // the currents accounts that are associated to the client, present them and allow the
+        // manager to select one of them
         if (sessionStorage.getItem('accountType') == 'current') {
             $("#body").html(html.more_users).off('click','#selcCli');
             history.pushState({html: $("#body").html()},'','?moreClients');
@@ -73,6 +88,10 @@ function handleSearchResults() {
 
 }
 
+/**
+ * This method creates a table that show the information about the client searched
+ * @param data is the data of the client received with the AJAX request
+ */
 function createResultTable(data) {
     $("#body").html('' +
         '<table id="result">'+
@@ -100,9 +119,15 @@ function createResultTable(data) {
         '<div class="buttons">' +
         '<button id="back">Voltar atrás</button>' +
         '</div>'
-    )
+    );
     history.pushState({html: $("#body").html()},'','?searchResults');
 }
+
+/**
+ * Creates a table with all the accounts that are associated with the client and
+ * presents some information about them
+ * @param data is the data of the accounts received with the AJAX request
+ */
 function createAccountTable(data) {
     var p = '';
     if (sessionStorage.getItem('accountType') == 'loan') {
@@ -123,7 +148,8 @@ function createAccountTable(data) {
         '</tr>'+
         '</thead>' +
         '<tbody>';
-
+    // The client could have more than one account, the data comes with all the accounts
+    // so we need to iterate over them
     $.each(data,function (i, val) {
         table += '' +
             '<tr>' +

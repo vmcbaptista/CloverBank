@@ -75,6 +75,10 @@ return [
     'timezone'             => ':attribute deve ser uma timezone válida.',
     'unique'               => ':attribute já está em uso.',
     'url'                  => 'O formato de :attribute é inválido.',
+    'amount_current_conditions'    => 'O montante/depósito inicial não satisfaz as condições para o produto selecionado.',
+    'amount_loan_conditions'    => 'O montante/depósito inicial não satisfaz as condições para o produto selecionado.',
+    'amount_saving_conditions'    => 'O montante/depósito inicial não satisfaz as condições para o produto selecionado.',
+
 
     /*
     |--------------------------------------------------------------------------
