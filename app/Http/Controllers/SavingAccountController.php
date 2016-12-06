@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\CurrentAccount;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Product;
 use App\ProductSaving;
 use App\Savings;
 use App\AccountMovement;
@@ -13,6 +15,35 @@ use Illuminate\Support\Facades\DB;
 
 class SavingAccountController extends Controller
 {
+
+    /**
+     * Renders a forms that allow a client to ask for a saving account
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showClientForm(){
+
+        $savings = ProductSaving::all();
+        $products = Product::all();
+        return view('client.ask_for_savingAccount')->with('savings',$savings)->with('products',$products)->with('step',1);
+    }
+
+
+    public function savingMediumStep(Request $request){
+
+        $chosenSaving = ProductSaving::where('id','=',$request->savingId)->first();
+        $chosenProd = Product::where('id','=',$chosenSaving->product_id)->first();
+
+        return view('client.ask_for_savingAccount')
+            ->with('request',$request)
+            ->with('chosenSaving',$chosenSaving)
+            ->with('chosenProduct',$chosenProd)
+            ->with('step',2);
+    }
+
+    public function addTemp(Request $request){
+        return $request;
+    }
 
     /**
      * Add news saving account
