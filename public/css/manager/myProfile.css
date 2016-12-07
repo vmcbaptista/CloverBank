@@ -1,9 +1,5 @@
 .container{
-    display: flex;
     flex-direction: row;
-    width: calc(100% - 200px);
-    padding-top:30px;
-    padding-bottom: 15px;
 }
 
 .picture-wrapper{

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\CurrentAccount;
 use App\ProductSaving;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
@@ -45,6 +46,15 @@ class AppServiceProvider extends ServiceProvider
             $initialAmount = $value;
             $product = $saving->belongsTOne_product()->first();
             if ($initialAmount < $product->min_amount || $initialAmount > $saving->max_amount)
+            {
+                return false;
+            }
+            return true;
+        });
+        Validator::extend('amount_balance', function($attribute, $value, $account, $validator) {
+            $currentAccount = CurrentAccount::find($account[0]);
+            $initialAmount = $value;
+            if ($initialAmount > $currentAccount->balance)
             {
                 return false;
             }

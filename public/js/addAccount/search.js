@@ -116,8 +116,9 @@ function createResultTable(data) {
         '</tr>'+
         '</tbody>'+
         '</table>' +
-        '<div class="buttons">' +
+        '<div class="right_buttons">' +
         '<button id="back">Voltar atrás</button>' +
+        '</div>' +
         '</div>'
     );
     history.pushState({html: $("#body").html()},'','?searchResults');
@@ -179,8 +180,9 @@ function createAccountTable(data) {
     table += '' +
         '</tbody>'+
         '</table>' +
-        '<div>' +
+        '<div class="right_buttons">' +
         '<button id="back">Voltar atrás</button>' +
+        '</div>' +
         '</div>';
 
     $("#body").html(p+table);

@@ -1,0 +1,10 @@
+.container {
+
+}
+.confirmation {
+    border: solid thin gray;
+    padding: 80px;
+    text-align: center;
+    width: auto;
+    margin: auto;
+}

@@ -42,7 +42,9 @@ class SavingAccountController extends Controller
             $movement->description = 'Constituição de Conta Poupança';
             $movement->amount = -$accountData->amount;
             $movement->balance_after = $currentAccount->balance - $accountData->amount;
+            $currentAccount->balance = $movement->balance_after;
             $currentAccount->movements()->save($movement);
+            $currentAccount->save();
         });
         return redirect('/manager/home');
     }
@@ -55,10 +57,11 @@ class SavingAccountController extends Controller
      */
     public function validateInitialAmount(Request $request)
     {
+        $currentAccount = CurrentAccount::find($request->account);
         $saving = ProductSaving::find($request->product);
         $initialAmount = $request->amount;
         $product = $saving->belongsTOne_product()->first();
-        if ($initialAmount < $product->min_amount || $initialAmount > $saving->max_amount)
+        if ($initialAmount < $product->min_amount || $initialAmount > $saving->max_amount || $initialAmount > $currentAccount->balance)
         {
             return "false";
         }
@@ -74,7 +77,7 @@ class SavingAccountController extends Controller
     {
         $this->validate($request, [
             'product' => 'required|exists:product_saving,id',
-            'amount' => 'required|amount_saving_conditions:'.$request->product,
+            'amount' => 'required|amount_saving_conditions:'.$request->product.'|amount_balance'.$request->account
         ]);
     }
 }

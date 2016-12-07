@@ -15,15 +15,19 @@ var html = {
     '<label>Número de Contribuinte</label>' +
     '<input id="nif" type="number" name="nif">' +
     '</div>' +
-    '<button type="submit">Novo Cliente</button>' +
+    '<div class="right_buttons">' +
     '<button type="button" id="back">Voltar atrás</button>' +
+    '<button type="submit">Novo Cliente</button>' +
+    '</div>' +
     '</form>',
     search_form:''+
     '<form method="POST" id="searchCliForm">'+
     '<label>Insira o Número de Contribuinte do Cliente que deseja procurar</label><br>'+
     '<input type="text" name="nif"><br>'+
-    '<input id="submit" type="submit" class="searchButton" value="Procurar cliente">'+
+    '<div class="right_buttons">' +
     '<button type="button" id="back"">Voltar atrás</button>' +
+    '<input id="submit" type="submit" class="searchButton" value="Procurar cliente">'+
+    '</div>' +
     '</form>',
     product_type:'' +
     '<p>Selecione o tipo de conta que pretende criar:</p>' +
@@ -43,15 +47,19 @@ var html = {
     '<label id="amountLabel">Depósito Inicial</label>'+
     '<input id="amount" type="text" name="amount">'+
     '</div>' +
-    '<button type="submit" class="addAccountButton">Criar nova conta</button>' +
+    '<div class="right_buttons">' +
     '<button type="button" id="back">Voltar atrás</button>' +
+    '<button type="submit" class="addAccountButton">Criar nova conta</button>' +
+    '</div>' +
     '</form>',
     first_user:'' +
     '<p>Selecione uma das seguintes opções para o 1º Titular da Conta</p>' +
     '<div class="buttons">' +
     '<button id="new">Novo cliente</button>' +
     '<button id="existing">Cliente já existente</button>' +
+    '<div class="right_buttons">' +
     '<button type="button" id="back">Voltar atrás</button>' +
+    '</div>' +
     '</div>',
     more_users:'' +
     '<p>Deseja juntar mais algum titular a esta conta?' +
@@ -59,7 +67,9 @@ var html = {
     '<button id="new">Novo cliente</button>' +
     '<button id="existing">Cliente já existente</button>' +
     '<button id="next">Não desejo adicionar mais nenhum titular</button>' +
+    '<div class="right_buttons">' +
     '<button type="button" id="back">Voltar atrás</button>' +
+    '</div>' +
     '</div>'
 };
 
