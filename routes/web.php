@@ -20,6 +20,23 @@ Route::get('/products/loans','ProductController@presentLoansAccountProducts');
 Route::get('/products/savings','ProductController@presentSavingsAccountProducts');
 
 
+//routes for deposits functionality
+
+Route::get('/deposits/NIF/', 'Deposits@ShowNifForm')->middleware('manager');
+Route::get('/deposits', 'Deposits@ShowDepositsPage')->middleware('manager');
+Route::get('/deposits/IBAN', 'Deposits@ShowIbanForm')->middleware('manager');
+Route::get('/deposits/NIF/check', 'Deposits@checkNIF')->middleware('manager');
+Route::post('/deposits/IBAN/check', 'Deposits@checkIBAN')->middleware('manager');
+
+Route::get('/deposits/IBAN/form',function(){
+
+    $ErroVerificacao = 0;
+    $VerificactionStep=5;
+    return view('manager.deposits',compact('clients'))->with(['ErroVerificacao'=>$ErroVerificacao,'VerificationStep'=>$VerificactionStep]);
+
+})->middleware('manager');
+Route::post('/deposits/IBAN/form/check', 'Deposits@makeDeposit')->middleware('manager');
+
 Route::get('/account/add', 'AccountController@showForm')->middleware('manager');
 
 Route::post('/account/current/add', 'CurrentAccountController@add')->middleware('manager');

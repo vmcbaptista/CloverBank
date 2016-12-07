@@ -130,7 +130,7 @@ $().ready(function () {
             sessionStorage.SessionName = "createAccount";
             sessionStorage.setItem("createAccount", 'true');
             sessionStorage.setItem("accountType", 'saving');
-            $("#body").html(html.search_form).off('click','#saving');
+            $("#body").html(html.search_form);
             history.pushState({html: $("#body").html()},'','?saving');
             handleSearchForm();
             handleSearchResults();
@@ -140,12 +140,12 @@ $().ready(function () {
             sessionStorage.SessionName = "createAccount";
             sessionStorage.setItem("createAccount", 'true');
             sessionStorage.setItem("accountType", 'loan');
-            $("#body").html(html.search_form).off('click','#loan');
+            $("#body").html(html.search_form);
             history.pushState({html: $("#body").html()},'','?loan');
             handleSearchForm();
             handleSearchResults();
         })
-        // Presents a form to search for an existing client
+        // Presents a form to search for an existing client -- USAR ISTO
         .on("click","#existing",function () {
             $("#body").html(html.search_form);
             history.pushState({html: $("#body").html()},'','?existing');

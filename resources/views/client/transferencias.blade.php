@@ -50,7 +50,6 @@
                     <p class="error">Não tem fundos suficientes para realizar a transferencia </p>
                 @endif
             </div>
-
             <input type="submit" name="submit" value="Continuar">
         </form>
         </div>
@@ -78,7 +77,7 @@
             </form>
         </div>
     @endif
-    @if($VerificationStep ==2)
+    @if($VerificationStep==2)
         <div class="container">
             <div class="form-wrapper step3">
                 <p class="success">A transferencia foi realizada com sucesso</p>
