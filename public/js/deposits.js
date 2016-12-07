@@ -6,9 +6,12 @@ $().ready(function(){
     handleSearchForm();
     handleSearchResults();
 
-    /*
-    $("#SearchNIF").click(function () {
+    // Reconfigures the views when the user goes back
+    window.onpopstate = function(event) {
+        location.href = "/deposits";
+    };
 
+    $("#body").on("click","#back",function () {
+        location.href = "/deposits";
     });
-  */
 });
