@@ -78,6 +78,10 @@ Route::get('/product/saving', 'ProductController@getSaving');
 
 Route::get('/product/{id}', 'ProductController@getProduct');
 
+//Client Create Saving
+Route::get('/product/create/saving','SavingAccountController@showClientForm');
+Route::post('/product/create/saving','SavingAccountController@savingMediumStep');
+Route::post('/product/add/saving', 'SavingAccountController@addJson' );
 
 //Client Login
 Route::post('client/login', 'ClientAuth\LoginController@login');

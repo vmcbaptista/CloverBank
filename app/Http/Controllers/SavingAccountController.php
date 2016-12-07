@@ -2,17 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
 use App\CurrentAccount;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Product;
+use App\ProductCurrent;
 use App\ProductSaving;
 use App\Savings;
 use App\AccountMovement;
+use Auth;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
+use stdClass;
 
 class SavingAccountController extends Controller
 {
+
+    /**
+     * Renders a forms that allow a client to ask for a saving account
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showClientForm(){
+
+        $savings = ProductSaving::all();
+        $products = Product::all();
+        return view('client.ask_for_savingAccount')->with('savings',$savings)->with('products',$products)->with('step',1);
+    }
+
+
+    public function savingMediumStep(Request $request){
+
+        $chosenSaving = ProductSaving::where('id','=',$request->savingId)->first();
+        $chosenProd = Product::where('id','=',$chosenSaving->product_id)->first();
+        $availableAccs = Auth::guard('client')->user()->accounts;
+        return view('client.ask_for_savingAccount')
+            ->with('request',$request)
+            ->with('chosenSaving',$chosenSaving)
+            ->with('chosenProduct',$chosenProd)
+            ->with('currentAccounts', $availableAccs)
+            ->with('step',2);
+    }
+
+    /**
+     * Makes a Json with data to send to add function that was created before
+     * @param Request $request
+     */
+    public function addJson(Request $request){
+        //Make the Json
+        $json = new stdClass();
+        $json->product = $request->savingId;
+        $json->amount = $request->amount;
+        $request->newAccount = json_encode($json);
+        $this->add($request);
+    }
 
     /**
      * Add news saving account
@@ -24,12 +69,12 @@ class SavingAccountController extends Controller
         // We need to create a new request since Laravel built-in validations
         // require the data passed in form of Request
         $accountData = json_decode($request->newAccount);
-        $this->validation(Request::create('account/saving/add','post', array(
+        $this->validation(Request::create('account/saving/add', 'post', array(
             'product' => $accountData->product,
             'amount' => $accountData->amount,
         )));
         // Use of transactions since we'll manipulate several tables
-        DB::transaction(function () use($request,$accountData) {
+        DB::transaction(function () use ($request, $accountData) {
             // Populate the tables and creates the relations needed
             $accountData = json_decode($request->newAccount);
             $currentAccount = CurrentAccount::find($request->account);
@@ -44,7 +89,11 @@ class SavingAccountController extends Controller
             $movement->balance_after = $currentAccount->balance - $accountData->amount;
             $currentAccount->movements()->save($movement);
         });
-        return redirect('/manager/home');
+        if (Auth::guard('client')->check()) {
+            return redirect('/client/home');
+        }else{
+            return redirect('/manager/home');
+        }
     }
 
     /**
