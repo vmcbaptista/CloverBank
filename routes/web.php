@@ -83,6 +83,10 @@ Route::get('/product/create/saving','SavingAccountController@showClientForm');
 Route::post('/product/create/saving','SavingAccountController@savingMediumStep');
 Route::post('/product/add/saving', 'SavingAccountController@addJson' );
 
+//Client Check Saving
+Route::get('/product/check/saving','SavingAccountController@showSavings');
+Route::get('/product/check/saving/{id}','SavingAccountController@getSavings'); //Api Return JSON
+
 //Client Login
 Route::post('client/login', 'ClientAuth\LoginController@login');
 Route::post('client/logout', 'ClientAuth\LoginController@logout');
