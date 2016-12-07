@@ -4,6 +4,7 @@
  */
 function handleSearchForm() {
     $("#body").on('submit', '#searchCliForm', (function (event) {
+        alert("entrei");
         $.ajax({
             method: 'POST',
             data: $("#searchCliForm").serialize(),
@@ -76,13 +77,17 @@ function handleSearchResults() {
                 getProducts('loan');
                 validateAccountForm();
             }
-            else {
+            else if(sessionStorage.getItem('accountType') == 'saving') {
                 sessionStorage.setItem('account', $(this).val());
                 $("#body").html(html.account_form).off('click','.selAccount');
                 $("#addAccount").attr('action','/account/saving/add');
                 history.pushState({html: $("#body").html()},'','?createSaving');
                 getProducts('saving');
                 validateAccountForm();
+            }
+            else
+            {
+                location.href="/deposits/NIF/check?NIF="+$(this).val();
             }
         });
 
@@ -140,7 +145,8 @@ function createAccountTable(data) {
     var table = '' +
         '<table id="accounts">'+
         '<thead>'+
-        '<tr>'+
+        '<tr>' +
+        '<th>IBAN</th>'+
         '<th>1º Titular</th>'+
         '<th>2º Titular</th>' +
         '<th>Outros titulares</th>'+
@@ -154,6 +160,7 @@ function createAccountTable(data) {
     $.each(data,function (i, val) {
         table += '' +
             '<tr>' +
+            '<td>'+val.id+'</td>' +
             '<td>'+val.clients.first+'</a></td>';
         if (typeof val.clients.second === 'undefined' ) {
             table += '<td>-</td>';

@@ -21,9 +21,9 @@
         @endif
         <p>Selecione o tipo de conta que pretende criar:</p>
         <div class="buttons">
-        <button id="current">Conta à Ordem</button>
-        <button id="saving">Conta Poupança</button>
-        <button id="loan">Empréstimo</button>
+            <button id="current">Conta à Ordem</button>
+            <button id="saving">Conta Poupança</button>
+            <button id="loan">Empréstimo</button>
         </div>
     </div>
 @endsection

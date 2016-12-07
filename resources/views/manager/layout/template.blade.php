@@ -24,6 +24,7 @@
             </div>
             <a href="#" >Emprestimos</a>
             <a href="#" >Simulaçoes</a>
+            <a href="/deposits">Depósitos</a>
             <h3>Gestao</h3>
             <a href="#" >Produtos</a>
             <div id="dropdown-products" class="dropdown-content">
