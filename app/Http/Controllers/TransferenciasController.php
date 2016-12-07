@@ -35,10 +35,8 @@ class TransferenciasController extends Controller
 
     public function VerificaTransferencia(Request $request)
     {
-
         $client = \Auth::guard('client')->user();
         $accounts = $client->accounts;
-
         $idConta = $request->account;
         $IBANDest = $request->IBAN;
         $Montantetransf = $request->Montante;
@@ -108,9 +106,7 @@ class TransferenciasController extends Controller
     {
         $client = \Auth::guard('client')->user();
         $accounts = $client->accounts;
-
         $PinIntroduzido = $request->PinCliente;
-
         if($PinIntroduzido !="")
         {
             if($PinIntroduzido == session()->get('VerificationCode'))
@@ -118,15 +114,13 @@ class TransferenciasController extends Controller
                 DB::transaction(function () {
                     $contaOrigem = CurrentAccount::find(session()->get('idContaOrigem'));
                     $contaDestino = CurrentAccount::find(session()->get('idContaDestino'));
-
                     $contaOrigem->balance = session()->get('MontanteOrigem');
                     $contaDestino->balance = session()->get('MontanteDestino');
-
                     $transference = new Transferences();
                     $transference->dest_name = session()->get('NomeClientDest');
                     $transference->dest_iban = session()->get('idContaDestino');
-
                     $movementOrigem = new AccountMovement();
+
                     if (empty(session()->get('Description')))
                     {
                         $Descricaotransf = "Trânsferência para ". session()->get('NomeClientDest');
@@ -135,11 +129,12 @@ class TransferenciasController extends Controller
                     {
                         $Descricaotransf = session()->get('Description');
                     }
+
                     $movementOrigem->description = $Descricaotransf;
                     $movementOrigem->amount = -session()->get('Montante');
                     $movementOrigem->balance_after = session()->get('MontanteOrigem');
-
                     $movementDestino = new AccountMovement();
+
                     if (empty(session()->get('Description')))
                     {
                         $Descricaotransf = "Trânsferência de ". session()->get('NomeClientOrigem');
@@ -173,10 +168,12 @@ class TransferenciasController extends Controller
                     session()->forget('Montante');
                     session()->forget('NomeClientDest');
 
-                    $Erroverificacao = 0;//sucesso
-                    $VerificactionStep = 2;
-                    return view('client.transferencias',compact('accounts'))->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
+
                 });
+
+                $Erroverificacao = 0;//sucesso
+                $VerificactionStep = 2;
+                return view('client.transferencias',compact('accounts'))->with(['ErroVerificacao'=>$Erroverificacao,'VerificationStep'=>$VerificactionStep]);
             }
             else
             {
