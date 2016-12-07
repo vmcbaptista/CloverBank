@@ -91,7 +91,7 @@
             Faça ja Download da nossa App</a>
         <a href="#"><i class="fa fa-shield" aria-hidden="true"></i>
             Medidas de Segurança</a>
-        <a href="client/register">Ainda nao e cliente CloverBank?<span class="underline"> Adira Ja</span> </a>
+        <a href="/client/register">Ainda nao e cliente CloverBank?<span class="underline"> Adira Ja</span> </a>
     </div>
 </div>
 @yield('content')
