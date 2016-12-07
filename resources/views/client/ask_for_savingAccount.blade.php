@@ -50,9 +50,17 @@
                 <p>Não são Permitidos reforços ao longo do investimento.</p>
             @endif
             <p>A duração será de {{ $chosenSaving->duration }} meses</p>
-            <p><bold>A TANB : {{ $chosenSaving->tanb }}</bold></p>
-            <p><bold>A TANL : {{ $chosenSaving->tanl }}</bold></p>
+            <p><strong>A TANB : {{ $chosenSaving->tanb }}</strong></p>
+            <p><strong>A TANL : {{ $chosenSaving->tanl }}</strong></p>
             <form method="POST" action="/product/add/saving">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="savingId" value="{{$chosenSaving->id}}">
+                <label for="account"> Conta a Debitar: </label>
+                <select name="account">
+                    @foreach($currentAccounts as $account)
+                        <option value="{{$account->id}}"> {{$account->id}} </option>
+                    @endforeach
+                </select>
                 <label for="amount"> Montante (€)</label>
                 <input type="text" name="amount">
                 <button> Subscrever Produto </button>
@@ -62,7 +70,7 @@
 
 
 
-    <div>
+    </div>
 @endsection
 
 @push('javascript')
