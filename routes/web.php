@@ -101,8 +101,12 @@ Route::post('/product/create/saving','SavingAccountController@savingMediumStep')
 Route::post('/product/add/saving', 'SavingAccountController@addJson' );
 
 //Client Check Saving
-Route::get('/product/check/saving','SavingAccountController@showSavings');
-Route::get('/product/check/saving/{id}','SavingAccountController@getSavings'); //Api Return JSON
+Route::get('/product/check/saving/{id}','SavingAccountController@showSavings');
+Route::get('/product/return/savings/{id}','SavingAccountController@getSavings'); //Api Return JSON
+
+//Client Close Saving
+Route::get('/product/delete/saving/{id}','SavingAccountController@confirmDelete');
+
 
 //Client Login
 Route::post('client/login', 'ClientAuth\LoginController@login');

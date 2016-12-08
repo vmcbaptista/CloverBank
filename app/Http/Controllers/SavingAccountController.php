@@ -12,6 +12,7 @@ use App\Savings;
 use App\AccountMovement;
 use Auth;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
@@ -37,10 +38,127 @@ class SavingAccountController extends Controller
      * for the user to be able to send and
      * ajax request.
      */
-    public function showSavings(){
+    public function showSavings($id){
         $client = Auth::guard('client')->user();
         $allCurrentAccounts = $client->accounts;
-        return view('client.checkSavings')->with('currentAccounts',$allCurrentAccounts);//->with('client',$client);
+        if($id == 1) {
+            return view('client.checkSavings')->with('currentAccounts', $allCurrentAccounts);//->with('client',$client);
+        }
+        elseif($id==2){ //redirects to delete page
+            return view('client.deleteSavings')->with('currentAccounts', $allCurrentAccounts);
+        }
+        else{ //if don't know where the user wants to go redirect it to the main page.
+            return view('client.home')->with('accounts',$allCurrentAccounts);
+        }
+    }
+
+    /**
+     * The user confirmed that he want to remove it's money from the saving
+     * @param $id -> saving Account ID
+     */
+    public function confirmDelete($id){
+        //Check if the thing is valid and hte account belong to the user
+        $client = Auth::guard('client')->user();
+        $currentAccounts = $client->accounts;
+        if($this->validateAccount($currentAccounts,$id))
+        {
+            DB::transaction(function () use ($id) {
+                //Now that I know that my account is really mine get the current account to which saving is associated
+                $savingAccount = Savings::find($id);
+                $currentAccount = $savingAccount->currentAccount;
+
+                //Add the money back to the user + the juro
+                $amountReceived = $this->giveBackAmount($currentAccount, $savingAccount ,$savingAccount->savingProduct);
+
+                //Add to the notification table saying that you've closed the account
+                $movement = new AccountMovement();
+                $movement->description = 'Liquidação de Conta Poupança';
+                $movement->amount = $amountReceived;
+                $movement->balance_after = $currentAccount->balance + $amountReceived;
+                $currentAccount->movements()->save($movement);
+
+                //Balance on current Account Updated
+                $currentAccount->balance = $currentAccount->balance  + $amountReceived;
+                $currentAccount->save();
+                \Debugbar::info($currentAccount->id);
+
+                //Delete row from database
+                DB::table('savings')->where('id', '=', $id)->delete();
+            });
+
+        }
+        else
+        {
+            header('HTTP/1.1 500 Internal Server');
+            header('Content-Type: application/json; charset=UTF-8');
+            $result=array();
+            $result['messages'] = "This account doesn't belong to you";
+            die(json_encode($result));
+        }
+    }
+
+    /**
+     * Calculate the money I need to give back to a user
+     * @param $currentAccount
+     * @param $saving
+     */
+    private function giveBackAmount($currentAccount, $savingAccount ,$savingProduct){
+        $amountToGiveBack = $savingAccount->amount;
+        $yearAmountGained = $savingAccount->amount * ($savingProduct->tanb/100) ;
+        $monthlyGain = $yearAmountGained/12;
+
+        $creationData = $savingProduct->created_at;
+        $finishDate = $creationData->addMonths($savingProduct->duration);
+        $today = Carbon::now('Europe/London');
+
+        //Months to finish
+        $diffMonths = $today->diffInMonths($finishDate);
+
+        #Need to be checked with higger attention because there are sometricks
+        if($diffMonths > 0 ){
+            //Apply Sanction for each month
+            $monthlyGain = $monthlyGain * 0.5;
+            if($savingProduct->duration - $diffMonths) { //won't give you money
+                return $amountToGiveBack;
+            }
+            else{
+                for ($i = 0; $i < ($savingProduct->duration - $diffMonths); $i++) {
+                    //\Debugbar::info($i);
+                    $amountToGiveBack = $amountToGiveBack + $monthlyGain;
+                }
+            }
+
+            return $amountToGiveBack;
+        }
+        else{
+            #TODO: Add the correct calculus according with what Paulo is doing
+            #TODO: CronJobs SHould be used to for the account and renew old depositos
+            //give all the saved money back;
+            for($i = 0; $i < $savingProduct->duration; $i++){
+                $amountToGiveBack = $amountToGiveBack + $monthlyGain;
+            }
+        }
+
+
+    }
+
+    /**
+     * Given all the current account this will check if the user owns the account that s/he is trying to remove.
+     * @param $currentAccounts
+     * @param $id
+     * @return bool
+     */
+    private function validateAccount($currentAccounts,$id)
+    {
+        foreach ($currentAccounts as $currentAccount)
+        {
+            foreach ($currentAccount->savings as $saving){
+                if($saving->id == $id){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -68,8 +186,6 @@ class SavingAccountController extends Controller
 
             array_push($allData, $m_Data);
         }
-
-
         return json_encode($allData);
     }
 
@@ -173,4 +289,6 @@ class SavingAccountController extends Controller
             'amount' => 'required|amount_saving_conditions:'.$request->product,
         ]);
     }
+
+
 }
