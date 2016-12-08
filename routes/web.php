@@ -134,6 +134,12 @@ Route::get('manager/login', 'ManagerAuth\LoginController@showLoginForm');
 Route::post('manager/login', 'ManagerAuth\LoginController@login');
 Route::post('manager/logout', 'ManagerAuth\LoginController@logout');
 
+//Show Manager Profile
+Route::get('/manager/myProfile','MyManagerProfile@showMyProfile');
+
+//Manager Bank Data
+Route::get('manager/bank/data','ManagerAuth\HomeController@bankData'); //Api Return Json
+
 //Manager Register
 Route::get('manager/register', 'ManagerAuth\RegisterController@showRegistrationForm');
 Route::post('manager/register', 'ManagerAuth\RegisterController@register');
@@ -144,7 +150,6 @@ Route::post('manager/password/reset', 'ManagerAuth\ResetPasswordController@reset
 Route::get('manager/password/reset', 'ManagerAuth\ForgotPasswordController@showLinkRequestForm');
 Route::get('manager/password/reset/{token}', 'ManagerAuth\ResetPasswordController@showResetForm');
 //Manager change Password
-
 Route::get('/manager/passwords/ChangePassword','ManagerAuth\ChangePassword@ApresentaForm');
 Route::post('/manager/Passwords/ChangePassword/check','ManagerAuth\ChangePassword@VerificaDadosIntroduzidos');
 //reset passwords manager
@@ -162,4 +167,5 @@ Route::post('/client/passwords/resetPassword/verification', 'ClientAuth\ForgotPa
 Route::post('/client/passwords/resetPassword/Codeverification', 'ClientAuth\ForgotPasswordController@CheckVerificationCode');
 Route::post('/client/passwords/resetPassword/NewPassword', 'ClientAuth\ForgotPasswordController@CheckNewPasswords');
 
+//Help Page
 Route::get('/help', 'HelpController@renderPage');
