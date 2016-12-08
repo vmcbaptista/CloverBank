@@ -21,9 +21,9 @@
         <a href="/client/transfers/">Transferências</a>
         <a href="#" >Poupanças</a>
         <div id="dropdown-saving" class="dropdown-content">
-            <a href="/product/create/saving">Constituir Depósito</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
+            <a href="/product/check/saving">Visualizar Poupanças</a>
+            <a href="/product/create/saving">Constituir Poupança</a>
+            <a href="#">Liquidar Poupança</a>
         </div>
         <a href="#" >Emprestimos</a>
         <a href="#" >Simulaçoes</a>

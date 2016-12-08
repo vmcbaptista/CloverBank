@@ -47,4 +47,8 @@ class CurrentAccount extends Model
     {
         return $this->hasMany('App\AccountMovement','current_account_id');
     }
+
+    public function savings(){
+        return $this->hasMany('App\Savings','current_account_id');
+    }
 }
