@@ -4,10 +4,14 @@
 @endpush
 @section('side-bar')
     <div class="side-bar">
-        <h3>Cliente</h3>
+        <h3><a href="/client/home">Área de Cliente</a></h3>
 
         <br>
-        <a href="#">Dados da Conta</a>
+        <a>Contas à Ordem</a>
+        <div id="dropdown-accounts" class="dropdown-content">
+            <a href="/client/home">Saldo e Movimentos</a>
+            <a href="/client/accounts">Dados das contas</a>
+        </div>
         <a href="#">Pagamentos</a>
         <div id="dropdown-payments" class="dropdown-content">
             <a href="/payments/services">Pagamento de Serviços</a>

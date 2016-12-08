@@ -143,4 +143,11 @@ class CurrentAccountController extends Controller
             'amount' => 'required|amount_current_conditions:'.$request->product,
         ]);
     }
+
+    public function showAccountsInfo()
+    {
+        $client = \Auth::guard('client')->user();
+        $accounts = $client->accounts;
+        return view('client.accountsInfo',compact('accounts'));
+    }
 }

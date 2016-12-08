@@ -1,10 +1,4 @@
 /*This css is for the client main page after its login*/
-.container{
-    width: calc(100% - 200px);
-    display: flex;
-    flex-direction: column;
-}
-
 
 .accountBalanceBar{
     display: flex;

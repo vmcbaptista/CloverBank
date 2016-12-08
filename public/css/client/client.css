@@ -1,11 +1,16 @@
 .main-interface {
     display: flex;
-    height: calc(100% - 119px);
     justify-content: flex-start;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
+.container{
+    width: calc(100% - 240px);
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
 
 .side-bar{
     display: flex;
@@ -15,7 +20,11 @@
     border-right: solid thin gray;
 }
 
-.side-bar > a, .side-bar > h3{
+h3 a {
+    color:inherit;
+}
+
+.side-bar > a, .side-bar > h3 {
     width:100%;
     text-align:center;
     color: white;

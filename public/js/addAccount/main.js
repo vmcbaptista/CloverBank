@@ -15,15 +15,19 @@ var html = {
     '<label>Número de Contribuinte</label>' +
     '<input id="nif" type="number" name="nif">' +
     '</div>' +
-    '<button type="submit">Novo Cliente</button>' +
+    '<div class="right_buttons">' +
     '<button type="button" id="back">Voltar atrás</button>' +
+    '<button type="submit">Novo Cliente</button>' +
+    '</div>' +
     '</form>',
     search_form:''+
     '<form method="POST" id="searchCliForm">'+
     '<label>Insira o Número de Contribuinte do Cliente que deseja procurar</label><br>'+
     '<input type="text" name="nif"><br>'+
-    '<input id="submit" type="submit" class="searchButton" value="Procurar cliente">'+
+    '<div class="right_buttons">' +
     '<button type="button" id="back"">Voltar atrás</button>' +
+    '<input id="submit" type="submit" class="searchButton" value="Procurar cliente">'+
+    '</div>' +
     '</form>',
     product_type:'' +
     '<p>Selecione o tipo de conta que pretende criar:</p>' +
@@ -43,15 +47,19 @@ var html = {
     '<label id="amountLabel">Depósito Inicial</label>'+
     '<input id="amount" type="text" name="amount">'+
     '</div>' +
-    '<button type="submit" class="addAccountButton">Criar nova conta</button>' +
+    '<div class="right_buttons">' +
     '<button type="button" id="back">Voltar atrás</button>' +
+    '<button type="submit" class="addAccountButton">Criar nova conta</button>' +
+    '</div>' +
     '</form>',
     first_user:'' +
     '<p>Selecione uma das seguintes opções para o 1º Titular da Conta</p>' +
     '<div class="buttons">' +
     '<button id="new">Novo cliente</button>' +
     '<button id="existing">Cliente já existente</button>' +
+    '<div class="right_buttons">' +
     '<button type="button" id="back">Voltar atrás</button>' +
+    '</div>' +
     '</div>',
     more_users:'' +
     '<p>Deseja juntar mais algum titular a esta conta?' +
@@ -59,7 +67,9 @@ var html = {
     '<button id="new">Novo cliente</button>' +
     '<button id="existing">Cliente já existente</button>' +
     '<button id="next">Não desejo adicionar mais nenhum titular</button>' +
+    '<div class="right_buttons">' +
     '<button type="button" id="back">Voltar atrás</button>' +
+    '</div>' +
     '</div>'
 };
 
@@ -111,7 +121,7 @@ $().ready(function () {
     sessionStorage.setItem("newAccount", '');
 
     // Presents the options after selecting that we'll create a new current account
-    $("#body").on("click","#current",function () {
+    $("#body").off("click","#current").on("click","#current",function () {
         sessionStorage.SessionName = "createAccount";
         sessionStorage.setItem("createAccount", 'true');
         $("#body").html(html.first_user);
@@ -120,60 +130,58 @@ $().ready(function () {
     })
         // Presents the final form of creating a current acocunt if there is no more
         // clients to associato to that account
-        .on("click","#next",function () {
-            $("#body").html(html.account_form).off('click','#next');
+        .off("click","#next").on("click","#next",function () {
+            $("#body").html(html.account_form);
             getProducts('current');
             validateAccountForm();
         })
         // Presents the options after selecting that we'll create a new savings account
-        .on("click","#saving",function () {
+        .off("click","#saving").on("click","#saving",function () {
             sessionStorage.SessionName = "createAccount";
             sessionStorage.setItem("createAccount", 'true');
             sessionStorage.setItem("accountType", 'saving');
             $("#body").html(html.search_form);
-            history.pushState({html: $("#body").html()},'','?saving');
             handleSearchForm();
             handleSearchResults();
         })
         // Presents the options after selecting that we'll create a new loan account
-        .on("click","#loan",function () {
+        .off("click","#loan").on("click","#loan",function () {
             sessionStorage.SessionName = "createAccount";
             sessionStorage.setItem("createAccount", 'true');
             sessionStorage.setItem("accountType", 'loan');
             $("#body").html(html.search_form);
-            history.pushState({html: $("#body").html()},'','?loan');
             handleSearchForm();
             handleSearchResults();
         })
-        // Presents a form to search for an existing client -- USAR ISTO
-        .on("click","#existing",function () {
+        // Presents a form to search for an existing client
+        .off("click","#existing").on("click","#existing",function () {
             $("#body").html(html.search_form);
-            history.pushState({html: $("#body").html()},'','?existing');
             handleSearchForm();
             handleSearchResults();
         })
         // Presents a form to add a new client
-        .on("click","#new",function () {
+        .off("click","#new").on("click","#new",function () {
             $("#body").html(html.add_client);
             validateAddClientForm();
             history.pushState({html: $("#body").html()},'','?newClient');
             handleAddClientForm();
-        }).on("click","#back",function () {
+        })
+        .off("click","#back").on("click","#back",function () {
         window.history.back();
     })
         // Treats the data introduced to create a new client and presents a view
         // to confirm that information
-        .on("submit","#addAccount",function (e) {
+        .off("submit","#addAccount").on("submit","#addAccount",function (e) {
             history.pushState({html: $("#body").html()},'','?createCurrent');
             e.preventDefault();
             handleAddAccountForm($(this));
-            $("#body").html(validateUsers()+validateAccount()+prepareDataToSend()).off('click','#addAccount');
+            $("#body").html(validateUsers()+validateAccount()+prepareDataToSend());
             addFormAction();
             history.pushState({html: $("#body").html()},'','?validate');
         })
         // Clears the SessionStorage and submits all the information to create the
         // accounts and users
-        .on("submit","#addValidAccount",function (e) {
+        .off("submit","#addValidAccount").on("submit","#addValidAccount",function (e) {
             sessionStorage.clear();
             return true;
         });

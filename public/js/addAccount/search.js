@@ -3,8 +3,8 @@
  * if so presents a table with the iformation of that client
  */
 function handleSearchForm() {
-    $("#body").on('submit', '#searchCliForm', (function (event) {
-        alert("entrei");
+    history.pushState({html: $("#body").html()},'','?searchNif');
+    $("#body").off('submit', '#searchCliForm').on('submit', '#searchCliForm', (function (event) {
         $.ajax({
             method: 'POST',
             data: $("#searchCliForm").serialize(),
@@ -31,7 +31,7 @@ function handleSearchForm() {
  * about the product that the client will subscribe.
  */
 function handleSearchResults() {
-    $("#body").on('click', '#selCli', function () {
+    $("#body").off('click', '#selCli').on('click', '#selCli', function () {
         var clientData = JSON.parse(sessionStorage.getItem('clientData'));
         clientData.push({
             "new": false,
@@ -49,7 +49,7 @@ function handleSearchResults() {
         // the currents accounts that are associated to the client, present them and allow the
         // manager to select one of them
         if (sessionStorage.getItem('accountType') == 'current') {
-            $("#body").html(html.more_users).off('click','#selcCli');
+            $("#body").html(html.more_users);
             history.pushState({html: $("#body").html()},'','?moreClients');
         } else {
             $.ajax({
@@ -67,10 +67,10 @@ function handleSearchResults() {
             });
         }
     })
-        .on('click', '.selAccount', function () {
+        .off('click', '.selAccount').on('click', '.selAccount', function () {
             if (sessionStorage.getItem('accountType') == 'loan') {
                 sessionStorage.setItem('account', $(this).val());
-                $("#body").html(html.account_form).off('click','.selAccount');
+                $("#body").html(html.account_form);
                 $("#amountLabel").text("Montante Pretendido");
                 $("#addAccount").attr('action','/account/loan/add');
                 history.pushState({html: $("#body").html()},'','?createLoan');
@@ -79,7 +79,7 @@ function handleSearchResults() {
             }
             else if(sessionStorage.getItem('accountType') == 'saving') {
                 sessionStorage.setItem('account', $(this).val());
-                $("#body").html(html.account_form).off('click','.selAccount');
+                $("#body").html(html.account_form);
                 $("#addAccount").attr('action','/account/saving/add');
                 history.pushState({html: $("#body").html()},'','?createSaving');
                 getProducts('saving');
@@ -121,8 +121,9 @@ function createResultTable(data) {
         '</tr>'+
         '</tbody>'+
         '</table>' +
-        '<div class="buttons">' +
+        '<div class="right_buttons">' +
         '<button id="back">Voltar atrás</button>' +
+        '</div>' +
         '</div>'
     );
     history.pushState({html: $("#body").html()},'','?searchResults');
@@ -186,8 +187,9 @@ function createAccountTable(data) {
     table += '' +
         '</tbody>'+
         '</table>' +
-        '<div>' +
+        '<div class="right_buttons">' +
         '<button id="back">Voltar atrás</button>' +
+        '</div>' +
         '</div>';
 
     $("#body").html(p+table);

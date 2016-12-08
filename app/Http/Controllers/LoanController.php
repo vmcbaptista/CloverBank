@@ -41,7 +41,9 @@ class LoanController extends Controller
             $movement->description = 'Depósito Crédito';
             $movement->amount = $accountData->amount;
             $movement->balance_after = $currentAccount->balance + $accountData->amount;
+            $currentAccount->balance = $movement->balance_after;
             $currentAccount->movements()->save($movement);
+            $currentAccount->save();
         });
         return redirect('/manager/home');
     }

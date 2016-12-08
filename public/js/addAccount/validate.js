@@ -19,6 +19,9 @@ function validateAccountForm() {
                         },
                         product: function () {
                             return $("#product").val();
+                        },
+                        account: function () {
+                            return sessionStorage.getItem('account');
                         }
                     }
                 }
