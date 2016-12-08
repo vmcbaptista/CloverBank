@@ -6,4 +6,5 @@ Route::get('/passwords/ChangePassword', "ManagerAuth\ChangePassword@ApresentaFor
 
 Route::post('/Passwords/ChangePassword/check', "ManagerAuth\ChangePassword@VerificaDadosIntroduzidos")->name('passwords.change.check');
 
-
+//Show Manager Profile
+Route::get('/myProfile','MyManagerProfile@showMyProfile');

@@ -97,7 +97,6 @@
     @if($VerificationStep==6)
         <div class="container confirmation">
                 <p>O depósito foi realizado com sucesso</p>
-                <br>
                 <p> Clique em <a href="/manager/home">Continuar</a> para ser redirecionado para a página inicial.</p>
         </div>
     @endif

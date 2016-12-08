@@ -15,7 +15,8 @@ use Redirect;
 class ProductController extends Controller
 {
     public function renderForm(){
-        return view('manager.create_product');
+        $success = false;
+        return view('manager.create_product',compact('success'));
     }
 
     /**
@@ -25,6 +26,7 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
+        $this->validation($request);
         #Transaction Start
         DB::transaction(function () use ($request) {
             $product = new Product();
@@ -59,9 +61,8 @@ class ProductController extends Controller
                 $product->products_type_current()->save($current);
             }
         });
-
-        return Redirect::to('/manager/home');
-
+        $success = true;
+        return view('manager.create_product',compact('success'));
     }
 
     /**
@@ -154,5 +155,38 @@ class ProductController extends Controller
         $loans = $this->getLoan();
         $products = $this->getProducts();
         return view('products.loans_accounts')->with('loans',$loans)->with('products',$products);
+    }
+
+    /**
+     * Validates the data introduced by the user when creating a new product using
+     * Laravel validations
+     * @param Request $request
+     */
+    public function validation(Request $request)
+    {
+        $conditions = [
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'access_condition' => 'required|string',
+            'min_amount' => 'required|numeric'
+        ];
+        if ($request->prod_type == 'loan') {
+            $conditions ["max_amount"] = 'required|numeric';
+            $conditions ["rate"] = 'required|numeric';
+            $conditions ["spread"] = 'required|numeric';
+            $conditions ["IPC_tax"] = 'required|numeric';
+            $conditions ["duration"] = 'required|integer';
+        }
+        else if ($request->prod_type == 'saving') {
+            $conditions ["max_amount"] = 'required|numeric';
+            $conditions ["tanb"] = 'required|numeric';
+            $conditions ["BS_tax"] = 'required|numeric';
+            $conditions ["reinforcements"] = 'required';
+            $conditions ["duration"] = 'required|integer';
+        }
+        else {
+            $conditions ["maint_costs"] = 'required|numeric';
+        }
+        $this->validate($request, $conditions);
     }
 }
