@@ -130,9 +130,6 @@ Route::get('manager/login', 'ManagerAuth\LoginController@showLoginForm');
 Route::post('manager/login', 'ManagerAuth\LoginController@login');
 Route::post('manager/logout', 'ManagerAuth\LoginController@logout');
 
-//Show Manager Profile
-Route::get('/manager/myProfile','MyManagerProfile@showMyProfile');
-
 //Manager Register
 Route::get('manager/register', 'ManagerAuth\RegisterController@showRegistrationForm');
 Route::post('manager/register', 'ManagerAuth\RegisterController@register');

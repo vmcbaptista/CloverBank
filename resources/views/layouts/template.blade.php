@@ -39,7 +39,7 @@
                 </div>
                 <a class="link" href="#">@if (Auth::guard('client')->check()) {{ Auth::guard('client')->user()->name }} @else {{ Auth::guard('manager')->user()->name }} @endif</a>
                 <ul class="user-options">
-                    <a  @if (Auth::guard('client')->check()) href="/client/profile" @else href="/manager/myProfile" @endif >
+                    <a  @if (Auth::guard('client')->check()) href="/client/myProfile" @else href="/manager/myProfile" @endif >
                         <li><i class="fa fa-address-card-o" aria-hidden="true"></i>
                             <span class="profile">Perfil</span>
                         </li>

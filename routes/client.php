@@ -13,3 +13,6 @@ Route::post('/transfers/', "TransferenciasController@VerificaTransferencia")->na
 Route::post('/transfers/check', "TransferenciasController@CheckVerificationCode")->name('transfers.check');
 
 Route::get('/accounts','CurrentAccountController@showAccountsInfo');
+
+//Show Client Profile
+Route::get('/myProfile','MyClientProfile@showMyProfile');

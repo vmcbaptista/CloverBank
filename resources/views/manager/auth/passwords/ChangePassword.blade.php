@@ -1,105 +1,55 @@
-@extends('manager.layout.auth')
+@extends('manager.layout.template')
 
-@section('content')
+@push('css')
+<link rel="stylesheet" type="text/css" href="/css/forms.css">
+@endpush
+
+@section('main_content')
 
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Mudar Password</div>
-                    <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/manager/Passwords/ChangePassword/check') }}">
-                            {{ csrf_field() }}
+        <form role="form" method="POST" action="{{ url('/manager/Passwords/ChangePassword/check') }}">
+            <h3>Alterar Password</h3>
+            <div class="form-wrapper">
+                {{ csrf_field() }}
+                <label for="password">Password atual</label>
+                <input id="PasswordAtual" type="password" name="PasswordAtual">
+                <label for="password"> Nova Password</label>
+                <input id="Newpassword" type="password" name="Newpassword">
+                <label for="password">Confirme Password</label>
+                <input id="ConfirmNewpassword" type="password" name="ConfirmNewpassword">
+                @if($ErroVerificacao!= 0||$ErroVerificacao != NULL)
 
-                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label for="password" class="col-md-4 control-label">Password atual</label>
+                    @if($ErroVerificacao == 1)
+                        <div class="error">
+                            <p>Nao pode existir campos vazios</p>
+                        </div>
+                    @endif
 
-                                <div class="col-md-6">
-                                    <input id="PasswordAtual" type="password" class="form-control" name="PasswordAtual" required>
+                    @if($ErroVerificacao == 2)
+                        <div class="error">
+                            <p>O username introduzido nao existe</p>
+                        </div>
+                    @endif
 
-                                    @if ($errors->has('password'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
+                    @if($ErroVerificacao == 3)
+                        <div class="error">
+                            <p>A password atual encontra-se errada</p>
+                        </div>
+                    @endif
 
-                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label for="password" class="col-md-4 control-label"> Nova Password</label>
+                    @if($ErroVerificacao == 4)
+                        <div class="error">
+                            <p>As novas passwords não são iguais,Tente novamente</p>
+                        </div>
 
-                                <div class="col-md-6">
-                                    <input id="Newpassword" type="password" class="form-control" name="Newpassword" required>
-
-                                    @if ($errors->has('password'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label for="password" class="col-md-4 control-label">Confirme Password</label>
-
-                                <div class="col-md-6">
-                                    <input id="ConfirmNewpassword" type="password" class="form-control" name="ConfirmNewpassword"  required>
-
-                                    @if ($errors->has('password'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-8 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        Mudar
-                                    </button>
-                                </div>
-                            </div>
-                            @if($ErroVerificacao!= 0||$ErroVerificacao != NULL)
-
-                                @if($ErroVerificacao == 1)
-                                <div class="form-group">
-                                    <div class="col-md-8 col-md-offset-4">
-                                        <p style = "color: red ">Nao pode existir campos vazios</p>
-                                    </div>
-                                </div>
-                                @endif
-
-                                @if($ErroVerificacao == 2)
-                                        <div class="form-group">
-                                            <div class="col-md-8 col-md-offset-4">
-                                                <p style = "color: red ">O username introduzido nao existe</p>
-                                            </div>
-                                        </div>
-                                @endif
-
-                                @if($ErroVerificacao == 3)
-                                        <div class="form-group">
-                                            <div class="col-md-8 col-md-offset-4">
-                                                <p style = "color: red ">A password atual encontra-se errada</p>
-                                            </div>
-                                        </div>
-                                 @endif
-
-                                 @if($ErroVerificacao == 4)
-                                        <div class="form-group">
-                                            <div class="col-md-8 col-md-offset-4">
-                                                <p style = "color: red ">As novas passwords não são iguais,Tente novamente</p>
-                                            </div>
-                                        </div>
-                                  @endif
-                            @endif
-
-                        </form>
-                    </div>
-                </div>
+                    @endif
+                @endif
             </div>
-        </div>
+            <div class="right_buttons">
+                <button type="submit" class="btn btn-primary">
+                    Mudar
+                </button>
+            </div>
+        </form>
     </div>
-
 @endsection
