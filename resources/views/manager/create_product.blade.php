@@ -2,7 +2,6 @@
 
 @push('css')
 <link rel="stylesheet" type="text/css" href="/css/forms.css">
-<link rel="stylesheet" type="text/css" href="/css/manager/addProducts.css">
 @endpush
 @section('main_content')
 <div class="container">
