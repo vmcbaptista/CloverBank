@@ -25,9 +25,12 @@ function ajaxRequest(requestUrl,accountSelected) {
         method: 'GET',
         url: requestUrl + accountSelected,
         success: function (returnedJson) {
-            console.log(returnedJson);
-            createAccountTable(returnedJson);
-
+            if(returnedJson != "") {
+                console.log(returnedJson);
+                createAccountTable(returnedJson);
+            }else{
+                addTableRow('Não foi encontrada nenhuma conta poupança associada à conta à ordem selecionada');
+            }
         },
         error: function (err) {
             console.log(err);

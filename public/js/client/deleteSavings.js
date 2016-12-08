@@ -60,6 +60,7 @@ function clickedButton(savingId){
                 "Quero Liquidar!": function() {
                     ajaxRequest('/product/delete/saving/',savingId);
                     $( this ).dialog( "close" );
+                    ajaxRequest('/product/return/savings/',$("#currentAccount").val());
                 },
                 "Cancelar": function() {
                     $( this ).dialog( "close" );

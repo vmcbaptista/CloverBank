@@ -186,6 +186,7 @@ class SavingAccountController extends Controller
 
             array_push($allData, $m_Data);
         }
+        \Debugbar::info(json_encode($allData));
         return json_encode($allData);
     }
 
@@ -232,10 +233,12 @@ class SavingAccountController extends Controller
         // We need to create a new request since Laravel built-in validations
         // require the data passed in form of Request
         $accountData = json_decode($request->newAccount);
-        $this->validation(Request::create('account/saving/add', 'post', array(
+        #TODO:Check this validator
+        /*$this->validation(Request::create('account/saving/add', 'post', array(
             'product' => $accountData->product,
             'amount' => $accountData->amount,
         )));
+        */
         // Use of transactions since we'll manipulate several tables
         DB::transaction(function () use ($request, $accountData) {
             // Populate the tables and creates the relations needed
