@@ -72,7 +72,8 @@ class CurrentAccountController extends Controller
             $currentAccount->movements()->save($movement);
             $currentAccount->clients()->attach($cliId);
         });
-        return redirect('/manager/home');
+        $success = true;
+        return view('manager.add_account_client',compact('success'));
     }
 
     /**

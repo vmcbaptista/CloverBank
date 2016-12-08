@@ -81,12 +81,8 @@ input[type="radio"] {
     width: initial;
 }
 
-.error{
-    margin-top: 5px;
-    color: red;
-    font-size: 10px;
-    font-weight: bold;
-    text-align: center;
+.error ul{
+    text-align: left;
 }
 
 .form-wrapper {

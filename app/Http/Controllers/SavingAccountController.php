@@ -220,7 +220,7 @@ class SavingAccountController extends Controller
         $json->product = $request->savingId;
         $json->amount = $request->amount;
         $request->newAccount = json_encode($json);
-        $this->add($request);
+        return $this->add($request);
     }
 
     /**
@@ -234,15 +234,14 @@ class SavingAccountController extends Controller
         // require the data passed in form of Request
         $accountData = json_decode($request->newAccount);
         #TODO:Check this validator
-        /*$this->validation(Request::create('account/saving/add', 'post', array(
+        $this->validation(Request::create('account/saving/add', 'post', array(
+            'account' => $request->account,
             'product' => $accountData->product,
             'amount' => $accountData->amount,
         )));
-        */
         // Use of transactions since we'll manipulate several tables
         DB::transaction(function () use ($request, $accountData) {
             // Populate the tables and creates the relations needed
-            $accountData = json_decode($request->newAccount);
             $currentAccount = CurrentAccount::find($request->account);
             $savingAccount = new Savings();
             $savingAccount->savingProduct()->associate(ProductSaving::find($accountData->product));
@@ -258,9 +257,11 @@ class SavingAccountController extends Controller
             $currentAccount->save();
         });
         if (Auth::guard('client')->check()) {
-            return redirect('/client/home');
+            $step = 3;
+            return view('client.ask_for_savingAccount',compact('step'));
         }else{
-            return redirect('/manager/home');
+            $success = true;
+            return view('manager.add_account_client',compact('success'));
         }
     }
 
@@ -292,7 +293,7 @@ class SavingAccountController extends Controller
     {
         $this->validate($request, [
             'product' => 'required|exists:product_saving,id',
-            'amount' => 'required|amount_saving_conditions:'.$request->product.'|amount_balance'.$request->account
+            'amount' => 'required|amount_saving_conditions:'.$request->product.'|amount_balance:'.$request->account
         ]);
     }
 

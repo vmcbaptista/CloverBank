@@ -45,7 +45,8 @@ class LoanController extends Controller
             $currentAccount->movements()->save($movement);
             $currentAccount->save();
         });
-        return redirect('/manager/home');
+        $success = true;
+        return view('manager.add_account_client',compact('success'));
     }
 
     /**
