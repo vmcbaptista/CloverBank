@@ -7,7 +7,7 @@ $().ready(function () {
         if($(this).val() == ""){
             addTableRow('Não foi encontrada nenhuma conta poupança associada à conta à ordem selecionada');
         }else{
-            ajaxRequest($(this).val());
+            ajaxRequest('/product/return/savings/',$(this).val());
         }
     });
 
@@ -20,12 +20,17 @@ $().ready(function () {
  * Generates the ajax requests
  * @param accountSelected
  */
-function ajaxRequest(accountSelected) {
+function ajaxRequest(requestUrl,accountSelected) {
     $.ajax({
         method: 'GET',
-        url: '/product/check/saving/'+ accountSelected,
+        url: requestUrl + accountSelected,
         success: function (returnedJson) {
-            createAccountTable(returnedJson);
+            if(returnedJson != "") {
+                console.log(returnedJson);
+                createAccountTable(returnedJson);
+            }else{
+                addTableRow('Não foi encontrada nenhuma conta poupança associada à conta à ordem selecionada');
+            }
         },
         error: function (err) {
             console.log(err);
@@ -39,16 +44,30 @@ function ajaxRequest(accountSelected) {
  * @param data
  */
 function createAccountTable(data){
+    //console.log(data);
     $.each(JSON.parse(data),function (i, item) {
-        $('#tableRow').html(
-        '<tr>'+
-            '<td>'+ item.id +'</td>'+
-            '<td>'+ item.amount +'</td>'+
-            '<td>'+ item.dataLimite.date.substring(0,10)+'</td>'+
-            '<td>'+ item.juro+'</td>'+
-            '<td>'+ item.savedMoney +'</td>'+
-        '</tr>'
-        );
+        //console.log(i);
+        if(i == 0) {
+            $('#tableRow').html(
+                '<tr>' +
+                '<td>' + item.id + '</td>' +
+                '<td>' + item.amount + '</td>' +
+                '<td>' + item.dataLimite.date.substring(0, 10) + '</td>' +
+                '<td>' + item.juro + '</td>' +
+                '<td>' + item.savedMoney + '</td>' +
+                '</tr>'
+            );
+        }else{
+            $('#tableRow').append(
+                '<tr>' +
+                '<td>' + item.id + '</td>' +
+                '<td>' + item.amount + '</td>' +
+                '<td>' + item.dataLimite.date.substring(0, 10) + '</td>' +
+                '<td>' + item.juro + '</td>' +
+                '<td>' + item.savedMoney + '</td>' +
+                '</tr>'
+            );
+        }
     })
 }
 
