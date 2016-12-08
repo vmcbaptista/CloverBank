@@ -43,5 +43,5 @@
 
 
 @push('javascript')
-    <script src=""></script>
+    <script type="text/javascript" src="{{ URL::asset('js/manager/home.js') }}"></script>
 @endpush
