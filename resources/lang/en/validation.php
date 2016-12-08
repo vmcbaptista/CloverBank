@@ -78,7 +78,7 @@ return [
     'amount_current_conditions'    => 'O montante/depósito inicial não satisfaz as condições para o produto selecionado.',
     'amount_loan_conditions'    => 'O montante/depósito inicial não satisfaz as condições para o produto selecionado.',
     'amount_saving_conditions'    => 'O montante/depósito inicial não satisfaz as condições para o produto selecionado.',
-    'amount_balance'    => 'O montante/depósito inicial é superior ao saldo disponível.',
+    'amount_balance'    => 'O montante é superior ao saldo disponível.',
 
 
     /*

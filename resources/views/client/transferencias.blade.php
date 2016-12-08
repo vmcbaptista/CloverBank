@@ -81,11 +81,9 @@
         </div>
     @endif
     @if($VerificationStep==2)
-        <div class="container">
-            <div class="form-wrapper step3">
-                <p class="success">A transferencia foi realizada com sucesso</p>
-                <p class=""> Clique em <a href="http://localhost:8000/client/home">Continuar</a> para ser redirecionado a pagina inicial.</p>
-            </div>
+        <div class="container confirmation">
+            <p class="success">A transferência foi realizada com sucesso</p>
+            <p class=""> Clique em <a href="/client/home">Continuar</a> para ser redirecionado para a página inicial.</p>
         </div>
     @endif
 @endsection

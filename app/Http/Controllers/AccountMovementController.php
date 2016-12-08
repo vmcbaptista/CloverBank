@@ -51,7 +51,7 @@ class AccountMovementController extends Controller
      */
     public function servicePayment(Request $request)
     {
-        #TODO: Verificar se o cliente tem saldo antes de efetuar transação
+        $this->validationService($request);
         DB::transaction(function () use ($request) {
             $account = CurrentAccount::find($request->account);
             $account->balance -= $request->amount;
@@ -77,6 +77,7 @@ class AccountMovementController extends Controller
 
             $account->save();
         });
+        return view('client.payments.sucess');
     }
 
     /**
@@ -85,7 +86,7 @@ class AccountMovementController extends Controller
      */
     public function statePayment(Request $request)
     {
-        #TODO: Verificar se o cliente tem saldo antes de efetuar transação
+        $this->validationState($request);
         DB::transaction(function () use ($request) {
             $account = CurrentAccount::find($request->account);
             $account->balance -= $request->amount;
@@ -110,6 +111,7 @@ class AccountMovementController extends Controller
 
             $account->save();
         });
+        return view('client.payments.sucess');
     }
 
     /**
@@ -118,7 +120,7 @@ class AccountMovementController extends Controller
      */
     public function phonePayment(Request $request)
     {
-        #TODO: Verificar se o cliente tem saldo antes de efetuar transação
+        $this->validationPhone($request);
         DB::transaction(function () use ($request) {
             $account = CurrentAccount::find($request->account);
             $account->balance -= $request->amount;
@@ -144,6 +146,7 @@ class AccountMovementController extends Controller
 
             $account->save();
         });
+        return view('client.payments.sucess');
     }
 
     /**
@@ -156,5 +159,46 @@ class AccountMovementController extends Controller
         $account = CurrentAccount::find($account_id);
         $movements = $account->movements()->orderBy('created_at','DESC')->get();
         return $movements;
+    }
+
+    /**
+     * Validates the data introduced by the user when creating a new services
+     * payment using Laravel validations
+     * @param Request $request
+     */
+    public function validationService(Request $request)
+    {
+        $this->validate($request, [
+            'entity' => 'required|integer',
+            'reference' => 'required|integer',
+            'amount' => 'required|amount_balance:'.$request->account,
+        ]);
+    }
+
+    /**
+     * Validates the data introduced by the user when creating a new services
+     * payment using Laravel validations
+     * @param Request $request
+     */
+    public function validationState(Request $request)
+    {
+        $this->validate($request, [
+            'reference' => 'required|integer',
+            'amount' => 'required|amount_balance:'.$request->account,
+        ]);
+    }
+
+    /**
+     * Validates the data introduced by the user when creating a new services
+     * payment using Laravel validations
+     * @param Request $request
+     */
+    public function validationPhone(Request $request)
+    {
+        $this->validate($request, [
+            'entity' => 'required|integer',
+            'phone_number' => 'required|integer|min:900000000|max:999999999',
+            'amount' => 'required|amount_balance:'.$request->account,
+        ]);
     }
 }

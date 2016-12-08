@@ -95,14 +95,10 @@
         </div>
     @endif
     @if($VerificationStep==6)
-        <div class="container">
-            <div class="form-wrapper">
-                <p style="color:darkgreen; text-align: center;">O depósito foi realizado com sucesso</p>
+        <div class="container confirmation">
+                <p>O depósito foi realizado com sucesso</p>
                 <br>
-            </div>
-            <form action="/manager/home">
-                <button style="text-align: center;">Continuar</button>
-            </form>
+                <p> Clique em <a href="/manager/home">Continuar</a> para ser redirecionado para a página inicial.</p>
         </div>
     @endif
 

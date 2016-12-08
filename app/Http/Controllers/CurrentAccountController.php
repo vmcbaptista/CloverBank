@@ -144,6 +144,10 @@ class CurrentAccountController extends Controller
         ]);
     }
 
+    /**
+     * Prepares the view to show informations about the accounts of a client
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showAccountsInfo()
     {
         $client = \Auth::guard('client')->user();

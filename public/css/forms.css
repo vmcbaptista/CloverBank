@@ -93,3 +93,11 @@ input[type="radio"] {
     border: solid thin gray;
     padding: 10px;
 }
+
+.confirmation {
+    border: solid thin gray;
+    padding: 80px;
+    text-align: center;
+    width: auto;
+    margin: auto;
+}
