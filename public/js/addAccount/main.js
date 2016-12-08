@@ -160,7 +160,7 @@ $().ready(function () {
             handleSearchResults();
         })
         // Presents a form to add a new client
-        .off("click","#existing").on("click","#new",function () {
+        .off("click","#new").on("click","#new",function () {
             $("#body").html(html.add_client);
             validateAddClientForm();
             history.pushState({html: $("#body").html()},'','?newClient');

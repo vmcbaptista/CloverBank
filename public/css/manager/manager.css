@@ -1,6 +1,5 @@
 .main-interface {
     display: flex;
-    height: calc(100% - 119px);
     justify-content: flex-start;
     flex-direction: row;
     flex-wrap: wrap;
