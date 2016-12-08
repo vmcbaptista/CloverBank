@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\AccountMovement;
+use Illuminate\Http\Request;
 
 class Deposits
 {
@@ -31,9 +32,9 @@ class Deposits
         $ErroVerificacao =0;
         return view('manager.deposits',compact('accounts'))->with(['ErroVerificacao'=>$ErroVerificacao,'VerificationStep'=>$VerificactionStep]);
     }
-    function checkNIF()
+    function checkNIF(Request $request)
     {
-        $IBAN = $_REQUEST['NIF'];
+        $IBAN = $request->NIF;
         $accounts = CurrentAccount::find($IBAN);
         session()->put('IBANDest',$IBAN);
         session()->put('accounts',$accounts);
@@ -51,9 +52,9 @@ class Deposits
     }
 
     //take care of the verifications for IBAN form
-    function checkIBAN()
+    function checkIBAN(Request $request)
     {
-        $IBAN = $_REQUEST['IBAN'];
+        $IBAN = $request->IBAN;
         $accounts = CurrentAccount::find($IBAN);
 
         if($IBAN!="")
@@ -83,9 +84,9 @@ class Deposits
         }
     }
 
-    function makeDeposit()
+    function makeDeposit(Request $request)
     {
-        $valorDepositar = $_REQUEST['amount'];
+        $valorDepositar = $request->amount;
         $IBAN = session()->get('IBANDest');
         $accounts = session()->get('accounts');
 

@@ -3,6 +3,11 @@
  */
 $().ready(function(){
 
+    sessionStorage.clear();
+
+    sessionStorage.SessionName = "clientData";
+    sessionStorage.setItem("clientData", JSON.stringify([]));
+
     handleSearchForm();
     handleSearchResults();
 

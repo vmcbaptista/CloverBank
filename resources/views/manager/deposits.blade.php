@@ -25,10 +25,10 @@
     @if($VerificationStep==2)
         <div id="body" class="container">
             <div class="form-wrapper">
-                <form method="POST" action="/deposits/IBAN/check">
+                <form id="searchIBAN" method="POST" action="/deposits/IBAN/check">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <label>Introduza o número de conta (IBAN)</label>
-                    <input type="number" name="IBAN">
+                    <input type="number" id="IBAN" name="IBAN">
                     @if($ErroVerificacao==1)
                         <p class="error">Não pode existir campos em branco</p>
                     @endif
@@ -72,10 +72,10 @@
     @if($VerificationStep==5)
         <div class="container">
             <div class="form-wrapper">
-                <form method="POST" action="/deposits/IBAN/form/check">
+                <form id="insert_amount" method="POST" action="/deposits/IBAN/form/check">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <label>Introduza o valor a depositar</label>
-                    <input type="number" name="amount">
+                    <input type="number" id="amount" name="amount">
                     @if($ErroVerificacao==1)
                         <p class="error">Não pode existir campos em branco</p>
                     @endif
@@ -130,4 +130,6 @@
     <script src="/js/addAccount/search.js"></script>
     <script src="/js/deposits.js"></script>
 @endif
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/validations/deposits.js"></script>
 @endpush

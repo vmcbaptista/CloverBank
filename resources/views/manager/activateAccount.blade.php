@@ -1,7 +1,6 @@
 @extends('manager.layout.template')
 @push('css')
 <link rel="stylesheet" type="text/css" href="/css/forms.css">
-<link rel="stylesheet" type="text/css" href="/css/manager/activateAccount.css">
 @endpush
 @section('main_content')
     @if($step == 1)
@@ -77,7 +76,7 @@
                     </tbody>
                 </table>
             </div>
-            <form method="POST" action="/account/activate/finalstep">
+            <form id="activate_account"  method="POST" action="/account/activate/finalstep">
                 <label>Dados da Conta</label>
                 <div class="form-wrapper">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -121,6 +120,7 @@
 
 @endsection
 
-@section('javascript')
-
-@endsection
+@push('javascript')
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/validations/activateAccounts.js"></script>
+@endpush

@@ -61,6 +61,8 @@ Route::post('/account/activate/finalstep','ActivateAccountController@activationS
 
 Route::get('/account/balance/{id}', 'CurrentAccountController@balance');
 
+Route::post('/account/check', 'CurrentAccountController@checkIban');
+
 Route::get('/client/add', 'ClientController@addForm');
 
 Route::post('/client/add', 'ClientController@add');

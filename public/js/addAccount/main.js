@@ -104,6 +104,8 @@ $().ready(function () {
     // Creates some SessionStorages to store information that we need to store
     // during all the process
 
+    sessionStorage.clear();
+
     // Stores data about the clients that will be associated to the new account
     sessionStorage.SessionName = "clientData";
     sessionStorage.setItem("clientData", JSON.stringify([]));

@@ -105,6 +105,21 @@ class CurrentAccountController extends Controller
     }
 
     /**
+     * Checks if the account exists
+     * @param $id
+     * @return mixed
+     */
+    public function checkIban(Request $request)
+    {
+        if(CurrentAccount::find($request->IBAN)) {
+            return "true";
+        }
+        else {
+            return "false";
+        }
+    }
+
+    /**
      * Returns the balance of a given account
      * @param $id
      * @return mixed
