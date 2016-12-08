@@ -1,47 +1,8 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Be right back.</title>
-
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
-        <style>
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                color: #B0BEC5;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato', sans-serif;
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 72px;
-                margin-bottom: 40px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Be right back.</div>
-            </div>
-        </div>
-    </body>
-</html>
+@extends('errors.template')
+@section('header')
+    <h1><i class="fa fa-exclamation-circle" aria-hidden="true"></i> 503</h1>
+@endsection
+@section('error_message')
+    <h2>Estamos a realizar algumas atividades de manutenção.</h2>
+    <h2>Por favor tente aceder mais tarde.</h2>
+@endsection

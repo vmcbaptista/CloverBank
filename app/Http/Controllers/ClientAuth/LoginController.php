@@ -48,7 +48,7 @@ class LoginController extends Controller
 
 
         if (Auth::guard('manager')->check()) {
-            return 'Não é possível iniciar sessão uma vez que um gestor encontra-se a utilizar este equipamento.';
+            return view('errors.access_denied_manager');
         }
         else if(Auth::guard('client')->attempt(['username'=>$request['username'], 'password'=> $request['password'],'accountState' => 1 ])){
             return $this->mainLogin($request);

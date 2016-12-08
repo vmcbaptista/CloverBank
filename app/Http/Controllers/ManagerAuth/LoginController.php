@@ -43,7 +43,7 @@ class LoginController extends Controller
 
     public function login(Request $request) {
         if (Auth::guard('client')->check()) {
-            return 'Não é possível iniciar sessão uma vez que um cliente encontra-se a utilizar este equipamento.';
+            return view('errors.access_denied_client');
         }
         else {
             return $this->mainLogin($request);

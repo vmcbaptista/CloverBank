@@ -108,7 +108,11 @@ Route::get('/product/return/savings/{id}','SavingAccountController@getSavings');
 Route::get('/product/delete/saving/{id}','SavingAccountController@confirmDelete');
 
 
+
 //Client Login
+Route::get('client/login', function() {
+    return redirect('/');
+});
 Route::post('client/login', 'ClientAuth\LoginController@login');
 Route::post('client/logout', 'ClientAuth\LoginController@logout');
 
