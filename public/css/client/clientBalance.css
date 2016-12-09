@@ -1,0 +1,35 @@
+/*This css is for the client main page after its login*/
+
+.accountBalanceBar{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    border: solid thin gray;
+    padding: 10px;
+    align-items: flex-start;
+
+}
+
+#balanceLabel{
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+#account {
+    width: initial;
+}
+
+.accountBalanceBar > label{
+    padding-right:10px;
+}
+
+@media screen and (max-width: 651px){
+    .accountBalanceBar{
+        justify-content: center;
+    }
+    #balanceLabel{
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

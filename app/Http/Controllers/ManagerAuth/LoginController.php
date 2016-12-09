@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ManagerAuth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -19,7 +20,9 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers {
+        login as mainLogin;
+    }
 
     /**
      * Where to redirect users after login / registration.
@@ -36,6 +39,15 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('manager.guest', ['except' => 'logout']);
+    }
+
+    public function login(Request $request) {
+        if (Auth::guard('client')->check()) {
+            return view('errors.access_denied_client');
+        }
+        else {
+            return $this->mainLogin($request);
+        }
     }
 
     /**

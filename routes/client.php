@@ -11,3 +11,8 @@ Route::get('/transfers/', "TransferenciasController@showForm")->name('transfers'
 Route::post('/transfers/', "TransferenciasController@VerificaTransferencia")->name('transfers.post');
 
 Route::post('/transfers/check', "TransferenciasController@CheckVerificationCode")->name('transfers.check');
+
+Route::get('/accounts','CurrentAccountController@showAccountsInfo');
+
+//Show Client Profile
+Route::get('/myProfile','MyClientProfile@showMyProfile');

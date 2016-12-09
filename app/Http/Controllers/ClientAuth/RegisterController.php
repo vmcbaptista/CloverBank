@@ -3,12 +3,17 @@
 namespace App\Http\Controllers\ClientAuth;
 
 use App\Client;
+use App\Mail\InactiveAccount;
+use App\Mail\SendLoginInfo;
+use Illuminate\Auth\Events\Registered;
+use Mail;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SendLoginInfo;
+use Illuminate\Http\Request;
+
+
 
 class RegisterController extends Controller
 {
@@ -52,10 +57,13 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:clients',
-            'password' => 'required|min:6|confirmed',
+            'email' => 'required|email|unique:clients',
+            'address' => 'required|max:255',
+            'phone' => 'required|integer|min:200000000|max:999999999',
+            'nif' => 'required|integer|min:100000000|max:999999999|unique:clients',
         ]);
     }
+
 
     /**
      * Create a new user instance after a valid registration.
@@ -73,17 +81,55 @@ class RegisterController extends Controller
         $password = str_random(8);
         $mail = $data['email'];
 
-        Mail::to($mail)->send(new SendLoginInfo($username,$password,$nomeClient));
+        // If the client is being inserted by the manager his account stays immediately active
+        if (Auth::guard("manager")->check()) {
+            $accountState = 1;
+        }else{
+            $accountState = 0;
+        }
+
         return Client::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'address'=>$data['address'],
             'phone'=>$data['phone'],
             'nif'=>$data['nif'],
+            'accountState' => $accountState,
             'username'=> $username,
             'password' => bcrypt($password)
         ]);
+
     }
+
+    /**
+     * This method is used to register a client
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
+     */
+    public function register(Request $request)
+    {
+        $validator = $this->validator($request->all())->validate();
+        $user = $this->create($request->all());
+
+        event(new Registered($user));
+
+        // If the client is created by the manager the client receives an email with his credentials
+        // else he receives an e-mail confirming the request of the account
+        if (Auth::guard("manager")->check()) {
+            $password = str_random(8);
+            $user->password = bcrypt($password);
+            $user->save();
+            Mail::to($request->email)->send(new SendLoginInfo($user->username,$password,$request->name));
+            // Returns the id of the new client to associate it to an account
+            return $user->id;
+        } else {
+            Mail::to($request->email)->send(new InactiveAccount($request->name));
+            $askForAccount = true;
+            return view('client.auth.register',compact('askForAccount'));
+        }
+
+    }
+
 
     /**
      * Show the application registration form.
@@ -92,7 +138,8 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('client.auth.register');
+        $askForAccount = false;
+        return view('client.auth.register',compact("askForAccount"));
     }
 
     /**

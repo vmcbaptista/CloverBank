@@ -1,84 +1,47 @@
 @extends('manager.layout.auth')
 
+@push('css')
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/manager/manager_login.css')}}">
+@endpush
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/manager/register') }}">
-                        {{ csrf_field() }}
+    <div class="container">
+        <form class="manager-login-form" role="form" method="POST" action="{{ url('/manager/register') }}">
+            {{ csrf_field() }}
+            <a href="{{ url('/') }}">
+                <img  src="/logo/horizontal_transparent.png">
+            </a>
+            <h4> Registar Gestor</h4>
+            <input id="name" type="text" name="name" value="{{ old('name') }}" autofocus placeholder="Nome">
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
+            @if ($errors->has('name'))
+                <span class="error">
+                            <strong>{{ $errors->first('name') }}</strong>
+                        </span>
+            @endif
+            <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="E-mail">
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
+            @if ($errors->has('email'))
+                <span class="error">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                                @endif
-                            </div>
-                        </div>
+            @endif
+            <input id="phone" type="tel" name="phone" value="{{ old('phone') }}" placeholder="Número de Telefone">
 
-                        <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                            <label for="Phone" class="col-md-4 control-label">Phone</label>
-
-                            <div class="col-md-6">
-                                <input id="phone" type="tel" class="form-control" name="phone" value="{{ old('phone') }}">
-
-                                @if ($errors->has('phone'))
-                                    <span class="help-block">
+            @if ($errors->has('phone'))
+                <span class="error">
                                         <strong>{{ $errors->first('phone') }}</strong>
                                     </span>
-                                @endif
-                            </div>
-                        </div>
+            @endif
+            <input id="nif" type="number" name="nif" value="{{ old('nif') }}" placeholder="Número de Contribuinte">
 
-                        <div class="form-group{{ $errors->has('nif') ? ' has-error' : '' }}">
-                            <label for="nif" class="col-md-4 control-label">NIF</label>
-
-                            <div class="col-md-6">
-                                <input id="nif" type="number" class="form-control" name="nif" value="{{ old('nif') }}">
-
-                                @if ($errors->has('nif'))
-                                    <span class="help-block">
+            @if ($errors->has('nif'))
+                <span class="error">
                                         <strong>{{ $errors->first('nif') }}</strong>
                                     </span>
-                                @endif
-                            </div>
-                        </div>
-
-
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+            @endif
+            <button type="submit">
+                Registar
+            </button>
+        </form>
     </div>
-</div>
 @endsection

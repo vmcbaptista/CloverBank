@@ -17,7 +17,7 @@ class Savings extends Model
     }
 
     /**
-     * Each loan has is parent product
+     * Each saving has is parent product
      */
     public function savingProduct()
     {

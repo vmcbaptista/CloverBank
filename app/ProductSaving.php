@@ -10,7 +10,7 @@ class ProductSaving extends Model
 
     #One saving product only extends from one product
     public function belongsTOne_product(){
-        return $this->belongsTo('App\Product');
+        return $this->belongsTo('App\Product', 'product_id');
     }
 
     /**

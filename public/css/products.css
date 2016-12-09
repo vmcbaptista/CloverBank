@@ -1,44 +1,31 @@
-.particular{
+.products{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
-
     background-color: #113342;
+    color: white;
+    min-height: 300px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.products a{
+    text-decoration: none;
     color: white;
 }
 
-.particular h1{
-    align-self: center;
-}
-
-.product_type_row{
-    display: flex;
-    flex-wrap: wrap;
-    height: 100%;
-}
-
-.product_type{
+.currents, .savings, .loans{
+    flex-basis:33%;
     text-align: center;
-    min-width: 33.3%;
 }
 
-
-.saving{
-    background-color: blue;
-}
-
-.loan{
-    background-color: yellow;
-
-}
-
-.current{
-    background-color: pink;
-}
-
-/*Enterprise part*/
-.enterprise{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+.circle-img{
+    margin: auto;
+    padding: 20px;
+    width: 120px;
+    height: 120px;
+    -moz-border-radius: 75px;
+    -webkit-border-radius: 75px;
+    border-radius: 75px;
+    background: gray;
 }

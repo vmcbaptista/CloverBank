@@ -62,4 +62,14 @@ class Handler extends ExceptionHandler
 
         return redirect()->guest('login');
     }
+
+    protected function convertExceptionToResponse(Exception $e)
+    {
+        if (config('app.debug')) {
+            return parent::convertExceptionToResponse($e);
+        }
+        ob_clean();
+        return response()->view('errors.500', [], 500);
+    }
+
 }

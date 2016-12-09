@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -13,6 +12,7 @@ class AccountController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showForm(Request $request) {
-        return view('manager.add_account_client');
+        $success = false;
+        return view('manager.add_account_client',compact('success'));
     }
 }

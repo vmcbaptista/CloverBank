@@ -1,5 +1,10 @@
+/**
+ * Uses AJAX to check if there is any client with the NIF introduced,
+ * if so presents a table with the iformation of that client
+ */
 function handleSearchForm() {
-    $("#body").on('submit', '#searchCliForm', (function (event) {
+    history.pushState({html: $("#body").html()},'','?searchNif');
+    $("#body").off('submit', '#searchCliForm').on('submit', '#searchCliForm', (function (event) {
         $.ajax({
             method: 'POST',
             data: $("#searchCliForm").serialize(),
@@ -9,7 +14,6 @@ function handleSearchForm() {
             url: '/client/search',
             success: function (data) {
                 createResultTable(data);
-                $("#body").off('submit','#searchCliForm');
             },
             error: function (err) {
                 alert('Não existe nenhum cliente com o número de contribuinte introduzido.');
@@ -19,19 +23,34 @@ function handleSearchForm() {
     }))
 }
 
+/**
+ * When a client is selected this method is invoked
+ * It adds the data od the client into a SessionStorage that is used afterwards when
+ * associating the account that is being created with this user.
+ * After that it presents the final form that allows the manager to fill information
+ * about the product that the client will subscribe.
+ */
 function handleSearchResults() {
-    $("#body").on('click', '#selCli', function () {
+    $("#body").off('click', '#selCli').on('click', '#selCli', function () {
         var clientData = JSON.parse(sessionStorage.getItem('clientData'));
         clientData.push({
             "new": false,
             "id": $("#cliId").val(),
-            "name": $('#clientName').text()
+            "name": $('#clientName').text(),
+            "address": $("#cliAddress").text(),
+            "email": $("#cliMail").val(),
+            "phone": $("#cliPhone").text(),
+            "nif":$("#cliNif").text()
         });
         sessionStorage.setItem('clientData', JSON.stringify(clientData));
         console.log(sessionStorage.getItem('clientData'));
+        // The saving and loans require an already created current account
+        // If we are creating one of this types of accounts we do an AJAX request to check
+        // the currents accounts that are associated to the client, present them and allow the
+        // manager to select one of them
         if (sessionStorage.getItem('accountType') == 'current') {
-            $("#body").html(html.more_users)
-                .off('click','#selCli');
+            $("#body").html(html.more_users);
+            history.pushState({html: $("#body").html()},'','?moreClients');
         } else {
             $.ajax({
                 method: 'POST',
@@ -48,28 +67,36 @@ function handleSearchResults() {
             });
         }
     })
-        .on('click', '#back', function () {
-            $("#body").html(html.search_form)
-                .off('click','#back');
-        })
-        .on('click', '.selAccount', function () {
+        .off('click', '.selAccount').on('click', '.selAccount', function () {
             if (sessionStorage.getItem('accountType') == 'loan') {
                 sessionStorage.setItem('account', $(this).val());
-                $("#body").html(html.account_form).off('click','.selAccount');
+                $("#body").html(html.account_form);
                 $("#amountLabel").text("Montante Pretendido");
                 $("#addAccount").attr('action','/account/loan/add');
+                history.pushState({html: $("#body").html()},'','?createLoan');
                 getProducts('loan');
+                validateAccountForm();
             }
-            else {
+            else if(sessionStorage.getItem('accountType') == 'saving') {
                 sessionStorage.setItem('account', $(this).val());
-                $("#body").html(html.account_form).off('click','.selAccount');
+                $("#body").html(html.account_form);
                 $("#addAccount").attr('action','/account/saving/add');
+                history.pushState({html: $("#body").html()},'','?createSaving');
                 getProducts('saving');
+                validateAccountForm();
+            }
+            else
+            {
+                location.href="/deposits/NIF/check?NIF="+$(this).val();
             }
         });
 
 }
 
+/**
+ * This method creates a table that show the information about the client searched
+ * @param data is the data of the client received with the AJAX request
+ */
 function createResultTable(data) {
     $("#body").html('' +
         '<table id="result">'+
@@ -79,22 +106,34 @@ function createResultTable(data) {
         '<th>Morada</th>'+
         '<th>Telefone</th>'+
         '<th>Número de Contribuinte</th>'+
+        '<th>Ação</th>'+
         '</tr>'+
         '</thead>' +
         '<tbody>'+
         '<tr>'+
         '<td id="clientName">'+data.name+'</a></td>'+
-        '<td>'+data.address+'</td>'+
-        '<td>'+data.phone+'</td>'+
-        '<td>'+data.nif+'</td>'+
+        '<td id="cliAddress">'+data.address+'</td>'+
+        '<td id="cliPhone">'+data.phone+'</td>'+
+        '<td id="cliNif">'+data.nif+'</td>' +
+        '<td><button id="selCli">Selecionar Cliente</button></td>'+
         '<input id="cliId" type="hidden" value="'+data.id+'">'+
+        '<input id="cliMail" type="hidden" value="'+data.email+'">'+
         '</tr>'+
         '</tbody>'+
         '</table>' +
+        '<div class="right_buttons">' +
         '<button id="back">Voltar atrás</button>' +
-        '<button id="selCli">Selecionar Cliente</button>'
-    )
+        '</div>' +
+        '</div>'
+    );
+    history.pushState({html: $("#body").html()},'','?searchResults');
 }
+
+/**
+ * Creates a table with all the accounts that are associated with the client and
+ * presents some information about them
+ * @param data is the data of the accounts received with the AJAX request
+ */
 function createAccountTable(data) {
     var p = '';
     if (sessionStorage.getItem('accountType') == 'loan') {
@@ -106,7 +145,8 @@ function createAccountTable(data) {
     var table = '' +
         '<table id="accounts">'+
         '<thead>'+
-        '<tr>'+
+        '<tr>' +
+        '<th>IBAN</th>'+
         '<th>1º Titular</th>'+
         '<th>2º Titular</th>' +
         '<th>Outros titulares</th>'+
@@ -115,10 +155,12 @@ function createAccountTable(data) {
         '</tr>'+
         '</thead>' +
         '<tbody>';
-
+    // The client could have more than one account, the data comes with all the accounts
+    // so we need to iterate over them
     $.each(data,function (i, val) {
         table += '' +
             '<tr>' +
+            '<td>'+val.id+'</td>' +
             '<td>'+val.clients.first+'</a></td>';
         if (typeof val.clients.second === 'undefined' ) {
             table += '<td>-</td>';
@@ -145,7 +187,11 @@ function createAccountTable(data) {
     table += '' +
         '</tbody>'+
         '</table>' +
-        '<button id="back">Voltar atrás</button>';
+        '<div class="right_buttons">' +
+        '<button id="back">Voltar atrás</button>' +
+        '</div>' +
+        '</div>';
 
     $("#body").html(p+table);
+    history.pushState({html: $("#body").html()},'','?selectAccount');
 }

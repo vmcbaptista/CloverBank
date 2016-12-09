@@ -1,0 +1,9 @@
+/*.container{
+    width: calc(100% - 240px);
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}*/
+.buttons {
+    float:initial;
+}

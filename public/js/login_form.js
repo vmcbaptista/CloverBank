@@ -5,7 +5,7 @@
 /**
  * This function will make the login form fadein and out
  * */
-    $('.li_access').bind('click',handleClick);
+    $('#openLogin').bind('click',handleClick);
 
     function handleClick(){
         var loginForm = $('#form_to_login');
@@ -14,14 +14,14 @@
         {
 
             loginForm.slideUp( 1000 ).delay( 800 ).fadeOut( 400, function(){
-                $('.li_access').bind('click',handleClick);
+                $('#openLogin').bind('click',handleClick);
             });
 
         }
         else
         {
             loginForm.slideDown( 1000 ).delay( 800 ).fadeIn( 400, function () {
-                $('.li_access').bind('click', handleClick)
+                $('#openLogin').bind('click', handleClick)
             });
             loginForm.css("display", "flex");
 

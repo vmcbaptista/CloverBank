@@ -1,32 +1,19 @@
-@extends('client.client_template')
-@section('content')
-    <form method="POST" id="addCliForm">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <label>Conta a Debitar</label><br>
-        <select id="account" name="account">
-            <option></option>
-            @foreach($accounts as $account)
-                <option>{{ $account->id }}</option>
-            @endforeach
-        </select><br>
-        <label>Saldo Contabilístico</label><br>
-        <p id="balance"></p>
-        <label>Referência</label><br>
-        <input type="text" id="reference" name="reference"><br>
-        <label>Descrição</label><br>
-        <input id="description" type="text" name="description"><br>
-        <label>Valor</label><br>
-        <input id="amount" type="text" name="amount"><br>
-        <input id="submit" type="submit" value="Criar novo pagamento">
-    </form>
-
-    <script>
-        $().ready(function () {
-            $("#account").change(function () {
-                $.get('/account/balance/'+$("#account").val(), function(data) {
-                    $("#balance").text(data+' €');
-                });
-            });
-        });
-    </script>
+@extends('client.payments.layout')
+@section('payment_form')
+    <label>Referência</label>
+    <input type="text" id="reference" name="reference">
+    @if ($errors->has('reference'))
+        <span class="error">
+            <strong>{{ $errors->first('reference') }}</strong>
+        </span><br>
+    @endif
+    <label>Descrição</label>
+    <input id="description" type="text" name="description">
+    <label>Valor</label>
+    <input id="amount" type="text" name="amount">
+    @if ($errors->has('amount'))
+        <span class="error">
+            <strong>{{ $errors->first('amount') }}</strong>
+        </span>
+    @endif
 @endsection

@@ -2,9 +2,10 @@
 <img src="https://raw.githubusercontent.com/vmcbaptista/CloverBank/base_template_dev/public/logo/main_logo.jpg?token=AKI35PH5-d7T2X8ldFdjtn4BmfkCiEbcks5YKIzdwA%3D%3D">
 <br>
 <br>
-Ola {{$name}},
+Olá {{$name}},
 <br>
 <br>
+A sua conta foi desbloqueada por um dos nossos gestores.
 As suas credênciais de acesso ao homebanking são as seguintes:
 <br>
 <br>
@@ -15,7 +16,7 @@ Password: {{$password}}
 <br>
 </fieldset>
 <br>
-Aconselhamos que mude a sua palavra passe após realizar o primeiro login na pagina.
+Aconselhamos que mude a sua palavra passe após realizar o primeiro login na página.
 <br>
 <br>
 Com os melhores cumprimentos,

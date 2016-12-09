@@ -99,6 +99,81 @@ body{
 
 }
 
+.error{
+    margin-top: 5px;
+    color: red;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    width:100%;
+}
+
+
+.dropdown-content{
+    display: none;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.dropdown-content > a{
+    width: 100%;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+}
+
+
+/*User Image*/
+#user-image{
+    width: 24px;
+    height: 24px;
+    float: left;
+    border: 1px solid lightgray;
+}
+
+/*User options dropdown*/
+.user-options{
+    display: none;
+    position: absolute;
+    top:119px;
+    right: 7px;
+    width: 162px;
+    box-shadow: 0 3px 1px rgba(0,0,0,.05);
+    background-color: #2ab27b;
+    padding: 0;
+}
+
+.user-options a{
+    color:white;
+    text-decoration: none;
+}
+
+.user-options li{
+    list-style-type: none;
+    padding: 10px;
+    text-align: left;
+}
+
+.user-options i{
+    padding-left: 10px;
+}
+
+.profile{
+    padding-left: 20px;
+}
+
+.settings, .logout{
+    padding-top: 5px;
+    padding-left: 24px;
+}
+
+.user-options li:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.li_access ul {
+    z-index: 9999;
+}
+
 @media all and (max-width: 767px) {
     .upper-nav{
         flex-direction: column;

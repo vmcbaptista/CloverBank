@@ -15,21 +15,59 @@ Route::get('/', function () {
     return view('main_page');
 });
 
+Route::get('/products/current','ProductController@presentCurrentAccountProducts');
+Route::get('/products/loans','ProductController@presentLoansAccountProducts');
+Route::get('/products/savings','ProductController@presentSavingsAccountProducts');
+
+
+//routes for deposits functionality
+
+Route::get('/deposits/NIF/', 'Deposits@ShowNifForm')->middleware('manager');
+Route::get('/deposits', 'Deposits@ShowDepositsPage')->middleware('manager');
+Route::get('/deposits/IBAN', 'Deposits@ShowIbanForm')->middleware('manager');
+Route::get('/deposits/NIF/check', 'Deposits@checkNIF')->middleware('manager');
+Route::post('/deposits/IBAN/check', 'Deposits@checkIBAN')->middleware('manager');
+
+Route::get('/deposits/IBAN/form',function(){
+
+    $ErroVerificacao = 0;
+    $VerificactionStep=5;
+    return view('manager.deposits',compact('clients'))->with(['ErroVerificacao'=>$ErroVerificacao,'VerificationStep'=>$VerificactionStep]);
+
+})->middleware('manager');
+Route::post('/deposits/IBAN/form/check', 'Deposits@makeDeposit')->middleware('manager');
+
 Route::get('/account/add', 'AccountController@showForm')->middleware('manager');
 
 Route::post('/account/current/add', 'CurrentAccountController@add')->middleware('manager');
+
+Route::get('/account/current/validateAmount', 'CurrentAccountController@validateInitialAmount')->middleware('manager');
 
 Route::post('/account/current/search/{client_id}', 'CurrentAccountController@search')->middleware('manager');
 
 Route::post('/account/saving/add', 'SavingAccountController@add')->middleware('manager');
 
+Route::get('/account/saving/validateAmount', 'SavingAccountController@validateInitialAmount')->middleware('manager');
+
 Route::post('/account/loan/add', 'LoanController@add')->middleware('manager');
 
+Route::get('/account/loan/validateAmount', 'LoanController@validateInitialAmount')->middleware('manager');
+
+//Handles the account activation
+Route::get('/account/activate', 'ActivateAccountController@showInactiveAccount')->middleware('manager');
+Route::post('/account/activate', 'ActivateAccountController@middleStep')->middleware('manager');
+Route::post('/account/activate/finalstep','ActivateAccountController@activationStateFinal')->middleware('manager');
+
+
 Route::get('/account/balance/{id}', 'CurrentAccountController@balance');
+
+Route::post('/account/check', 'CurrentAccountController@checkIban');
 
 Route::get('/client/add', 'ClientController@addForm');
 
 Route::post('/client/add', 'ClientController@add');
+
+Route::get('/client/checkNif', 'ClientController@checkNif');
 
 Route::get('/payments/services', 'AccountMovementController@showServicesForm')->middleware('client');
 
@@ -59,8 +97,24 @@ Route::get('/product/saving', 'ProductController@getSaving');
 
 Route::get('/product/{id}', 'ProductController@getProduct');
 
+//Client Create Saving
+Route::get('/product/create/saving','SavingAccountController@showClientForm');
+Route::post('/product/create/saving','SavingAccountController@savingMediumStep');
+Route::post('/product/add/saving', 'SavingAccountController@addJson' );
+
+//Client Check Saving
+Route::get('/product/check/saving/{id}','SavingAccountController@showSavings');
+Route::get('/product/return/savings/{id}','SavingAccountController@getSavings'); //Api Return JSON
+
+//Client Close Saving
+Route::get('/product/delete/saving/{id}','SavingAccountController@confirmDelete');
+
+
 
 //Client Login
+Route::get('client/login', function() {
+    return redirect('/');
+});
 Route::post('client/login', 'ClientAuth\LoginController@login');
 Route::post('client/logout', 'ClientAuth\LoginController@logout');
 
@@ -82,6 +136,12 @@ Route::get('manager/login', 'ManagerAuth\LoginController@showLoginForm');
 Route::post('manager/login', 'ManagerAuth\LoginController@login');
 Route::post('manager/logout', 'ManagerAuth\LoginController@logout');
 
+//Show Manager Profile
+Route::get('/manager/myProfile','MyManagerProfile@showMyProfile');
+
+//Manager Bank Data
+Route::get('manager/bank/data','ManagerAuth\HomeController@bankData'); //Api Return Json
+
 //Manager Register
 Route::get('manager/register', 'ManagerAuth\RegisterController@showRegistrationForm');
 Route::post('manager/register', 'ManagerAuth\RegisterController@register');
@@ -92,7 +152,6 @@ Route::post('manager/password/reset', 'ManagerAuth\ResetPasswordController@reset
 Route::get('manager/password/reset', 'ManagerAuth\ForgotPasswordController@showLinkRequestForm');
 Route::get('manager/password/reset/{token}', 'ManagerAuth\ResetPasswordController@showResetForm');
 //Manager change Password
-
 Route::get('/manager/passwords/ChangePassword','ManagerAuth\ChangePassword@ApresentaForm');
 Route::post('/manager/Passwords/ChangePassword/check','ManagerAuth\ChangePassword@VerificaDadosIntroduzidos');
 //reset passwords manager
@@ -110,4 +169,5 @@ Route::post('/client/passwords/resetPassword/verification', 'ClientAuth\ForgotPa
 Route::post('/client/passwords/resetPassword/Codeverification', 'ClientAuth\ForgotPasswordController@CheckVerificationCode');
 Route::post('/client/passwords/resetPassword/NewPassword', 'ClientAuth\ForgotPasswordController@CheckNewPasswords');
 
+//Help Page
 Route::get('/help', 'HelpController@renderPage');
