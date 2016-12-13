@@ -2,7 +2,6 @@
 
 @push('css')
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/products_list.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/contacts.css')}}">
 @endpush
 
 @section('products_list')

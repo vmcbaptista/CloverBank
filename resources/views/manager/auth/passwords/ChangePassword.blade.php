@@ -1,4 +1,4 @@
-@extends('manager.layout.template')
+    @extends('manager.layout.template')
 
 @push('css')
 <link rel="stylesheet" type="text/css" href="/css/forms.css">
