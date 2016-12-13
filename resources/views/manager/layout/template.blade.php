@@ -2,7 +2,6 @@
 
 @push('css')
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/manager/manager.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/forms.css')}}">
 
 @endpush
 

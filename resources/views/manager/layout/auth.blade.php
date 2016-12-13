@@ -8,6 +8,7 @@
     <script type="text/javascript" src="{{ URL::asset('js/jquery-3.1.1.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/base.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('css/font-awesome.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('css/manager/manager_login.css')}}">
     @stack('css')
     <title>CloverBank</title>
 </head>

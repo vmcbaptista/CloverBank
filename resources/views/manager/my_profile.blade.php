@@ -3,6 +3,7 @@
 
 @push('css')
 <link rel="stylesheet" href="{{ URL::asset('css/myProfile.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('css/forms.css') }}">
 @endpush
 
 @section('main_content')

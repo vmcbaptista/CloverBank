@@ -6,7 +6,6 @@
     <div class="content">
 
         <div class="wrapping">
-            {{ $askForAccount = true }}
             @if($askForAccount == false)
                 <form id="addCliForm" method="POST" action="{{ url('/client/register') }}">
                     <div class="form">
