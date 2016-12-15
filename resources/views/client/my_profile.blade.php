@@ -51,7 +51,13 @@
 
                     <div class="row">
                         <div class="column">
-                            <input type="submit" name="add_pic" id="add_pic" value="Adicionar Foto">
+
+                            <form action="/client/upload/image" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input name="photo_file" type="file" value="Add Pic">
+                                <input type="submit" name="btn_add_pic" id="add_pic" value="Adicionar Foto">
+                            </form>
+
                             <form action="/client/changePersonalData">
                             <input type="submit" name="change_personal_data" id="change_personal_data" value="Alterar Dados Pessoais">
                             </form>

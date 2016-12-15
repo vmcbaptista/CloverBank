@@ -112,7 +112,6 @@ Route::get('/product/delete/saving/{id}','SavingAccountController@confirmDelete'
 Route::post('client/login', 'ClientAuth\LoginController@login');
 Route::post('client/logout', 'ClientAuth\LoginController@logout');
 
-
 //Client Passwords
 Route::post('client/password/email', 'ClientAuth\ForgotPasswordController@sendResetLinkEmail');
 Route::post('client/password/reset', 'ClientAuth\ResetPasswordController@reset');
@@ -123,6 +122,10 @@ Route::get('client/password/reset/{token}', 'ClientAuth\ResetPasswordController@
 //Client Register
 Route::get('client/register', 'ClientAuth\RegisterController@showRegistrationForm');
 Route::post('client/register', 'ClientAuth\RegisterController@register');
+
+//Client Image Upload
+Route::post('/client/upload/image', 'UploadFile@showfileUpload');
+
 
 
 //Manager Login
