@@ -18,15 +18,20 @@ class UploadFile extends Controller
     public function showfileupload(Request $request){
         $filename = \Auth::guard('client')->user()->username;
         $file = $request->file('photo_file');
+        if($file != null) {
+            $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
+            $path = 'images/client_images';
+            $file = $file->move($path, $filename . '.' . $extension);
 
-        $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
-        $path = 'images/client_images';
-        $file = $file->move($path,$filename . '.' . $extension);
+            $getUser = Client::find(\Auth::guard('client')->user()->id);
+            $path = '/' . $path . '/' . $filename . '.' . $extension;
+            $getUser->image_path = $path;
+            $getUser->save();
 
-        $getUser = Client::find(\Auth::guard('client')->user()->id);
-        $getUser->image_path = $path.'/'.$filename . '.' . $extension;
-        $getUser->save();
-
-        return view("client.my_profile");
+            return view("client.my_profile", compact("path"));
+        }else{
+            $path = \Auth::guard('client')->user()->image_path;
+            return view("client.my_profile", compact("path"));
+        }
     }
 }

@@ -35,7 +35,12 @@
         @if (Auth::guard('client')->check() || Auth::guard('manager')->check())
             <li class="li_access">
                 <div id="user-image">
-                    <img style="height: 22px; width: 22px;" src="/img/user.png">
+
+                    @if(Auth::guard('client')->user()->image_path == "")
+                        <img style="height: 22px; width: 22px;" src="/img/user.png">
+                    @else
+                        <img style="height: 22px; width: 22px;" src="{{Auth::guard('client')->user()->image_path}}">
+                    @endif
                 </div>
                 <a class="link" href="#">@if (Auth::guard('client')->check()) {{ Auth::guard('client')->user()->name }} @else {{ Auth::guard('manager')->user()->name }} @endif</a>
                 <ul class="user-options">

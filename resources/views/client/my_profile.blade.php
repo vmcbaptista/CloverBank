@@ -10,7 +10,13 @@
     <div class="container">
         <div class="picture-wrapper">
             <div class="pic-box">
-                <img src="/img/user.png">
+
+                @if($path == "")
+                    <img src="/img/user.png">
+                @else
+                    <img src="{{ $path }}">
+                @endif
+
             </div>
         </div>
         <div class="person-wrapper">
