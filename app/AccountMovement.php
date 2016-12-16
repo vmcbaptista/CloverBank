@@ -46,6 +46,6 @@ class AccountMovement extends Model
      */
     public function transference()
     {
-        return $this->hasOne('App\StatePayment','account_movements_id');
+        return $this->hasOne('App\Transference','account_movements_id');
     }
 }
