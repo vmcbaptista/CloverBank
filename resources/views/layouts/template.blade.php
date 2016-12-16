@@ -33,19 +33,23 @@
         <li><a class="link" href="/help">Ajuda</a></li>
 
         @if (Auth::guard('client')->check() || Auth::guard('manager')->check())
+
             <li class="li_access">
                 <div id="user-image">
-
-                    @if(Auth::guard('client')->user()->image_path == "")
-                        <img style="height: 22px; width: 22px;" src="/img/user.png">
+                    @if (Auth::guard('client')->check())
+                        @if(Auth::guard('client')->user()->image_path == "")
+                            <img style="height: 22px; width: 22px;" src="/img/user.png">
+                        @else
+                            <img style="height: 22px; width: 22px;" src="{{Auth::guard('client')->user()->image_path}}">
+                        @endif
                     @else
-                        <img style="height: 22px; width: 22px;" src="{{Auth::guard('client')->user()->image_path}}">
+                        <img style="height: 22px; width: 22px;" src="/img/user.png">
                     @endif
                 </div>
                 <a class="link"
-                    @if (Auth::guard('client')->check())
-                    href="/client/home">
-                        {{ Auth::guard('client')->user()->name }}
+                   @if (Auth::guard('client')->check())
+                   href="/client/home">
+                    {{ Auth::guard('client')->user()->name }}
                     @else
                         href="/manager/home">
                         {{ Auth::guard('manager')->user()->name }}
@@ -67,7 +71,7 @@
                 </ul>
             </li>
         @else
-        <li class="li_access" id="openLogin"><a class="link" href="#"><i class="fa fa-lock" aria-hidden="true" ></i> Acesso Online </a></li>
+            <li class="li_access" id="openLogin"><a class="link" href="#"><i class="fa fa-lock" aria-hidden="true" ></i> Acesso Online </a></li>
         @endif
     </ul>
 </div>
@@ -111,3 +115,4 @@
 
 </body>
 </html>
+
