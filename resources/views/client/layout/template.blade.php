@@ -12,20 +12,18 @@
             <a href="/client/home">Saldo e Movimentos</a>
             <a href="/client/accounts">Dados das contas</a>
         </div>
-        <a href="#">Pagamentos</a>
+        <a>Pagamentos</a>
         <div id="dropdown-payments" class="dropdown-content">
             <a href="/payments/services">Pagamento de Serviços</a>
             <a href="/payments/phone">Pagamento de Telemóveis</a>
             <a href="/payments/state">Pagamento ao Estado</a>
         </div>
         <a href="/client/transfers/">Transferências</a>
-        <a href="#" >Poupanças</a>
+        <a>Poupanças</a>
         <div id="dropdown-saving" class="dropdown-content">
             <a href="/product/check/saving/1">Visualizar Poupanças</a>
             <a href="/product/create/saving">Constituir Poupança</a>
             <a href="/product/check/saving/2">Liquidar Poupança</a>
         </div>
-        <a href="#" >Emprestimos</a>
-        <a href="#" >Simulaçoes</a>
     </div>
 @endsection
