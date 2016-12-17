@@ -12,7 +12,7 @@
 
         <a href="/account/add">Criar Conta</a>
         <a href="/account/activate">Ativar Contas</a>
-
+        <a href="/deposits">Depósitos</a>
         <a href="/product/create">Criar Produto</a>
 
     </div>
