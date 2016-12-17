@@ -16,7 +16,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>Nome</th>
+                    <th>ID da Conta Poupança</th>
                     <th>Valor Cativo (€)</th>
                     <th>Data Limite</th>
                     <th>TANB (%)</th>
