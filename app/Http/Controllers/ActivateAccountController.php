@@ -6,6 +6,7 @@ use App\Branch;
 use App\Client;
 use App\CurrentAccount;
 use App\Product;
+use App\AccountMovement;
 use Auth;
 use Mail;
 use App\Mail\SendLoginInfo;
