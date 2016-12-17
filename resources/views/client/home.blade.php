@@ -17,7 +17,7 @@
             <label id="balanceLabel">Saldo: <span id="balance"></span></label>
         </div>
         <div>
-            <table  id="account_movements">
+            <table>
                 <thead>
                 <tr>
                     <th>Data Movimento</th>
@@ -30,6 +30,9 @@
 
                 </tbody>
             </table>
+        </div>
+        <div class="right_buttons">
+            <button id="PDFHandler">Download PDF</button>
         </div>
     </div>
 @endsection
