@@ -60,7 +60,14 @@ class ActivateAccountController extends Controller
             $currentAccount->balance = $request->amount;
             $currentAccount->manager()->associate(Auth::guard('manager')->id());
             $currentAccount->branch()->associate($request->branch);
+
+            $movement = new AccountMovement();
+            $movement->description = 'Depósito Inicial';
+            $movement->amount = $request->amount;
+            $movement->balance_after = $request->amount;
+
             $currentAccount->save();
+            $currentAccount->movements()->save($movement);
             $currentAccount->clients()->attach($client->id);
 
             //Client Insertion

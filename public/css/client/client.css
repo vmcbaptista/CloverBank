@@ -34,6 +34,8 @@ h3 a {
 
 .side-bar > a{
     border-bottom: solid thin gray;
+    padding-bottom: 5px;
+    padding-top: 5px;
 }
 
 .side-bar a:hover{

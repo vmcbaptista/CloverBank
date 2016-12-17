@@ -17,7 +17,7 @@
         </div>
 
         <div class="slide fade">
-            <img src="{{URL::asset('img/money.jpg')}}">
+            <img src="{{URL::asset('img/Money-euro-banknotes-coins-wallpaper-HD.jpg')}}">
         </div>
 
         <a class="prev-btt" onclick="previous_slide(-1)">&#10094;</a>
@@ -64,13 +64,6 @@
         </div>
 
     </div>
-@endsection
-
-@section('simulator')
-    <input type="radio"> James
-    <input type="radio"> James
-    <input type="radio"> James
-
 @endsection
 
 @push('javascript')

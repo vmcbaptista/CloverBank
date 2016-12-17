@@ -33,25 +33,34 @@
         <li><a class="link" href="/help">Ajuda</a></li>
 
         @if (Auth::guard('client')->check() || Auth::guard('manager')->check())
+
             <li class="li_access">
                 <div id="user-image">
-
-                    @if(Auth::guard('client')->user()->image_path == "")
-                        <img style="height: 22px; width: 22px;" src="/img/user.png">
+                    @if (Auth::guard('client')->check())
+                        @if(Auth::guard('client')->user()->image_path == "")
+                            <img style="height: 22px; width: 22px;" src="/img/user.png">
+                        @else
+                            <img style="height: 22px; width: 22px;" src="{{Auth::guard('client')->user()->image_path}}">
+                        @endif
                     @else
-                        <img style="height: 22px; width: 22px;" src="{{Auth::guard('client')->user()->image_path}}">
+                        <img style="height: 22px; width: 22px;" src="/img/user.png">
                     @endif
                 </div>
-                <a class="link" href="#">@if (Auth::guard('client')->check()) {{ Auth::guard('client')->user()->name }} @else {{ Auth::guard('manager')->user()->name }} @endif</a>
+                <a class="link"
+                   @if (Auth::guard('client')->check())
+                   href="/client/home">
+                    {{ Auth::guard('client')->user()->name }}
+                    @else
+                        href="/manager/home">
+                        {{ Auth::guard('manager')->user()->name }}
+                    @endif
+                </a>
                 <ul class="user-options">
                     <a  @if (Auth::guard('client')->check()) href="/client/myProfile" @else href="/manager/myProfile" @endif >
                         <li><i class="fa fa-address-card-o" aria-hidden="true"></i>
                             <span class="profile">Perfil</span>
                         </li>
                     </a>
-
-
-                    <li><i class="fa fa-cog" aria-hidden="true"></i>            <span @if (Auth::guard('client')->check()) href="/client/settings" @else href="/manager/settings" @endif class="settings">Definiçoes</span> </li>
                     <li class="bottom-logout" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();"><i class="fa fa-sign-out" aria-hidden="true"></i>
                         <span class="logout">Sair</span> </li>
@@ -62,7 +71,7 @@
                 </ul>
             </li>
         @else
-        <li class="li_access" id="openLogin"><a class="link" href="#"><i class="fa fa-lock" aria-hidden="true" ></i> Acesso Online </a></li>
+            <li class="li_access" id="openLogin"><a class="link" href="#"><i class="fa fa-lock" aria-hidden="true" ></i> Acesso Online </a></li>
         @endif
     </ul>
 </div>
@@ -106,3 +115,4 @@
 
 </body>
 </html>
+

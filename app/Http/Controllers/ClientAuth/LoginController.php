@@ -53,10 +53,13 @@ class LoginController extends Controller
         else if(Auth::guard('client')->attempt(['username'=>$request['username'], 'password'=> $request['password'],'accountState' => 1 ])){
             return $this->mainLogin($request);
         }
-        else
+        else if (Client::where(['username' => $request['username']])->first())
         {
             //Add accountState Field from database
             $request->merge(array('accountState' => Client::where(['username' => $request['username']])->first()->accountState));
+            return $this->mainLogin($request);
+        }
+        else {
             return $this->mainLogin($request);
         }
     }

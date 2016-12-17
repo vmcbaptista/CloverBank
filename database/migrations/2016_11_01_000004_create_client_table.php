@@ -21,6 +21,7 @@ class CreateClientTable extends Migration
             $table->string('email');
             $table->string('username')->unique();
             $table->string('password');
+            $table->string('image_path');
             $table->boolean('accountState');
             $table->timestamp('last_login');
             $table->timestamps();

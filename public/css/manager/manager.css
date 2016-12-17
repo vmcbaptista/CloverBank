@@ -21,6 +21,9 @@
     border-right: solid thin gray;
 }
 
+h3 a {
+    color:inherit;
+}
 .side-bar > a, .side-bar > h3{
     width:100%;
     text-align:center;
@@ -30,6 +33,8 @@
 
 .side-bar > a{
     border-bottom: solid thin gray;
+    padding-bottom: 5px;
+    padding-top: 5px;
 }
 
 .side-bar a:hover{
