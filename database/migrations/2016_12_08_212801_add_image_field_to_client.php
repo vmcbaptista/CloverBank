@@ -14,7 +14,7 @@ class AddImageFieldToClient extends Migration
     public function up()
     {
         Schema::table('clients', function (Blueprint $table) {
-            $table->string('image_path');
+            $table->string('image_path')->nullable;
         });
     }
 
