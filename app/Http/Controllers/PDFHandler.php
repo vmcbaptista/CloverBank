@@ -26,9 +26,11 @@ class PDFHandler
 
     function CreatePDF()
     {
+	var_dump("Teste");
+	\Debugbar::info("#1");
         $client = \Auth::guard('client')->user();
         $NomeCliente = $client->name;
-
+	\Debugbar::info("#1");
         $date = date("d-m-y");
         $hours = date("H:i:s");
 
@@ -38,8 +40,9 @@ class PDFHandler
         $ProductCurrent = DB::table('product_current')->where('id', $Conta->product_current_id)->first();
         $Product = DB::table('product')->where('id', $ProductCurrent->product_id)->first();
         $Movements = AccountMovement::where('current_account_id',$Idconta)->get();
-        $dompdf = new DOMPDF();
-        $dompdf->setBasePath("css/forms.css");
+        \Debugbar::info("#1");
+	$dompdf = new DOMPDF();
+        //$dompdf->setBasePath("css/forms.css");
         $view = \View::make('client.PDFView')->with(['Name'=>$NomeCliente,
             'Balance'=>$Balance,'hours'=>$hours,'date'=>$date,'Movements'=>$Movements,'Product'=>$Product]);
         $contents = $view->render();
