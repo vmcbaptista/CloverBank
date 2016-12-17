@@ -34,7 +34,14 @@ function updateMovements() {
 
     });
 }
-
+/*
+function PdfHandlerButton()
+{
+   var Account =  $("#account").val();
+   var Balance = $("#balance").text();
+    //location.href="/DownloadPDF?Account="+Account+"&Balance="+Balance;
+}
+*/
 $().ready(function () {
     updateBalance();
     updateMovements();
@@ -43,4 +50,10 @@ $().ready(function () {
         $("#movements").empty();
         updateMovements();
     });
+    $("#PDFHandler").click(function () {
+        var Account =  $("#account").val();
+        var Balance = $("#balance").text();
+        location.href="/DownloadPDF?Account="+Account+"&Balance="+Balance;
+    });
+
 });

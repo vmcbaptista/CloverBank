@@ -174,3 +174,7 @@ Route::post('/client/passwords/resetPassword/NewPassword', 'ClientAuth\ForgotPas
 
 //Help Page
 Route::get('/help', 'HelpController@renderPage');
+
+//Download PDF
+
+Route::get('/DownloadPDF','PDFHandler@CreatePDF');

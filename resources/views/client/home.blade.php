@@ -31,6 +31,9 @@
                 </tbody>
             </table>
         </div>
+        <div class="right_buttons">
+            <button id="PDFHandler">Download PDF</button>
+        </div>
     </div>
 @endsection
 
