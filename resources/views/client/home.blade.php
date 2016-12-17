@@ -17,7 +17,7 @@
             <label id="balanceLabel">Saldo: <span id="balance"></span></label>
         </div>
         <div>
-            <table>
+            <table  id="account_movements">
                 <thead>
                 <tr>
                     <th>Data Movimento</th>

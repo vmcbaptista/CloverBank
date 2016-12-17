@@ -1,10 +1,18 @@
-@push('css')
-<link rel="stylesheet" type="text/css" href="{{URL::asset('css/client/clientBalance.css')}}">
-<link rel="stylesheet" type="text/css" href="{{URL::asset('css/forms.css')}}">
-@endpush
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" type="text/css" href="/var/www/html/CloverBank/public/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/var/www/html/CloverBank/public/css/client/clientBalance.css">
+    <link rel="stylesheet" type="text/css" href="/var/www/html/CloverBank/public/css/forms.css">
+    <title>CloverBank</title>
+</head>
+<body>
 <div class="container" style="text-align: center">
-    <img src="/Users/paulomendez/PhpstormProjects/CloverBank2/img/LogoCloverBank.png">
+    <img src="/var/www/html/CloverBank/public/logo/clover_main.png">
 </div>
 <div class="container">
     <h4>Movimentos da conta</h4>
@@ -33,18 +41,16 @@
             <tbody>
             @foreach($Movements as $Movement)
                 <tr>
-                <th>{{$Movement->created_at}}</th>
-                <th>{{$Movement->description}}</th>
-                <th>{{$Movement->amount}}€</th>
-                <th>{{$Movement->balance_after}}€</th>
+                <td>{{$Movement->created_at}}</td>
+                <td>{{$Movement->description}}</td>
+                <td>{{$Movement->amount}}€</td>
+                <td>{{$Movement->balance_after}}€</td>
                 </tr>
             @endforeach
             </tbody>
         </table>
     </div>
 </div>
-
-@push('javascript')
-<script type="text/javascript" src="{{ URL::asset('js/client/updateMovementsBalance.js') }}"></script>
-@endpush
+</body>
+</html>
 
