@@ -15,7 +15,7 @@
         <a>Pagamentos</a>
         <div id="dropdown-payments" class="dropdown-content">
             <a href="/payments/services">Pagamento de Serviços</a>
-            <a href="/payments/phone">Pagamento de Telemóveis</a>
+            <a href="/payments/phone">Carregamento de Telemóveis</a>
             <a href="/payments/state">Pagamento ao Estado</a>
         </div>
         <a href="/client/transfers/">Transferências</a>
