@@ -53,10 +53,7 @@ function handleSearchResults() {
             history.pushState({html: $("#body").html()},'','?moreClients');
         } else {
             $.ajax({
-                method: 'POST',
-                headers: {
-                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-                },
+                method: 'GET',
                 url: '/account/current/search/'+$("#cliId").val(),
                 success: function (data) {
                     createAccountTable(data);

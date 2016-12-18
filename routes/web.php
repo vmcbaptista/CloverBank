@@ -43,7 +43,7 @@ Route::post('/account/current/add', 'CurrentAccountController@add')->middleware(
 
 Route::get('/account/current/validateAmount', 'CurrentAccountController@validateInitialAmount')->middleware('manager');
 
-Route::post('/account/current/search/{client_id}', 'CurrentAccountController@search')->middleware('manager');
+Route::get('/account/current/search/{client_id}', 'CurrentAccountController@search')->middleware('manager');
 
 Route::post('/account/saving/add', 'SavingAccountController@add')->middleware('manager');
 
