@@ -78,7 +78,7 @@ function validateAddClientForm() {
             name: "O campo Nome é obrigatório",
             address: "O campo Morada é obrigatório",
             email: {
-                required: "O campo Nome é obrigatório",
+                required: "O campo Email é obrigatório",
                 email: "Certifique-se que introduziu um e-mail válido",
             },
             phone: {

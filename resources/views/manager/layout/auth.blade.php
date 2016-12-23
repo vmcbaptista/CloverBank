@@ -14,6 +14,7 @@
 </head>
 <body>
 @yield('content')
+<script src="/js/jquery.validate.min.js"></script>
 @stack('javascript')
 </body>
 </html>

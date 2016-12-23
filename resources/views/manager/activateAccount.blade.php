@@ -121,6 +121,5 @@
 @endsection
 
 @push('javascript')
-<script src="/js/jquery.validate.min.js"></script>
 <script src="/js/validations/activateAccounts.js"></script>
 @endpush

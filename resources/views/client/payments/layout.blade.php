@@ -5,7 +5,7 @@
 @endpush
 @section('main_content')
     <div class="container">
-        <form method="POST">
+        <form id="payment_form" method="POST">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="accountBalanceBar">
                 <label>Conta a Debitar</label><br>
@@ -27,4 +27,5 @@
 @endsection
 @push('javascript')
 <script type="text/javascript" src="{{ URL::asset('js/client/updateMovementsBalance.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/validations/payments.js') }}"></script>
 @endpush

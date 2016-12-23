@@ -45,11 +45,9 @@
 
                     <div class="row">
                         <div class="column">
-                            <input type="submit" name="generate_card" id="generate_card" value="Gerar Cartão de Contacto">
-                            <input type="submit" name="add_pic" id="add_pic" value="Adicionar Foto">
-                            <form action="/manager/changePersonalData">
-                            <input type="submit" name="change_personal_data" id="change_personal_data" value="Alterar Dados Pessoais">
-                            </form>
+                            <input type="submit" name="generate_card" id="generate_card" value="Gerar Cartão de Contacto" disabled>
+                            <input type="submit" name="add_pic" id="add_pic" value="Adicionar Foto" disabled>
+                            <input type="submit" name="change_personal_data" id="change_personal_data" value="Alterar Dados Pessoais" disabled>
                             <form action="/manager/passwords/ChangePassword">
                             <input type="submit" name="change_password" id="change_personal_data" value="Alterar Password">
                             </form>

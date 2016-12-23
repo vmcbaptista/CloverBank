@@ -10,7 +10,7 @@
 
     @if($VerificationStep == 0)
         <div class="container">
-            <form method="POST" id="Transferencia">
+            <form id="transferencesForm" method="POST" id="Transferencia">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="accountBalanceBar">
                     <label>Conta a Debitar</label>
@@ -58,7 +58,7 @@
 
     @if($VerificationStep ==1)
         <div class="container">
-            <form class="form-step2" action ="{{ url('/client/transfers/check') }}" method="POST" id="Transferencia">
+            <form id="transferencesForm"class="form-step2" action ="{{ url('/client/transfers/check') }}" method="POST" id="Transferencia">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-wrapper ">
                     <label>Codigo de Verificação</label>
@@ -90,4 +90,5 @@
 
 @push('javascript')
 <script type="text/javascript" src="{{ URL::asset('js/client/updateMovementsBalance.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/validations/transferences.js') }}"></script>
 @endpush

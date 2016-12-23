@@ -65,7 +65,7 @@
             <p>A duração será de {{ $chosenSaving->duration }} meses</p>
             <p><strong>A TANB : {{ $chosenSaving->tanb }}</strong></p>
             <p><strong>A TANL : {{ $chosenSaving->tanl }}</strong></p>
-            <form method="POST" action="/product/add/saving">
+            <form id="savingForm" method="POST" action="/product/add/saving">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="savingId" value="{{$chosenSaving->id}}">
                 <label for="account"> Conta a Debitar: </label>
@@ -88,4 +88,5 @@
 @endsection
 
 @push('javascript')
+<script type="text/javascript" src="{{ URL::asset('js/validations/savings.js') }}"></script>
 @endpush

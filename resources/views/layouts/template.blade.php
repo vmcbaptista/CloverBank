@@ -78,10 +78,10 @@
 
 <div class="login_form" id="form_to_login" @if ($errors->has('username') || $errors->has('password') || $errors->has('accountState')) style="display: flex" @endif>
 
-    <form method="POST" action="{{ url('/client/login') }}">
+    <form id="loginForm" method="POST" action="{{ url('/client/login') }}">
         {{ csrf_field() }}
-        <input name="username" placeholder="Nome Utilizador">
-        <input name="password" type="password" placeholder="Palavra-Passe">
+        <input id="username" name="username" placeholder="Nome Utilizador">
+        <input id="password" name="password" type="password" placeholder="Palavra-Passe">
         <button type="submit">  <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
     </form>
     @if ($errors->has('accountState'))
@@ -110,6 +110,8 @@
 </div>
 @yield('content')
 <script type="text/javascript" src="{{ URL::asset('js/login_form.js') }}"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="{{ URL::asset('js/validations/clientLogin.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/util/dropdown_navbar.js') }}"></script>
 @stack('javascript')
 

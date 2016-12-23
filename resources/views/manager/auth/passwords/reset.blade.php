@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         @if($VerificationStep==0)
-            <form class="manager-login-form" role="form" method="POST" action="{{ url('/manager/passwords/resetPassword/verification') }}">
+            <form id="resetForm" class="manager-login-form" role="form" method="POST" action="{{ url('/manager/passwords/resetPassword/verification') }}">
                 {{ csrf_field() }}
                 <a href="{{ url('/') }}">
                     <img  src="/logo/horizontal_transparent.png">
@@ -27,7 +27,7 @@
             </form>
         @endif
         @if($VerificationStep==1)
-            <form class="manager-login-form" role="form" method="POST" action="{{ url('/manager/passwords/resetPassword/Codeverification') }}">
+            <form id="resetForm" class="manager-login-form" role="form" method="POST" action="{{ url('/manager/passwords/resetPassword/Codeverification') }}">
                 {{ csrf_field() }}
                 <a href="{{ url('/') }}">
                     <img  src="/logo/horizontal_transparent.png">
@@ -54,7 +54,7 @@
 
     @endif
     @if($VerificationStep==2)
-        <form class="manager-login-form" role="form" method="POST" action="{{ url('/manager/passwords/resetPassword/NewPassword') }}">
+        <form id="resetForm" class="manager-login-form" role="form" method="POST" action="{{ url('/manager/passwords/resetPassword/NewPassword') }}">
             {{ csrf_field() }}
             <a href="{{ url('/') }}">
                 <img  src="/logo/horizontal_transparent.png">
@@ -84,3 +84,6 @@
 
 
 @endsection
+@push("javascript")
+<script type="text/javascript" src="{{ URL::asset('js/validations/managerLogin.js') }}"></script>
+@endpush

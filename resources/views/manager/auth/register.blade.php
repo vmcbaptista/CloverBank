@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <form class="manager-login-form" role="form" method="POST" action="{{ url('/manager/register') }}">
+        <form id="registerForm" class="manager-login-form" role="form" method="POST" action="{{ url('/manager/register') }}">
             {{ csrf_field() }}
             <a href="{{ url('/') }}">
                 <img  src="/logo/horizontal_transparent.png">
@@ -42,3 +42,6 @@
         </form>
     </div>
 @endsection
+@push("javascript")
+<script type="text/javascript" src="{{ URL::asset('js/validations/managerLogin.js') }}"></script>
+@endpush

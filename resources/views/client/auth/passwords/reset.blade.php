@@ -10,7 +10,7 @@
         <div class="wrapping">
             <!--Ask for password-->
             @if($VerificationStep==0)
-                <form  method="POST" action="{{ url('/client/passwords/resetPassword/verification') }}">
+                <form id="resetForm" method="POST" action="{{ url('/client/passwords/resetPassword/verification') }}">
                     <div class="form">
                         {{ csrf_field() }}
                         <h4> Esqueceu a palavra-passe</h4>
@@ -34,7 +34,7 @@
             @endif
         <!--Code insertion-->
             @if($VerificationStep==1)
-                <form method="POST" action="{{ url('/client/passwords/resetPassword/Codeverification') }}">
+                <form id="resetForm" method="POST" action="{{ url('/client/passwords/resetPassword/Codeverification') }}">
                     <div class="form">
                         {{ csrf_field() }}
                         <h4> Esqueceu a palavra-passe</h4>
@@ -60,7 +60,7 @@
 
         <!-- New pasword defenition -->
             @if($VerificationStep==2)
-                <form method="POST" action="{{ url('/client/passwords/resetPassword/NewPassword') }}">
+                <form id="resetForm" method="POST" action="{{ url('/client/passwords/resetPassword/NewPassword') }}">
                     <div class="form">
                         {{ csrf_field() }}
                         <h4> Esqueceu a palavra-passe</h4>
@@ -97,4 +97,5 @@
 
 @push('javascript')
 <script type="text/javascript" src="{{ URL::asset('js/forgotten_password_show_login.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/validations/clientLogin.js') }}"></script>
 @endpush

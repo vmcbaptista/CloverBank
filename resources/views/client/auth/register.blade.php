@@ -60,4 +60,7 @@
         </div>
     </div>
 @endsection
+@push("javascript")
+<script type="text/javascript" src="{{ URL::asset('js/validations/clientLogin.js') }}"></script>
+@endpush
 

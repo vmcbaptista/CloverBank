@@ -17,7 +17,7 @@
                     <p>Terá de recomeçar o processo de criação do produto.</p>
                 </div>
             @endif
-            <form method="POST">
+            <form id="createProduct" method="POST">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <label>Selecione o Tipo de Produto que pretende criar: </label><br>
                 <div class="form-wrapper">
@@ -48,4 +48,5 @@
 
 @push('javascript')
 <script src="/js/manager/addProductDynamicForm.js"></script>
+<script src="/js/validations/createProduct.js"></script>
 @endpush

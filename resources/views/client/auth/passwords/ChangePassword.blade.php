@@ -7,7 +7,7 @@
 @section('main_content')
 
     <div class="container">
-        <form role="form" method="POST" action="{{ url('/manager/Passwords/ChangePassword/check') }}">
+        <form id="changeForm" role="form" method="POST" action="{{ url('/manager/Passwords/ChangePassword/check') }}">
             <h3>Alterar Password</h3>
             <div class="form-wrapper">
                 {{ csrf_field() }}
@@ -53,3 +53,6 @@
         </form>
     </div>
 @endsection
+@push("javascript")
+<script type="text/javascript" src="{{ URL::asset('js/validations/clientLogin.js') }}"></script>
+@endpush
