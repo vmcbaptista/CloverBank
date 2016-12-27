@@ -26,7 +26,7 @@
                 <div class="form-wrapper">
                     <label>Conta/IBAN</label>
                     <br>
-                    <input type="number" name="IBAN">
+                    <input id="IBAN" type="number" name="IBAN">
                     @if($ErroVerificacao==2)
                         <p class="error">  O IBAN introduzido não existe </p>
                     @endif

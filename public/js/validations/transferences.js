@@ -23,6 +23,7 @@ $("#transferencesForm").validate({
                 },
                 data: {
                     IBAN: function () {
+                        console.log($("#IBAN").val());
                         return $("#IBAN").val();
                     }
                 }
