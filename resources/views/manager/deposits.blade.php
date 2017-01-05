@@ -129,5 +129,6 @@
 @if($VerificationStep==7)
     <script src="/js/addAccount/search.js"></script>
     <script src="/js/deposits.js"></script>
+    @endif
 <script src="/js/validations/deposits.js"></script>
 @endpush
